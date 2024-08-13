@@ -1,0 +1,23 @@
+.side_container .choices{
+    margin: 0;
+   
+}
+.choices{
+    display: flex;
+    justify-content:safe;
+}
+.logo{
+    font-size: 30px;
+    margin: 30px;
+}
+.choices a{
+    color: white;
+    padding: 40px;
+    font-size: 20px;
+    
+}
+
+
+.pages:hover{
+    color: rgb(45, 122, 45);
+}

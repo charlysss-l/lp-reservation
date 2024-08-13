@@ -1,0 +1,13 @@
+
+.seatContainer{
+    display: flex;
+}
+
+.add-reservation-button{
+    background-color: rgb(15, 15, 159);
+
+}
+
+.add-reservation-button a{
+    color: white;
+}

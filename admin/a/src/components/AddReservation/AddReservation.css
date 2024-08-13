@@ -1,0 +1,76 @@
+.add-reservation-form{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 1px solid white;
+    box-shadow: 0 15px 15px rgb(233, 233, 233);
+    width: 80%;
+}
+form{
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    margin: 20px;
+    flex-direction: column;
+    height: 30%;
+}
+
+.add-reservation-title{
+    text-align: center;
+    margin: 5px;
+    font-size: 30px;
+}
+
+label{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-family:'Times New Roman', Times, serif ;
+
+}
+
+input{
+    margin: 5px;
+    background-color: aliceblue;
+    color: rgba(0, 0, 0, 0.488);
+    font-size: 18px;
+}
+
+
+.main-container-map{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+
+}
+.seatContainer{
+    display: flex;
+    padding: 10px;
+}
+
+.seatMap-title{
+   font-size: 30px;
+   color: rgb(121, 161, 121);
+}
+
+.submit-button-reservation{
+    background-color: rgb(43, 157, 51);
+    margin: 10px;
+    width: 250px;
+
+}
+.submit-button-reservation:hover{
+    background-color: rgb(192, 117, 56);
+
+}
+
+
+.receipt-button{
+    margin: 10px;
+    width: 100px;
+    color: white;
+}
+
+.receipt-button:hover{
+    color: rgb(0, 0, 0);
+}
