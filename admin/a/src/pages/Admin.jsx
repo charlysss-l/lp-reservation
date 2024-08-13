@@ -6,7 +6,8 @@ import Home from './Home/Home'
 import Reservation from './Reservation/Reservation'
 import AddReservation from '../components/AddReservation/AddReservation'
 import AddReceipt from '../components/AddReceipt/AddReceipt'
-import ReserveHistory from './ReserveHistory/ReserveHistory'
+import History from './History/History'
+import HistoryTable from '../components/HistoryTable/HistoryTable'
 import './Admin.css'
 
 
@@ -19,7 +20,8 @@ const Admin = () => {
         <Route path="/admin/reservation" element={<Reservation />}/>
         <Route path="/admin/add-reservation" element={<AddReservation />}/>
         <Route path="/admin/add-receipt" element={<AddReceipt />}/>
-        <Route path="/admin/reserve-history" element={<ReserveHistory />}/>
+        <Route path="/admin/history" element={<History />}/>
+        <Route path="/admin/history-table" element={<HistoryTable />}/>
      </Routes>
 </main>
 

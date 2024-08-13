@@ -1,0 +1,55 @@
+.conn{
+    display: flex;
+    justify-content: center;
+  }
+  .history-container {
+    margin-left: 250px; 
+    padding: 25px;
+    border-radius: 8px;
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    width: 1200px;
+    border: 3px solid #d9d8d7a9;
+    box-shadow: 0 15px 15px rgb(233, 233, 233);
+
+  }
+  /* {Heading: Products} */
+  .history-heading {
+    font-size: 25px;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+    /* {Space on top of each data} */
+  .history-table {
+    border-collapse: collapse; /* Keep borders clean */
+    margin-bottom: 20px   ;
+  }
+  
+   /* {Space on top of each data} */
+  .title,
+  .employee-table td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd; /* Separate rows */
+  }
+  
+  .title {
+    font-weight: bold;
+    color: #c9ccd2;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 15px;
+  }
+
+.data{
+    color: 424D47;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+
+}
+
