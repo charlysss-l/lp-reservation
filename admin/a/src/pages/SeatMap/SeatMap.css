@@ -1,0 +1,39 @@
+.main-container-reservation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px; 
+}
+
+.seatMap-title {
+    font-size: 36px;
+    color: white;
+    margin-bottom: 20px; 
+}
+
+.seatContainer {
+    display: flex;
+    justify-content: center; 
+    gap: 10px; 
+}
+
+.add-reservation-button {
+    display: inline-block;
+    background-color: rgb(15, 15, 159);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-reservation-button:hover {
+    background-color: rgb(10, 10, 110);
+    color: white;
+    transform: scale(1.05); 
+}

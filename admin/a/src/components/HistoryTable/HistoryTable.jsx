@@ -1,49 +1,46 @@
+import './HistoryTable.css';
 
-import './HistoryTable.css'
-    const HistoryTable = () => {
-        return (
-            <div className="conn">
-  <div className="history-container">
-
-    <div className="history-heading">
-        <h3>Borrow Approval</h3>
-    </div>
-
- <table className="history-table">
-        <thead>
-            <tr>
-                <th className="title">UserID</th>
-                <th className="title">Name</th>
-                <th className="title">Email</th>
-                <th className="title">Contact Number</th>
-                <th className="title">Company</th>
-                <th className="title">Start Date</th>
-                <th className="title">Start Time</th>
-                <th className="title">End Date</th>
-                <th className="title">Total Time</th>
-                <th className="title">Seat Number</th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr>
-                    <td className="data">1</td>
-                    <td className="data">Liz</td>
-                    <td className="data">liz@gmail.com</td>
-                    <td className="data">0999999</td>
-                    <td className="data">Suites</td>
-                    <td className="data">August 13, 2024</td>
-                    <td className="data">4:43pm</td>
-                    <th className="data">August 13, 2024</th>
-                    <th className="data">8 hrs</th>
-                    <th className="data">A1</th>
-                  
-                </tr>
-        </tbody>
-    </table>
-</div>
+const HistoryTable = () => {
+    return (
+        <div className="conn">
+            <div className="history-container">
+                <div className="history-heading">
+                    <h3>Reservation History</h3>
+                </div>
+                <table className="history-table">
+                    <thead>
+                        <tr>
+                            <th className="title">UserID</th>
+                            <th className="title">Name</th>
+                            <th className="title">Email</th>
+                            <th className="title">Contact Number</th>
+                            <th className="title">Company</th>
+                            <th className="title">Start Date</th>
+                            <th className="title">Start Time</th>
+                            <th className="title">End Date</th>
+                            <th className="title">Total Time</th>
+                            <th className="title">Seat Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className="data">1</td>
+                            <td className="data">Liz</td>
+                            <td className="data">liz@gmail.com</td>
+                            <td className="data">0999999</td>
+                            <td className="data">Suites</td>
+                            <td className="data">August 13, 2024</td>
+                            <td className="data">4:43pm</td>
+                            <td className="data">August 13, 2024</td>
+                            <td className="data">8 hrs</td>
+                            <td className="data">A1</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
             </div>
-          
-        );
-    };
+        </div>
+    );
+};
 
-    export default HistoryTable;
+export default HistoryTable;

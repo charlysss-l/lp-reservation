@@ -3,7 +3,7 @@
 import {Route, Routes} from 'react-router-dom'
 import Navbar from '../components/Navbar/Navbar'
 import Home from './Home/Home'
-import Reservation from './Reservation/Reservation'
+import SeatMap from './SeatMap/SeatMap'
 import AddReservation from '../components/AddReservation/AddReservation'
 import AddReceipt from '../components/AddReceipt/AddReceipt'
 import History from './History/History'
@@ -17,7 +17,7 @@ const Admin = () => {
 <Navbar/>
      <Routes>
      <Route path="/" element={<Home />}/>
-        <Route path="/admin/reservation" element={<Reservation />}/>
+        <Route path="/admin/seat-map" element={<SeatMap />}/>
         <Route path="/admin/add-reservation" element={<AddReservation />}/>
         <Route path="/admin/add-receipt" element={<AddReceipt />}/>
         <Route path="/admin/history" element={<History />}/>

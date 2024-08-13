@@ -1,9 +1,8 @@
-
 import AddSeats from "../../components/AddSeats/AddSeats";
-import './Reservation.css';
+import './SeatMap.css';
 import { NavLink } from 'react-router-dom';
 
-const Reservation = () => {
+const SeatMap = () => {
 
   return (
     <div className="main-container-reservation">
@@ -14,11 +13,11 @@ const Reservation = () => {
           <AddSeats />
           <AddSeats />
       </div>
-      <button className="add-reservation-button">
-        <NavLink to={'/admin/add-reservation'}>Add Reservation</NavLink>
-      </button>
+      <NavLink to={'/admin/add-reservation'} className="add-reservation-button">
+        Add Reservation
+      </NavLink>
     </div>
   );
 }
 
-export default Reservation;
+export default SeatMap;

@@ -4,11 +4,12 @@ import {NavLink } from 'react-router-dom'
 const AddReservation = () => {
 
   return (
-    <div className="div con">
+    <div className="div-con">
     {/*Div for form */}
     <div className="add-reservation-form">
         <h2 className="add-reservation-title">Add Reservation</h2>
         <form >
+          <div className="info1"></div>
             <label>
             Name:
             <input type="text" name="name"  />
@@ -21,6 +22,7 @@ const AddReservation = () => {
             Contact Number:
             <input type="text" name="contact"  />
             </label>
+
             <label>
             Company:
             <input type="text" name="contact"  />
