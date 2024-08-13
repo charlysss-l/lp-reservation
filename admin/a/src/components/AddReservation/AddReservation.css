@@ -4,7 +4,8 @@
     margin: auto;
     border: 1px solid white;
     box-shadow: 0 15px 15px rgb(233, 233, 233);
-    width: 80%;
+    width: 20%;
+    height: 20%;
 }
 form{
     display: flex;
@@ -12,7 +13,6 @@ form{
     text-align: center;
     margin: 20px;
     flex-direction: column;
-    height: 30%;
 }
 
 .add-reservation-title{
@@ -53,17 +53,18 @@ input{
    color: rgb(121, 161, 121);
 }
 
+.button{
+    margin: 10px;
+}
 .submit-button-reservation{
     background-color: rgb(43, 157, 51);
-    margin: 10px;
-    width: 250px;
+    width: 180px;
 
 }
 .submit-button-reservation:hover{
     background-color: rgb(192, 117, 56);
 
 }
-
 
 .receipt-button{
     margin: 10px;
@@ -72,5 +73,5 @@ input{
 }
 
 .receipt-button:hover{
-    color: rgb(0, 0, 0);
+    color: rgb(197, 136, 136);
 }

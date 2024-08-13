@@ -14,6 +14,18 @@ const AddReservation = () => {
             <input type="text" name="name"  />
             </label>
             <label>
+            Email:
+            <input type="text" name="email"  />
+            </label>
+            <label>
+            Contact Number:
+            <input type="text" name="contact"  />
+            </label>
+            <label>
+            Company:
+            <input type="text" name="contact"  />
+            </label>
+            <label>
             Start Date:
             <input type="date" name="startDate"   />
             </label>
