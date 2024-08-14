@@ -5,9 +5,9 @@ const AddReservation = () => {
 
   return (
     <div className="div-con">
+        <h2 className="add-reservation-title">Add Reservation</h2>
     {/*Div for form */}
     <div className="add-reservation-form">
-        <h2 className="add-reservation-title">Add Reservation</h2>
         <form >
           <div className="info1"></div>
             <label>

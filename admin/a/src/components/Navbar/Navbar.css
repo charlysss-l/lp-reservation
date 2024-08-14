@@ -1,23 +1,28 @@
 .side_container .choices{
     margin: 0;
+    background-color: #9FBA00;
+
    
 }
 .choices{
     display: flex;
     justify-content:safe;
+    background-color: #9FBA00;
 }
 .logo{
     font-size: 30px;
     margin: 30px;
+    background-color: #9FBA00;
 }
 .choices a{
     color: white;
     padding: 40px;
     font-size: 20px;
+    background-color: #9FBA00;
     
 }
 
 
 .pages:hover{
-    color: rgb(45, 122, 45);
+    color: black;
 }

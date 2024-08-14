@@ -3,10 +3,11 @@ import './HistoryTable.css';
 const HistoryTable = () => {
     return (
         <div className="conn">
-            <div className="history-container">
-                <div className="history-heading">
+            <div className="history-heading">
                     <h3>Reservation History</h3>
                 </div>
+            <div className="history-container">
+
                 <table className="history-table">
                     <thead>
                         <tr>

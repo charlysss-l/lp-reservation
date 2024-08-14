@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Table from '../../components/HistoryTable/HistoryTable';
-
+import './History.css'
 const History = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -22,7 +22,7 @@ const History = () => {
   }, []);
 
   return (
-    <div>
+    <div className="history-con">
       {loading && <div>Loading...</div>}
       {!loading && (
         <Table products={data} />
