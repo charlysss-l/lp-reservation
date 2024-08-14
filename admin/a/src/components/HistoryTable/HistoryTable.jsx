@@ -25,7 +25,7 @@ const HistoryTable = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="data">001</td>
+                            <td className="data">1</td>
                             <td className="data">Liz</td>
                             <td className="data">liz@gmail.com</td>
                             <td className="data">0999999</td>
@@ -37,31 +37,6 @@ const HistoryTable = () => {
                             <td className="data">A1</td>
                         </tr>
                         
-                        <tr>
-                            <td className="data">002</td>
-                            <td className="data">Ella</td>
-                            <td className="data">ella@gmail.com</td>
-                            <td className="data">0999999</td>
-                            <td className="data">Suites</td>
-                            <td className="data">August 13, 2024</td>
-                            <td className="data">4:43pm</td>
-                            <td className="data">August 13, 2024</td>
-                            <td className="data">8 hrs</td>
-                            <td className="data">A1</td>
-                        </tr>
-                                                
-                        <tr>
-                            <td className="data">003</td>
-                            <td className="data">Kel</td>
-                            <td className="data">kel@gmail.com</td>
-                            <td className="data">0999999</td>
-                            <td className="data">Suites</td>
-                            <td className="data">August 13, 2024</td>
-                            <td className="data">4:43pm</td>
-                            <td className="data">August 13, 2024</td>
-                            <td className="data">8 hrs</td>
-                            <td className="data">A1</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

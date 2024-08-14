@@ -78,12 +78,11 @@ input {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
- 
-    
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .submit-button-reservation:hover {
-    background-color: #c1d83e;
+    background-color: white;
     color: #333;
     border-color: #333;
 }
@@ -102,6 +101,6 @@ input {
 }
 
 .receipt-button:hover {
-    color: #222625;
-    border-color: #9fba00;
+    color: #E24A4A;
+    border-color: #E24A4A;
 }

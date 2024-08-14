@@ -15,7 +15,6 @@
   padding: 1%;
   margin: 0;
   box-shadow: 0 8px 8px rgb(112, 111, 111);
-  
 }
 
 .history-container {
@@ -24,7 +23,7 @@
   border-radius: 8px;
   width: 80%; 
   max-width: 1200px;
-  border: 3px solid #222625;
+  border: 3px solid #d9d8d7a9;
   box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -41,20 +40,19 @@
   padding: 15px;
   text-align: center;
   vertical-align: middle;
-  border-bottom: 1px solid #ffffff; 
-  
+  border-bottom: 1px solid #ddd; 
 }
 
 .title {
   font-weight: bold;
-  color: #222625;
+  color: #424D47;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
   background-color: #f0f0f0;
 }
 
 .data {
-  color: #222625;
+  color: #333;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
