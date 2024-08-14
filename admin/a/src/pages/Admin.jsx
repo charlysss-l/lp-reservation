@@ -27,8 +27,10 @@ const Admin = () => {
         <Route path="/admin/history" element={<History />} />
         <Route path="/admin/history-table" element={<HistoryTable />} />
       </Routes>
-
-      <Footer />  {/* Ensure Footer is correctly imported and used */}
+      <MaybeShowNavbar>
+      <Footer />
+      </MaybeShowNavbar>
+        {/* Ensure Footer is correctly imported and used */}
     </main>
   );
 };
