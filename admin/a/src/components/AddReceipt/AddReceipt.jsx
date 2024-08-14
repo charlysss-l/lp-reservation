@@ -6,6 +6,9 @@ const AddReceipt = () => {
      <h1 className="receipt-title">Receipt</h1>
      <div className="details">
       <h2>Name:</h2>
+      <h2>Email:</h2>
+      <h2>Contact Number:</h2>
+      <h2>Company:</h2>
       <h2>Start Date:</h2>
       <h2>Start Time:</h2>
       <h2>End Date:</h2>

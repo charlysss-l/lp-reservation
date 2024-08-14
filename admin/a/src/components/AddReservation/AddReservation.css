@@ -2,16 +2,19 @@
     padding: 0;
     margin: 0;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .add-reservation-form {
     display: flex;
     flex-direction: column;
+
     margin: 1%;
     border: 1px solid white;
     box-shadow: 0 15px 15px rgb(233, 233, 233);
     width: 30%;
-    padding: 20px 40px; /* Reduce padding */
+    padding: 20px 40px; 
     background-color: #333;
 }
 
@@ -23,7 +26,7 @@ form {
 .add-reservation-title {
     text-align: center;
     margin-bottom: 0px;
-    font-size: 25px; /* Reduce font size */
+    font-size: 25px; 
     color: white;
 }
 
@@ -38,22 +41,22 @@ label {
 .info1, .info2 {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px; /* Adjust margin */
+    margin-bottom: 10px; 
 }
 
 input {
     background-color: aliceblue;
     color: rgb(255, 255, 255);
-    font-size: 14px; /* Reduce font size */
-    padding: 8px; /* Reduce padding */
-    border-radius: 5px; /* Reduce border-radius */
+    font-size: 14px; 
+    padding: 8px; 
+    border-radius: 5px; 
     border: 1px solid rgb(25, 21, 137);
     width: 100%;
     background-color: rgb(136, 134, 134)
 }
 
 .button {
-    margin-top: 15px; /* Adjust margin */
+    margin-top: 15px; 
     display: flex;
     justify-content: space-between;
 }
@@ -61,12 +64,12 @@ input {
 .submit-button-reservation {
     background-color: rgb(43, 157, 51);
     width: 45%;
-    padding: 8px; /* Reduce padding */
+    padding: 8px; 
     border: none;
-    border-radius: 5px; /* Reduce border-radius */
+    border-radius: 5px; 
     color: white;
     cursor: pointer;
-    font-size: 14px; /* Reduce font size */
+    font-size: 14px; 
 }
 
 .submit-button-reservation:hover {
@@ -76,11 +79,11 @@ input {
 .receipt-button {
     background-color: transparent;
     border: 2px solid white;
-    padding: 8px; /* Reduce padding */
-    border-radius: 5px; /* Reduce border-radius */
+    padding: 8px; 
+    border-radius: 5px; 
     text-align: center;
     cursor: pointer;
-    font-size: 14px; /* Reduce font size */
+    font-size: 14px; 
     text-decoration: none;
     color: white;
     width: 45%;
