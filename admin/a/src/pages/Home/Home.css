@@ -5,14 +5,14 @@
     justify-content: center;
     margin: 10% 0%;
     text-align: center;
-    
-    
+
+
 }
 
 .home-title {
     font-family: 'Fira Code', 'Source Code Pro', 'Roboto Mono', 'Courier New', monospace;
     font-size: 40px;
-    color: rgb(8, 8, 8);
+    color: #222625;
     margin-bottom: 40px;
 }
 
@@ -23,7 +23,8 @@
     gap: 20px;
 }
 
-.link-to-reserve-form, .home-availability {
+.link-to-reserve-form,
+.home-availability {
     display: block;
     width: 300px;
     padding: 15px 0;
@@ -39,8 +40,9 @@
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.link-to-reserve-form:hover, .home-availability:hover {
-    background-color: white;
-    color: #333;
-    border-color: #333;
+.link-to-reserve-form:hover,
+.home-availability:hover {
+    background-color: #f2f2f2;
+    color: #222625;
+    border-color: #000000;
 }
