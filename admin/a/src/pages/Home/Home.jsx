@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import './Home.css';
+import Footer from '../../components/Footer/footer';
+
 
 const Home = () => {
   return (
@@ -14,6 +16,7 @@ const Home = () => {
           Check Availability
         </NavLink>
       </div>
+      <Footer/>
     </div>
   );
 }

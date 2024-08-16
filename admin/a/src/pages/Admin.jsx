@@ -7,7 +7,6 @@ import AddReservation from '../components/AddReservation/AddReservation';
 import AddReceipt from '../components/AddReceipt/AddReceipt';
 import History from './History/History';
 import HistoryTable from '../components/HistoryTable/HistoryTable';
-import Footer from '../components/Footer/footer';
 import Login from './Login/Login';
 import MaybeShowNavbar from '../components/MaybeShowNavbar/MaybeShowNavbar';
 
@@ -27,10 +26,7 @@ const Admin = () => {
         <Route path="/admin/history" element={<History />} />
         <Route path="/admin/history-table" element={<HistoryTable />} />
       </Routes>
-      <MaybeShowNavbar>
-      <Footer />
-      </MaybeShowNavbar>
-        {/* Ensure Footer is correctly imported and used */}
+    
     </main>
   );
 };

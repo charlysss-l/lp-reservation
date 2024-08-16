@@ -5,9 +5,13 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
+<<<<<<< Updated upstream
         <div className="footer-left">
          
         </div>
+=======
+        
+>>>>>>> Stashed changes
         <div className="footer-right">
           <p>
             Copyright © 2024 LaunchPad CoWorking | All rights reserved | 
