@@ -22,19 +22,20 @@
 
 .history-container {
   margin: 1%;
-  padding: 25px;
+  padding: 10px;
   border-radius: 8px;
   width: 80%;
   max-width: 1200px;
-  border: 3px solid #222625;
+  border: 3px solid #e24a4a;
   box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
+
 }
 
 .history-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  background-color: #f2f2f2;
+  margin-bottom: 1px;
+
   font-family: Arial, sans-serif;
   border-radius: 8px;
   overflow: hidden;
@@ -46,19 +47,20 @@
   text-align: center;
   vertical-align: middle;
   border-bottom: 1px solid #ffffff;
+  background-color: #222625;
 
 }
 
 .title {
   font-weight: bold;
-  color: #222625;
+  color: #f2f2f2;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
-  background-color: #f2f2f2;
+  background-color: #222625;
 }
 
 .data {
-  color: #222625;
+  color: #f2f2f2;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }

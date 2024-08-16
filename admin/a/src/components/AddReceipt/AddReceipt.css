@@ -1,33 +1,37 @@
-.main-cont{
+.main-cont {
     display: flex;
     flex-direction: column;
     margin: auto;
-    border: 1px solid #222625;
-    box-shadow: 0 15px 15px rgb(233, 233, 233);
+
     width: 30%;
     padding: 25px;
     height: 68%;
-  
+    background-color: #ffac47;
+
 }
-.receipt-title{
+
+.receipt-title {
     display: flex;
     font-family: Arial, sans-serif;
     justify-content: center;
-   
+
 }
-.details h2{
+
+.details h2 {
     font-size: 20px;
     font-family: Arial, sans-serif;
 }
 
-.price{
+.price {
     display: flex;
     justify-content: right;
     font-family: Arial, sans-serif;
 }
 
-.price h2{
+.price h2 {
     padding: 10px;
+    font-family: Arial, sans-serif;
+    
 }
 
 /* SAMPPLEEEE */
