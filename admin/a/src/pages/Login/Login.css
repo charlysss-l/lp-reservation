@@ -1,9 +1,8 @@
-
 .login-container {
     display: flex;
     flex-direction: column;
     width: 90vw;
-    max-width: 400px; 
+    max-width: 400px;
     padding: 20px;
     margin: auto;
     padding: 10px;
@@ -27,7 +26,8 @@
     color: black;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 .button {

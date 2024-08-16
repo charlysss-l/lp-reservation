@@ -5,10 +5,13 @@
     justify-content: center;
     margin: 10% 0%;
     text-align: center;
+    
+    
 }
 
 .home-title {
-    font-size: 36px;
+    font-family: 'Fira Code', 'Source Code Pro', 'Roboto Mono', 'Courier New', monospace;
+    font-size: 40px;
     color: rgb(8, 8, 8);
     margin-bottom: 40px;
 }
@@ -25,8 +28,9 @@
     width: 300px;
     padding: 15px 0;
     background-color: #9FBA00;
-    color: white;
-    border: 2px solid white;
+    color: #222625;
+    font-family: Arial, sans-serif;
+    border: 2px solid #000000;
     border-radius: 10px;
     font-size: 18px;
     text-align: center;

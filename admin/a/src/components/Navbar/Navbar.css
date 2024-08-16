@@ -19,10 +19,11 @@
     padding: 40px;
     font-size: 20px;
     background-color: #9FBA00;
+    font-family: Arial, sans-serif;
     
 }
 
 
 .pages:hover{
-    color: black;
+    color: #222625;
 }

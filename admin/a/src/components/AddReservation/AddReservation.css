@@ -9,6 +9,7 @@
 .add-reservation-title {
     font-size: 40px;
     color: white;
+    font-family: Arial, sans-serif;
     margin-bottom: 20px; 
     text-align: center;
     text-transform: uppercase;
@@ -25,6 +26,7 @@
     width: 30%;
     padding: 20px 40px; 
     background-color: #F2F2F2;
+    font-family: Arial, sans-serif;
 }
 
 form {
@@ -38,7 +40,7 @@ form {
 label {
     color: rgb(9, 9, 9);
     font-size: 16px; 
-    font-family: 'Times New Roman', Times, serif;
+    font-family: Arial, sans-serif;
     margin-bottom: 3px; 
     padding: 1px;
     background-color: #F2F2F2;
@@ -48,6 +50,7 @@ label {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px; 
+      font-family: Arial, sans-serif;
 }
 
 input {
@@ -58,6 +61,7 @@ input {
     border: 1px solid rgb(25, 21, 137);
     width: 100%;
     background-color: #EAC58D;
+    font-family: Arial, sans-serif;
 }
 
 .button {
@@ -83,7 +87,7 @@ input {
 }
 
 .submit-button-reservation:hover {
-    background-color: #c1d83e;
+    background-color:   #9FBA00;
     color: #333;
     border-color: #333;
 }
@@ -103,5 +107,6 @@ input {
 
 .receipt-button:hover {
     color: #222625;
-    border-color: #9fba00;
+    border-color: #c1d83e;
+    
 }
