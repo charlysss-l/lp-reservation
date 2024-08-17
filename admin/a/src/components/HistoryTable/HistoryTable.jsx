@@ -34,8 +34,8 @@ const HistoryTable = ({ user = [] }) => {
                                 <td className="data">{users.email}</td>
                                 <td className="data">{users.contactNumber}</td>
                                 <td className="data">{users.company}</td>
-                                <td className="data">{users.seatNumber}</td> {/* Fixed property name */}
-                                <td className="data">{users.internetHours}</td> {/* Fixed property name */}
+                                <td className="data">{users.seatNumber}</td> 
+                                <td className="data">{users.internetHours} hr</td> 
                                 <td className="data">{users.code}</td>
                             </tr>
                         ))}
