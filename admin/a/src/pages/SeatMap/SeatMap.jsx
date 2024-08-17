@@ -1,6 +1,5 @@
 import AddSeats from "../../components/AddSeats/AddSeats";
 import './SeatMap.css';
-import { NavLink } from 'react-router-dom';
 
 const SeatMap = () => {
 
@@ -13,9 +12,7 @@ const SeatMap = () => {
           <AddSeats />
           <AddSeats />
       </div>
-      <NavLink to={'/admin/add-reservation'} className="add-reservation-button">
-        Add Reservation
-      </NavLink>
+      
     </div>
   );
 }

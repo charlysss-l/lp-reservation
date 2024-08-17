@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import './Home.css';
-import Footer from '../../components/Footer/footer';
+
 
 
 const Home = () => {
   return (
     <div className="home-container">
-      <h1 className="home-title">Welcome to our Reservation System</h1>
+      <h1 className="home-title">Welcome to  Reservation System</h1>
       
       <div className="button-container">
         <NavLink to={'/admin/add-reservation'} className="link-to-reserve-form">
@@ -16,7 +16,6 @@ const Home = () => {
           Check Availability
         </NavLink>
       </div>
-      <Footer/>
     </div>
   );
 }

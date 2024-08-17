@@ -9,8 +9,9 @@ const Navbar = () => {
         <h1 className="logo">Launchpad</h1>
         <NavLink to={'/home'} className="pages">Home</NavLink>
         <NavLink to={'/admin/seat-map'} className="pages">Seat Map</NavLink>
-        <NavLink to={'/admin/history'} className="pages">History</NavLink>
-        <NavLink to={'/'} className="pages-logout">Logout</NavLink>
+        <NavLink to={'/admin/history'} className="pages">Customer History</NavLink>
+        <NavLink to={'/admin/seat-qr'} className="pages">Seat History</NavLink>
+        <NavLink to={'/'} className="pages">Logout</NavLink>
       </div>
     </div>
   );
