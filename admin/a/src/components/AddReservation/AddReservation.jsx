@@ -71,36 +71,41 @@ const AddReservation = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
+
     // Find the selected seat and determine the correct code
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
     const code = addUsers.internetHours === '3' ? selectedSeat?.ThreeHourCode : selectedSeat?.WholeDayCode;
 
+    const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
+
+    // Calculate end time here (if needed)
+    // const endTime = calculateEndTime(startTime, addUsers.internetHours);
+
     try {
-      await axios.post('http://localhost:3000/admin/add-reservation', {
-        ...addUsers,
-        code: code,
-        startTime: new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString(),
-      });
+        await axios.post('http://localhost:3000/admin/add-reservation', {
+            ...addUsers,
+            code: code,
+            startTime: startTime,
+            // endTime: endTime
+        });
 
-      navigate('/admin/reservation-success', { state: { code: code } });
+        navigate('/admin/reservation-success', { state: { code: code } });
 
-      setAddUsers({
-        name: "",
-        email: "",
-        contactNumber: "",
-        company: "",
-        seatNumber: "",
-        internetHours: "",
-        startDate: getDefaultDate(),
-        startTime: getDefaultTime(),
-      });
+        setAddUsers({
+            name: "",
+            email: "",
+            contactNumber: "",
+            company: "",
+            seatNumber: "",
+            internetHours: "",
+            startDate: getDefaultDate(),
+            startTime: getDefaultTime(),
+        });
     } catch (err) {
-      console.log(err);
-      alert('Error adding reservation');
+        console.log(err);
+        alert('Error adding reservation');
     }
-  };
-
+};
   return (
     <div className="div-con">
       <h2 className="add-reservation-title">Add Reservation</h2>

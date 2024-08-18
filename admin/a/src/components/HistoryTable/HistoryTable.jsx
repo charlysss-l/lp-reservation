@@ -1,6 +1,27 @@
 import './HistoryTable.css';
 import { NavLink } from 'react-router-dom';
 
+// Helper function to format date
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1; // Months are zero-based
+    const day = date.getDate();
+    const year = date.getFullYear().toString().slice(-2); // Last two digits of the year
+    return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
+};
+
+// Helper function to format time
+const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const strMinutes = minutes.toString().padStart(2, '0');
+    return `${hours}:${strMinutes} ${ampm}`;
+};
+
 const HistoryTable = ({ user = [] }) => {
     return (
         <div className="conn">
@@ -23,6 +44,8 @@ const HistoryTable = ({ user = [] }) => {
                             <th className="title">Company</th>
                             <th className="title">Seat Number</th>
                             <th className="title">Internet Hours</th>
+                            <th className="title">Start Date</th>
+                            <th className="title">Start Time</th>
                             <th className="title">Code</th>
                         </tr>
                     </thead>
@@ -34,8 +57,10 @@ const HistoryTable = ({ user = [] }) => {
                                 <td className="data">{users.email}</td>
                                 <td className="data">{users.contactNumber}</td>
                                 <td className="data">{users.company}</td>
-                                <td className="data">{users.seatNumber}</td> 
-                                <td className="data">{users.internetHours} hr</td> 
+                                <td className="data">{users.seatNumber}</td>
+                                <td className="data">{users.internetHours} hr</td>
+                                <td className="data">{formatDate(users.startDate)}</td>
+                                <td className="data">{formatTime(users.startTime)}</td>
                                 <td className="data">{users.code}</td>
                             </tr>
                         ))}
