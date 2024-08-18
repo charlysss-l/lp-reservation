@@ -23,34 +23,54 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    seatNumber: {  // Ensure this field exists
+    seatNumber: {
         type: String,
         required: true,
     },
-    internetHours: {  // Ensure this field exists
+    internetHours: {
         type: String,
         enum: ['3', '24'],
         required: true,
     },
-    code: {  // Ensure this field exists
+    code: {
         type: String,
         required: true,
     },
-    startDate:{
-        type:Date,
+    startDate: {
+        type: Date,
         default: Date.now,
         required: true,
     },
-    startTime:{
-        type:Date,
-        default:() => new Date(),
+    startTime: {
+        type: Date,
+        default: () => new Date(),
         required: true,
+    },
+    expectedEndDate: {
+        type: Date,
+        required: true,
+    },
+    expectedEndTime: {
+        type: Date,
+        required: true,
+    },
+    finalEndDate: {
+        type: Date,
+    },
+    finalEndTime: {
+        type: Date,
     },
 });
 
-
 // Create User Model
 const User = mongoose.model('User', userSchema);
+
+// Function to calculate expected end date and time
+const calculateExpectedEnd = (startTime, internetHours) => {
+    const endTime = new Date(startTime);
+    endTime.setHours(endTime.getHours() + parseInt(internetHours, 10));
+    return endTime;
+};
 
 // Function to add user
 const addUser = async (req, res) => {
@@ -60,6 +80,11 @@ const addUser = async (req, res) => {
 
         const startDate = new Date(req.body.startDate);
         const startTime = new Date(req.body.startTime);
+        const internetHours = req.body.internetHours;
+
+        // Calculate expected end date and time
+        const expectedEndTime = calculateExpectedEnd(startTime, internetHours);
+        const expectedEndDate = new Date(expectedEndTime); // Ensure it's a Date object
 
         const user = new User({
             user_id: id,
@@ -68,10 +93,12 @@ const addUser = async (req, res) => {
             contactNumber: req.body.contactNumber,
             company: req.body.company,
             seatNumber: req.body.seatNumber,
-            internetHours: req.body.internetHours,
+            internetHours: internetHours,
             code: req.body.code,
             startDate: startDate,
             startTime: startTime,
+            expectedEndDate: expectedEndDate,
+            expectedEndTime: expectedEndTime,
         });
 
         await user.save();
@@ -83,14 +110,21 @@ const addUser = async (req, res) => {
     }
 };
 
-
-
-
 // Function to fetch users
 const fetchUser = async (req, res) => {
     try {
         const users = await User.find({}, {
-            user_id: 1, name: 1, email: 1,contactNumber:1, company: 1, seatNumber: 1, internetHours: 1, startDate: 1, startTime: 1
+            user_id: 1,
+            name: 1,
+            email: 1,
+            contactNumber: 1,
+            company: 1,
+            seatNumber: 1,
+            internetHours: 1,
+            startDate: 1,
+            startTime: 1,
+            expectedEndDate: 1,
+            expectedEndTime: 1,
         });
         res.json(users);
     } catch (error) {
@@ -99,6 +133,7 @@ const fetchUser = async (req, res) => {
     }
 };
 
+// Function to remove user
 const removeUser = async (req, res) => {
     try {
         await User.findOneAndDelete({ user_id: req.body.user_id });
@@ -114,6 +149,6 @@ const removeUser = async (req, res) => {
             message: 'Failed to remove user',
         });
     }
-}
+};
 
 module.exports = { addUser, fetchUser, removeUser };
