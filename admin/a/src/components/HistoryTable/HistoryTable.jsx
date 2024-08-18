@@ -101,7 +101,7 @@ const HistoryTable = ({ user = [] }) => {
                                     <td className="data">{user.internetHours} hr</td>
                                     <td className="data">{formatDate(user.startDate)}</td>
                                     <td className="data">{formatTime(user.startTime)}</td>
-                                    <td className="data">{user.code}</td>
+                                    <td className="data">{user.code || 'N/A'}</td> {/* Fallback to 'N/A' if no code */}
                                     <td className="data">
                                         <button
                                             type="button"
