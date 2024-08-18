@@ -1,11 +1,10 @@
-
 import './AddSeats.css';
 
-const AddSeats = () => {
+const AddSeats = ({ seatNumber }) => {
   return (
     <div className="main-container">
-      <button className="seat" >
-        
+      <button className="seat">
+        {seatNumber}
       </button>
     </div>
   );

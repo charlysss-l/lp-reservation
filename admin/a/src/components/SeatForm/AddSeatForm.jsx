@@ -1,16 +1,15 @@
+import { useState } from 'react';
+import axios from 'axios';
 
-import  {useState} from 'react'
-import axios from 'axios'
-
-const AddSeatForm = () => {
-  const [addSeat, seatAddSeats] = useState({
+const AddSeatForm = ({ onAddSeat }) => {
+  const [addSeat, setAddSeat] = useState({
     seatNumber: "",
-    ThreeHourCode: "",  // Match with the schema
-    WholeDayCode: ""    // Match with the schema
+    ThreeHourCode: "",
+    WholeDayCode: ""
   });
 
   const changeHandler = (e) => {
-    seatAddSeats({ ...addSeat, [e.target.name]: e.target.value });
+    setAddSeat({ ...addSeat, [e.target.name]: e.target.value });
   };
 
   const submitHandler = async (e) => {
@@ -22,8 +21,9 @@ const AddSeatForm = () => {
             WholeDayCode: addSeat.WholeDayCode
         });
         console.log('Response:', response);
-        alert('Seats added');
-        seatAddSeats({
+        alert('Seat added');
+        if (onAddSeat) onAddSeat(response.data.seat); // Pass the new seat data
+        setAddSeat({
             seatNumber: "",
             ThreeHourCode: "",
             WholeDayCode: ""
@@ -32,15 +32,13 @@ const AddSeatForm = () => {
         console.error('Error:', err);
         alert('Error adding seat');
     }
-};
-
+  };
 
   return (
     <div className="div-con">
       <h2 className="add-reservation-title">Add Seats</h2>
       <div className="add-reservation-form">
         <form>
-          <div className="info1"></div>
           <label>
             Seat Number:
             <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
@@ -62,4 +60,4 @@ const AddSeatForm = () => {
   );
 };
 
-export default AddSeatForm
+export default AddSeatForm;
