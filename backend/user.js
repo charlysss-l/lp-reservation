@@ -36,6 +36,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    startDate:{
+        type:Date,
+        default: Date.now,
+        required: true,
+    },
+    startTime:{
+        type:Date,
+        default:() => new Date(),
+        required: true,
+    },
 });
 
 
@@ -56,7 +66,10 @@ const addUser = async (req, res) => {
             company: req.body.company,
             seatNumber: req.body.seatNumber,
             internetHours: req.body.internetHours,
-            code: req.body.code
+            code: req.body.code,
+            startDate: req.body.startDate,
+            startTime: req.body.startTime,
+
         });
 
         console.log('User to save:', user);

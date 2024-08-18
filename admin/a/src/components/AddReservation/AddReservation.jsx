@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Use useNavigate
+import { useNavigate } from 'react-router-dom';
 import './AddReservation.css';
 
 const AddReservation = () => {
+  // Function to get today's date in MM-DD-YYYY format
+  const getDefaultDate = () => {
+    const today = new Date();
+    const month = today.getMonth() + 1; // Months are zero-based
+    const day = today.getDate();
+    const year = today.getFullYear();
+    return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
+  };
+
+  // Function to get current time in 12-hour format with AM/PM
+  const getDefaultTime = () => {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const strMinutes = minutes.toString().padStart(2, '0');
+    return `${hours.toString().padStart(2, '0')}:${strMinutes} ${ampm}`;
+  };
+
   const [addUsers, setAddUsers] = useState({
     name: "",
     email: "",
@@ -11,15 +32,17 @@ const AddReservation = () => {
     company: "",
     seatNumber: "",
     internetHours: "",
+    startDate: getDefaultDate(),
+    startTime: getDefaultTime(),
   });
 
   const [seats, setSeats] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:3000/admin/seat-qr')
       .then(res => {
-        setSeats(res.data); // Assuming the data is an array of seat objects
+        setSeats(res.data);
       })
       .catch(err => console.error('Error fetching seats:', err));
   }, []);
@@ -32,6 +55,20 @@ const AddReservation = () => {
     }));
   };
 
+  const convertTo24HourFormat = (time) => {
+    let [hours, minutes] = time.split(':');
+    const ampm = minutes.slice(-2);
+    minutes = minutes.slice(0, -3); // Remove AM/PM from minutes
+
+    hours = parseInt(hours, 10);
+    if (ampm === 'PM' && hours < 12) {
+      hours += 12;
+    } else if (ampm === 'AM' && hours === 12) {
+      hours = 0;
+    }
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
     
@@ -42,13 +79,12 @@ const AddReservation = () => {
     try {
       await axios.post('http://localhost:3000/admin/add-reservation', {
         ...addUsers,
-        code: code, // Send the code along with the reservation data
+        code: code,
+        startTime: new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString(),
       });
 
-      // Redirect to the new page with the code
       navigate('/admin/reservation-success', { state: { code: code } });
 
-      // Reset form fields
       setAddUsers({
         name: "",
         email: "",
@@ -56,6 +92,8 @@ const AddReservation = () => {
         company: "",
         seatNumber: "",
         internetHours: "",
+        startDate: getDefaultDate(),
+        startTime: getDefaultTime(),
       });
     } catch (err) {
       console.log(err);
@@ -68,6 +106,25 @@ const AddReservation = () => {
       <h2 className="add-reservation-title">Add Reservation</h2>
       <div className="add-reservation-form">
         <form>
+          <label>
+            Date:
+            <input
+              type="text"
+              name="startDate"
+              value={addUsers.startDate}
+              readOnly // Set to readOnly since it's a default value
+            />
+          </label>
+          <label>
+            Start Time:
+            <input
+              type="text"
+              name="startTime"
+              onChange={changeHandler}
+              value={addUsers.startTime}
+              placeholder="HH:MM AM/PM"
+            />
+          </label>
           <label>
             Name:
             <input type="text" name="name" onChange={changeHandler} value={addUsers.name} />
