@@ -21,40 +21,55 @@ const seatSchema = new mongoose.Schema({
 });
 
 const Seat = mongoose.model('Seat', seatSchema);
-module.exports = Seat;
 
-//Function to add Seat
 const addSeat = async (req, res) => {
-  try {
-      console.log('Received data:', req.body);
+    try {
+        console.log('Received data:', req.body);
 
-      let lastSeat = await Seat.findOne({}).sort({ seat_id: -1 }).limit(1);
-      let id = lastSeat ? lastSeat.seat_id + 1 : 1;
+        let lastSeat = await Seat.findOne({}).sort({ seat_id: -1 }).limit(1);
+        let id = lastSeat ? lastSeat.seat_id + 1 : 1;
 
-      const seat = new Seat({
-          seat_id: id,
-          seatNumber: req.body.seatNumber,
-          ThreeHourCode: req.body.ThreeHourCode,
-          WholeDayCode: req.body.WholeDayCode
-      });
+        const seat = new Seat({
+            seat_id: id,
+            seatNumber: req.body.seatNumber,
+            ThreeHourCode: req.body.ThreeHourCode,
+            WholeDayCode: req.body.WholeDayCode
+        });
 
-      await seat.save();
-      console.log('Seat saved');
-      res.json({ success: true, seatNumber: req.body.seatNumber });
-  } catch (error) {
-      console.error('Error adding seat:', error);
-      res.status(500).json({ success: false, message: 'An error occurred while adding the seat', error });
-  }
+        await seat.save();
+        console.log('Seat saved');
+        res.json({ success: true, seatNumber: req.body.seatNumber });
+    } catch (error) {
+        console.error('Error adding seat:', error);
+        res.status(500).json({ success: false, message: 'An error occurred while adding the seat', error });
+    }
 };
 
-// Function to fetch all seats
 const fetchSeats = async (req, res) => {
-  try {
-      const seats = await Seat.find({});
-      res.json(seats); // Send the seats data as JSON
-  } catch (error) {
-      console.error('Error fetching seats:', error);
-      res.status(500).json({ success: false, message: 'An error occurred while fetching seats' });
-  }
+    try {
+        const seats = await Seat.find({});
+        res.json(seats); // Send the seats data as JSON
+    } catch (error) {
+        console.error('Error fetching seats:', error);
+        res.status(500).json({ success: false, message: 'An error occurred while fetching seats' });
+    }
 };
-module.exports = { addSeat, fetchSeats };
+
+const removeSeat = async (req, res) => {
+    try {
+        await Seat.findOneAndDelete({ seat_id: req.body.seat_id });
+        console.log("Seat removed");
+        res.json({
+            success: true,
+            seat_id: req.body.seat_id,
+        });
+    } catch (error) {
+        console.error("Error removing seat:", error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to remove seat',
+        });
+    }
+};
+
+module.exports = { addSeat, fetchSeats, removeSeat };

@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { addUser, fetchUser, removeUser } = require('./user');
-const { addSeat, fetchSeats } = require('./seat');
+const { addSeat, fetchSeats, removeSeat } = require('./seat');
 const app = express();
 const port = 3000;
 
@@ -21,8 +21,10 @@ app.get('/', (req, res) => {
 app.post('/admin/add-reservation', addUser);
 app.get('/admin/history-table', fetchUser);  
 app.post('/admin/remove-user', removeUser);
+
 app.post('/admin/add-seat', addSeat);
 app.get('/admin/seat-qr', fetchSeats);  
+app.post('/admin/remove-seat', removeSeat);
 
 app.listen(port, err => {
     if (err) {
