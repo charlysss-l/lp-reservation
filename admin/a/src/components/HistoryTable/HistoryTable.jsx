@@ -22,6 +22,22 @@ const formatTime = (dateString) => {
     return `${hours}:${strMinutes} ${ampm}`;
 };
 
+const removeUser = async (user_id) => {
+    await fetch('http://localhost:3000/admin/remove-user', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({user_id:user_id})
+        
+    }).then((resp)=> {
+        resp.ok? alert('Confirm deletion of User. ') : alert("Failed to remove the user")
+    })
+
+    
+}
+
 const HistoryTable = ({ user = [] }) => {
     return (
         <div className="conn">
@@ -47,6 +63,7 @@ const HistoryTable = ({ user = [] }) => {
                             <th className="title">Start Date</th>
                             <th className="title">Start Time</th>
                             <th className="title">Code</th>
+                            <th className="title">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +79,7 @@ const HistoryTable = ({ user = [] }) => {
                                 <td className="data">{formatDate(users.startDate)}</td>
                                 <td className="data">{formatTime(users.startTime)}</td>
                                 <td className="data">{users.code}</td>
+                                <td className="data"><button type="submit" onClick={() => {removeUser(users.user_id)}} className="delete">Delete</button></td>
                             </tr>
                         ))}
                     </tbody>

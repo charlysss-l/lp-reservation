@@ -96,4 +96,21 @@ const fetchUser = async (req, res) => {
     }
 };
 
-module.exports = { addUser, fetchUser };
+const removeUser = async (req, res) => {
+    try {
+        await User.findOneAndDelete({ user_id: req.body.user_id });
+        console.log("User removed");
+        res.json({
+            success: true,
+            user_id: req.body.user_id,
+        });
+    } catch (error) {
+        console.error("Error removing user:", error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to remove user',
+        });
+    }
+}
+
+module.exports = { addUser, fetchUser, removeUser };
