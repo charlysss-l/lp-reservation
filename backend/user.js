@@ -58,6 +58,9 @@ const addUser = async (req, res) => {
         let lastUser = await User.findOne({}).sort({ user_id: -1 }).limit(1);
         let id = lastUser ? lastUser.user_id + 1 : 1;
 
+        const startDate = new Date(req.body.startDate);
+        const startTime = new Date(req.body.startTime);
+
         const user = new User({
             user_id: id,
             name: req.body.name,
@@ -67,14 +70,11 @@ const addUser = async (req, res) => {
             seatNumber: req.body.seatNumber,
             internetHours: req.body.internetHours,
             code: req.body.code,
-            startDate: req.body.startDate,
-            startTime: req.body.startTime,
-
+            startDate: startDate,
+            startTime: startTime,
         });
 
-        console.log('User to save:', user);
         await user.save();
-        console.log('User saved');
 
         res.json({ success: true, name: req.body.name });
     } catch (error) {
@@ -85,11 +85,14 @@ const addUser = async (req, res) => {
 
 
 
+
 // Function to fetch users
 const fetchUser = async (req, res) => {
     try {
-        const users = await User.find({});
-        res.json(users); // Send the users as JSON response
+        const users = await User.find({}, {
+            user_id: 1, name: 1, email: 1,contactNumber:1, company: 1, seatNumber: 1, internetHours: 1, startDate: 1, startTime: 1
+        });
+        res.json(users);
     } catch (error) {
         console.error('Error fetching users:', error);
         res.status(500).json({ success: false, message: 'An error occurred while fetching users' });
