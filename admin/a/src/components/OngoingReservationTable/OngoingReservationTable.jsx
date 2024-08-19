@@ -67,8 +67,8 @@ const OngoingReservationTable = ({ user = [] }) => {
                 <table className="history-table">
                     <thead>
                         <tr>
-                            <th className="title">Name</th>
                             <th className="title">Seat Number</th>
+                            <th className="title">Name</th>
                             <th className="title">Internet Hours</th>
                             <th className="title">Start Date</th>
                             <th className="title">Start Time</th>
@@ -81,8 +81,8 @@ const OngoingReservationTable = ({ user = [] }) => {
                         {users.length > 0 ? (
                             users.map((user) => (
                                 <tr key={user.user_id}>
-                                    <td className="data">{user.name}</td>
                                     <td className="data">{user.seatNumber}</td>
+                                    <td className="data">{user.name}</td>
                                     <td className="data">{user.internetHours} hr</td>
                                     <td className="data">{formatDate(user.startDate)}</td>
                                     <td className="data">{formatTime(user.startTime)}</td>
