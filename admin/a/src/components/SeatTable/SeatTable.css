@@ -1,83 +1,11 @@
 
+.history-container3 {
+  margin: 1%;
+  padding: 20px;
+  width: 100%; 
+  max-width: 800px;
+  background-color:#6ca8bc;
+  border: 3px solid #c2c6c656;
+  border-radius: 50px;
 
-  .conn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .seatTable-heading h3 {
-    font-size: 40px;
-    color: white;
-    margin-bottom: 20px; 
-    text-align: center;
-    text-transform: uppercase;
-    background-color: #FFAC47;
-    width: 100%; 
-    padding: 1%;
-    margin: 0;
-    box-shadow: 0 8px 8px rgb(112, 111, 111);
-    
-  }
-  
-  .seatTable-container {
-    margin: 1%;
-    padding: 25px;
-    border-radius: 8px;
-    width: 80%; 
-    max-width: 1200px;
-    border: 3px solid #222625;
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .seat-table {
-    width: 100%; 
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    background-color: #fff; 
-    border-radius: 8px;
-    overflow: hidden; 
-  }
-  
-  .seat-table th, .seat-table td {
-    padding: 15px;
-    text-align: center;
-    vertical-align: middle;
-    border-bottom: 1px solid #ffffff; 
-    
-  }
-  
-  .title {
-    font-weight: bold;
-    color: #222625;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    background-color: #f0f0f0;
-  }
-  
-  .data {
-    color: #222625;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-  }
-  .button-seat {
-    display: flex;
-    justify-content: right;
-}
-  .add-seat-button{
-    width: 15%;
-    padding: 10px 0;
-    background-color: #9FBA00;
-    color: white;
-    border: 2px solid rgb(170, 166, 166);
-    border-radius: 10px;
-    font-size: 18px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .add-seat-button:hover {
-    background-color: white;
-    color: #333;
-    border-color: #333;
 }

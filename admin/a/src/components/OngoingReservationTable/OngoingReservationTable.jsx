@@ -74,7 +74,7 @@ const OngoingReservationTable = ({ user = [] }) => {
                             <th className="title">Start Time</th>
                             <th className="title">Expected End Date</th>
                             <th className="title">Expected End Time</th>
-                            <th className="title">END</th>
+                            <th className="title">End</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,7 +89,7 @@ const OngoingReservationTable = ({ user = [] }) => {
                                     <td className="data">{formatDate(user.expectedEndDate)}</td>
                                     <td className="data">{formatTime(user.expectedEndTime)}</td>
                                     <td className="data">
-                                        <button onClick={() => handleEnd(user.user_id)}>END</button>
+                                        <button onClick={() => handleEnd(user.user_id)} className="end-button">END</button>
                                     </td>
                                 </tr>
                             ))

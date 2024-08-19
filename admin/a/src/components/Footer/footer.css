@@ -1,35 +1,33 @@
 .footer {
-  color: #000000;
   text-align: center;
   font-family: Arial, sans-serif;
-  border-top: 2px solid black;
+  border-top: 2px solid rgba(0, 0, 0, 0.156);
   margin-top: auto;
   width: 100%;
   padding: 20px 0;
-  background-color: rgb(166, 161, 161); 
+  background-color: #90A17D; 
 }
 
 .footer-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #222625;
+  color: #ffffff;
   text-decoration: none;
   font-size: 14px;
   line-height: 1.5;
-  background-color: rgb(166, 161, 161); 
+  background-color: #90A17D; 
 }
 
 .footer-content p {
   margin: 0;
-  padding-bottom: 10px;
-  background-color: rgb(166, 161, 161); 
+  background-color: #90A17D; 
 }
 
 .footer-content a {
-  color: #383c3f; /* Optional: Color for the link */
+  color: #ffffff;
   text-decoration: none; 
-  background-color: rgb(166, 161, 161); 
+  background-color: #90A17D; 
 }
 
 .footer-content a:hover {
@@ -39,15 +37,15 @@
 .credits-list {
   list-style: none;
   display: flex;
-  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+  flex-wrap: wrap; 
   justify-content: center;
   padding: 0;
   margin: 0;
-  background-color: rgb(166, 161, 161); 
+  background-color: #90A17D; 
 }
 
 .credits-list li {
   margin: 5px 15px; 
-  background-color: rgb(166, 161, 161); 
+  background-color: #90A17D; 
 }
 

@@ -62,16 +62,12 @@ const HistoryTable = ({ user = [] }) => {
     };
 
     return (
-        <div className="conn">
+        <div className="connt">
             <div className="history-heading">
                 <h3>Reservation History</h3>
             </div>
             <div className="history-container">
-                <div className="button-reservation-add">
-                    <NavLink to={'/admin/add-reservation'} className="add-reservation-button">
-                        Add Reservation
-                    </NavLink>
-                </div>
+
                 <table className="history-table">
                     <thead>
                         <tr>
@@ -106,8 +102,7 @@ const HistoryTable = ({ user = [] }) => {
                                         <button
                                             type="button"
                                             onClick={() => removeUser(user.user_id, handleUserRemoved)}
-                                            className="delete"
-                                        >
+                                            className="delete">
                                             Delete
                                         </button>
                                     </td>

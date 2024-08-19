@@ -27,7 +27,8 @@
     display: block;
     width: 300px;
     padding: 15px 0;
-    background-color: #9FBA00;
+     font-family: Arial, Helvetica, sans-serif;
+    background-color: #E4AEC5;
     color: #222625;
     font-family: Arial, sans-serif;
     border: 2px solid #000000;
@@ -41,6 +42,6 @@
 
 .link-to-reserve-form:hover, .home-availability:hover {
     background-color: white;
-    color: #333;
-    border-color: #333;
+    color: #222625;
+    border-color: #222625;
 }
