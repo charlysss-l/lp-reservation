@@ -1,11 +1,11 @@
-import { NavLink } from 'react-router-dom';
+
 import { useState, useEffect } from 'react';
 import './OngoingReservationTable.css';
 
 const formatDate = (dateString) => {
-    if (!dateString) return 'N/A'; // Handle null or undefined
+    if (!dateString) return 'N/A'; 
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return 'N/A'; // Handle invalid date
+    if (isNaN(date.getTime())) return 'N/A'; 
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const year = date.getFullYear().toString().slice(-2);
@@ -14,9 +14,9 @@ const formatDate = (dateString) => {
 
 // Helper function to format time
 const formatTime = (dateString) => {
-    if (!dateString) return 'N/A'; // Handle null or undefined
+    if (!dateString) return 'N/A'; 
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return 'N/A'; // Handle invalid time
+    if (isNaN(date.getTime())) return 'N/A'; 
     let hours = date.getHours();
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
