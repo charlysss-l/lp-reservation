@@ -123,7 +123,6 @@ const fetchUser = async (req, res) => {
             internetHours: 1,
             startDate: 1,
             startTime: 1,
-            code: 1, // Ensure 'code' field is included
             expectedEndDate: 1,
             expectedEndTime: 1,
         });
