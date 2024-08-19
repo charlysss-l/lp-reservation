@@ -1,29 +1,32 @@
-.code-container {
-    padding: 0;
-    margin: 0;
+.display-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     justify-content: center;
-    background-color: #F2F2F2;
+    margin: 10% 0%;
+    text-align: center;  
 }
 
-.code-display {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #ffac47;
+.display-title {
+    font-family: 'Fira Code', 'Source Code Pro', 'Roboto Mono', 'Courier New', monospace;
+    font-size: 40px;
+    color: rgb(8, 8, 8);
+    margin-bottom: 40px;
+}
+.button-display-container p {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.082);
+    width: 400px;
+    height: 200px;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, rgb(230, 187, 187), #b27f95);
     border-radius: 10px;
-    border: 1px solid #222625;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
-    height: 100px;
-    
+    color: white;
+    font-size: 20px;
 }
 
-.code-display p {
-    font-size: 24px;
-    font-weight: bold;
-    color: #222625;
+.button-display-container p:hover{
+    background-image: linear-gradient(to bottom, rgb(230, 187, 187), #de6b9d);
 }

@@ -6,12 +6,15 @@ const DisplayCode = () => {
     const { code } = location.state || { code: '' };
 
     return (
-        <div className="success-container">
-            <h2>Reservation Successful</h2>
-            <div className="code-display">
-                <p>Your Reservation Code: {code}</p>
-            </div>
+        <div className="display-container">
+        <h1 className="display-title">Reservation Successful!</h1>
+        
+        <div className="button-display-container">
+        <p>Your Reservation Code: {code}</p>
         </div>
+      </div>
+               
+
     );
 };
 
