@@ -60,9 +60,7 @@ const OngoingReservationTable = ({ user = [] }) => {
 
     return (
         <div className="conn">
-            <div className="history-heading">
-                <h3>Ongoing Reservation</h3>
-            </div>
+        <h2 className="table-title">Ongoing Reservation</h2>
             <div className="history-container1">
                 <table className="history-table">
                     <thead>

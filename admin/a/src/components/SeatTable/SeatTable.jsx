@@ -43,9 +43,7 @@ const SeatTable = ({ seat = [] }) => {
 
     return (
         <div className="conn">
-            <div className="history-heading">
-                <h3>Seat Details</h3>
-            </div>
+            <h2 className="table-title">Seat Details</h2>
             <div className="history-container3">
                 <table className="history-table">
                     <thead>

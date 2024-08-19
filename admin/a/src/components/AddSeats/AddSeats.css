@@ -1,8 +1,9 @@
-.main-container{
+.main-container {
+    position: relative;
     display: flex;
     padding: 10px;
-
 }
+
 .seat {
     width: 60px;
     height: 60px;  
@@ -11,4 +12,33 @@
     border-radius: 5px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
     color: white;
+    cursor: pointer;
+}
+
+.seat-info {
+    position: absolute;
+    top: -10px; 
+    left: 75px; 
+
+    padding: 10px;
+    border: 1px solid #cc8282;
+    border-radius: 5px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.seat-info p{
+    margin: 2px;
+    padding: 10px;
+    font-size: 12px;
+    background-color: #cc7fa3;
+    color: white;
+    border-radius: 5px;
+}
+.seat-info p:hover{
+    background-color: #dc87af;
 }

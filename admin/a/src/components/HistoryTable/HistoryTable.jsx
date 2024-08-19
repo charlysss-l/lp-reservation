@@ -63,9 +63,7 @@ const HistoryTable = ({ user = [] }) => {
 
     return (
         <div className="connt">
-            <div className="history-heading">
-                <h3>Reservation History</h3>
-            </div>
+            <h2 className="table-title">Reservation History</h2>
             <div className="history-container">
 
                 <table className="history-table">
