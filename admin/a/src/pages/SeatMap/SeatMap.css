@@ -13,7 +13,7 @@
     margin-bottom: 20px; 
     text-align: center;
     text-transform: uppercase;
-    background-color: #F3C1C6;
+    background-color: #FFAC47;
     width: 98%;
     padding: 1%;
     margin: 0;
@@ -39,30 +39,38 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    
 }
 
 .box {
-    height: 300px;
+    height: 10%;
     background-color: #3d3f3c; /* Green background */
     color: rgba(255, 255, 255, 0.062); /* White text color */
     border: 1px solid #333; /* Dark border */
-    width: calc(16.66% - 10px); /* 6 columns with margin */
-    margin: 0px; /* Space between boxes */
-    padding:    140px;
+    width: 150px; /* 6 columns with margin */
+    margin: 1%; /* Space between boxes */
+    padding:    7%;
     box-sizing: border-box; /* Include padding and border in width */
+}
+
+@media (max-width: 1024px) {
+    .box {
+        width: calc(50% - 10px); /* Adjust for medium screens */
+    }
 }
 
 @media (max-width: 768px) {
     .box {
-        width: calc(33.33% - 10px); /* 3 columns on smaller screens */
+        width: calc(50% - 10px); /* Adjust for smaller screens */
     }
 }
 
 @media (max-width: 480px) {
     .box {
-        width: calc(50% - 10px); /* 2 columns on very small screens */
+        width: 100%; /* Full width on very small screens */
     }
 }
+
 .available{
     width: 60px;
     height: 60px;
