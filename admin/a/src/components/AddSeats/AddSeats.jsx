@@ -1,27 +1,16 @@
-import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './AddSeats.css';
 
-const AddSeats = ({ seat }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
+const AddSeats = ({ seatNumber, style }) => {
   return (
-    <div
-      className="main-container"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <button className="seat">
-        {seat.seatNumber}
-      </button>
-      {isHovered && (
-        <div className="seat-info">
-          <p>Seat ID:{seat.seat_id}</p>
-          <p>Three Hour Code: {seat.ThreeHourCode}</p>
-          <p>Whole Day Code:{seat.WholeDayCode}</p>
-        </div>
-      )}
+    <div className="main-container-seat" style={style}>
+      <NavLink to="/admin/add-reservation">
+        <button className="seat">
+          {seatNumber}
+        </button>
+      </NavLink>
     </div>
   );
-};
+}
 
 export default AddSeats;

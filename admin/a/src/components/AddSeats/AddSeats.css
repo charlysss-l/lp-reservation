@@ -1,44 +1,28 @@
-.main-container {
+.main-container-seat {
+    padding: 0px;
     position: relative;
-    display: flex;
-    padding: 10px;
+    top: -190px;
+    background-color: #4CAF50;
+    z-index: 1;
 }
 
 .seat {
-    width: 60px;
-    height: 60px;  
-    background-color: #90A17D;
-    border: 2px solid rgba(0, 0, 0, 0.21); 
-    border-radius: 5px; 
+    width: 85px;
+    height: 85px; 
+    background-color: rgb(74, 240, 82);
+    border: 2px solid black; 
+    border-radius: 10px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    color: white;
-    cursor: pointer;
-}
-
-.seat-info {
     position: absolute;
-    top: -10px; 
-    left: 75px; 
-
-    padding: 10px;
-    border: 1px solid #cc8282;
-    border-radius: 5px;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.seat-info p{
-    margin: 2px;
-    padding: 10px;
-    font-size: 12px;
-    background-color: #cc7fa3;
-    color: white;
-    border-radius: 5px;
-}
-.seat-info p:hover{
-    background-color: #dc87af;
+.seat:hover {
+    background-color: rgb(1, 129, 7); /* Darker green on hover */
+    transform: scale(1.1); /* Slightly enlarge the button on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
 }
