@@ -3,27 +3,28 @@
     flex-direction: column;
     width: 90vw;
     max-width: 400px;
-    padding: 10px;
+    padding: 20px; /* Consolidated padding */
     margin: auto;
-    padding: 20px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #E4AEC5;
+    background-color: #E4AEC5; /* Background color for the container */
 }
 
 .login-title {
     margin-bottom: 10px;
+  
     font-size: 40px;
     color: black;
-    background-color: #E4AEC5;
+    background-color: #E4AEC5; /* Consistent background color with container */
     text-transform: uppercase;
+   
 }
 
 .login-input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    background-color: #F3C1C6;
+    background-color: #F3C1C6; /* Background color for inputs */
     color: black;
     border: 1px solid #f2f2f2;
     border-radius: 3px;
@@ -38,10 +39,9 @@
 }
 
 .login-button {
-    width: 300px;
+    width: 100%; /* Adjusted to match container width */
     padding: 15px 0;
-
-    background-color: #829460;
+    background-color: #829460; /* Button background color */
     color: white;
     border: 2px solid white;
     border-radius: 10px;
@@ -53,8 +53,7 @@
 }
 
 .login-button:hover {
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; /* Hover background color */
     color: #333;
     border-color: #333;
 }
-
