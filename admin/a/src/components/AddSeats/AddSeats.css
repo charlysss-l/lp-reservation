@@ -1,16 +1,28 @@
-.main-container{
-    display: flex;
-    padding: 10px;
+.main-container-seat {
+    padding: 0px;
+    position: relative;
+    top: -190px;
+    background-color: #4CAF50;
+    z-index: 1;
 }
+
 .seat {
-    width: 100px;
-    height: 100px;  
-    background-color: rgb(15, 172, 15);
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
+    width: 85px;
+    height: 85px; 
+    background-color: rgb(74, 240, 82);
     border: 2px solid black; 
-    border-radius: 5px; 
+    border-radius: 10px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    margin:10px ;
+    position: absolute;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.seat:hover {
+    background-color: rgb(1, 129, 7); /* Darker green on hover */
+    transform: scale(1.1); /* Slightly enlarge the button on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
 }
