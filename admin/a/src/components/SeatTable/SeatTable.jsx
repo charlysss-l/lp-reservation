@@ -43,28 +43,12 @@ const SeatTable = ({ seat = [] }) => {
 
     return (
         <div className="conn">
-<<<<<<< HEAD
             <h2 className="table-title">Seat Details</h2>
             <div className="history-container3">
                 <table className="history-table">
                     <thead>
                         <tr>
                             <th className="title">Seat ID</th>
-=======
-            <div className="seatTable-heading">
-                <h3>Seat Details</h3>
-            </div>
-            <div className="seatTable-container">
-                <div className="button-seat">
-                    <NavLink to={'/admin/add-seat'} className="add-seat-button">
-                        Add Seat
-                    </NavLink>
-                </div>
-                <table className="seat-table">
-                    <thead>
-                        <tr>
-                            <th className="title">SeatID</th>
->>>>>>> parent of efedc22 (SeatMap)
                             <th className="title">Seat Number</th>
                             <th className="title">3hr Internet Code</th>
                             <th className="title">24hr Internet Code</th>

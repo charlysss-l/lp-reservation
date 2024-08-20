@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from 'react';
 import './AddSeats.css';
 
@@ -21,16 +20,6 @@ const AddSeats = ({ seat }) => {
           <p>Whole Day Code:{seat.WholeDayCode}</p>
         </div>
       )}
-=======
-import './AddSeats.css';
-
-const AddSeats = ({ seatNumber }) => {
-  return (
-    <div className="main-container">
-      <button className="seat">
-        {seatNumber}
-      </button>
->>>>>>> parent of efedc22 (SeatMap)
     </div>
   );
 };

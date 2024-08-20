@@ -24,11 +24,7 @@ const SeatMap = () => {
             <h2 className="seatMap-title">Seat Map</h2>
             <div className="seatContainer">
                 {seats.map(seat => (
-<<<<<<< HEAD
                     <AddSeats key={seat.seat_id} seat={seat} />
-=======
-                    <AddSeats key={seat.seat_id} seatNumber={seat.seatNumber} />
->>>>>>> parent of efedc22 (SeatMap)
                 ))}
             </div>
         </div>

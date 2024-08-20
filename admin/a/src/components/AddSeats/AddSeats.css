@@ -1,14 +1,10 @@
-<<<<<<< HEAD
 .main-container {
     position: relative;
-=======
-.main-container{
->>>>>>> parent of efedc22 (SeatMap)
     display: flex;
     padding: 10px;
 }
+
 .seat {
-<<<<<<< HEAD
     width: 60px;
     height: 60px;  
     background-color: #90A17D;
@@ -45,16 +41,4 @@
 }
 .seat-info p:hover{
     background-color: #dc87af;
-=======
-    width: 100px;
-    height: 100px;  
-    background-color: rgb(15, 172, 15);
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    border: 2px solid black; 
-    border-radius: 5px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    margin:10px ;
->>>>>>> parent of efedc22 (SeatMap)
 }

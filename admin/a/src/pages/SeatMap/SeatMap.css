@@ -26,10 +26,7 @@
     grid-template-columns: repeat(10, 1fr);
     gap: 10px; 
     margin: 10px;
-<<<<<<< HEAD
     max-width: 100%;
     justify-content: center;
-=======
->>>>>>> parent of efedc22 (SeatMap)
 }
 
