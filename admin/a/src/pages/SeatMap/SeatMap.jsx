@@ -8,6 +8,8 @@ const SeatMap = () => {
     const [tables] = useState([]);
 
 
+
+
     return (
         <div className="main-container-reservation">
             <h2 className="seatMap-title">Seat Map</h2>
@@ -101,8 +103,6 @@ const SeatMap = () => {
                     <div className="box">16</div>
                     <div className="box">17</div>
                     <div className="box">18</div>
-
-
     </div>
                 
                 
