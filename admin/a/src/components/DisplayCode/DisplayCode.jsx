@@ -10,7 +10,7 @@ const DisplayCode = () => {
         <h1 className="display-title">Reservation Successful!</h1>
         
         <div className="button-display-container">
-        <p>Your Voucher Code: {code}</p>
+        <p>Your Reservation Code: {code}</p>
         </div>
       </div>
                

@@ -1,9 +1,13 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .navbar {
   background-color: #90A17D;
-  display:flex ;
-  flex-direction: column;
-  align-items: center;
-
+  padding: 0 20px;
+  position: relative;
 }
 
 .logo {
@@ -17,10 +21,6 @@
   font-family: 'Georgia: font-family: Georgia, serif';
 }
 
-.logo:hover{
-  color: #E4AEC5;
-  transition: 0.5s ease;
-}
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -33,7 +33,7 @@
   width: 30px;
   height: 3px;
   background-color: #1E201E;
-  margin: 2px;
+  margin: 5px;
 }
 
 .navbar-list {
@@ -56,7 +56,6 @@
   background-color: #90A17D;
 }
 
-
 .navbar-item a:hover, .dropbtn:hover, .dropbtn1:hover {
   background-color: #7e8f6d;
 }
@@ -67,7 +66,7 @@
   min-width: 200px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  top: 38px;
+  top: 48px;
   left: 0;
 }
 
@@ -77,7 +76,7 @@
 
 .dropdown-content a {
   color: #f2f2f2;
-
+  padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
@@ -93,7 +92,7 @@
 
 .dropdown-content1 a {
   color: #f5ece5;
-
+  padding: 12px 16px;
   text-decoration: none;
   display: block;
 }

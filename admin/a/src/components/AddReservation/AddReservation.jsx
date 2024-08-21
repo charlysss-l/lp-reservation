@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './AddReservation.css';
 
 const AddReservation = () => {
-  const location = useLocation();
-  const initialSeatNumber = location.state?.seatNumber || '';
-
+  // Function to get today's date in MM-DD-YYYY format
   const getDefaultDate = () => {
     const today = new Date();
     const month = today.getMonth() + 1; // Months are zero-based
@@ -15,6 +13,7 @@ const AddReservation = () => {
     return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
   };
 
+  // Function to get current time in 12-hour format with AM/PM
   const getDefaultTime = () => {
     const now = new Date();
     let hours = now.getHours();
@@ -31,7 +30,7 @@ const AddReservation = () => {
     email: "",
     contactNumber: "",
     company: "",
-    seatNumber: initialSeatNumber,
+    seatNumber: "",
     internetHours: "",
     startDate: getDefaultDate(),
     startTime: getDefaultTime(),
@@ -73,36 +72,40 @@ const AddReservation = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    // Find the selected seat and determine the correct code
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
     const code = addUsers.internetHours === '3' ? selectedSeat?.ThreeHourCode : selectedSeat?.WholeDayCode;
 
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
+    // Calculate end time here (if needed)
+    // const endTime = calculateEndTime(startTime, addUsers.internetHours);
+
     try {
-      await axios.post('http://localhost:3000/admin/add-reservation', {
-        ...addUsers,
-        code: code,
-        startTime: startTime,
-      });
+        await axios.post('http://localhost:3000/admin/add-reservation', {
+            ...addUsers,
+            code: code,
+            startTime: startTime,
+            // endTime: endTime
+        });
 
-      navigate('/admin/reservation-success', { state: { code: code } });
+        navigate('/admin/reservation-success', { state: { code: code } });
 
-      setAddUsers({
-        name: "",
-        email: "",
-        contactNumber: "",
-        company: "",
-        seatNumber: initialSeatNumber,
-        internetHours: "",
-        startDate: getDefaultDate(),
-        startTime: getDefaultTime(),
-      });
+        setAddUsers({
+            name: "",
+            email: "",
+            contactNumber: "",
+            company: "",
+            seatNumber: "",
+            internetHours: "",
+            startDate: getDefaultDate(),
+            startTime: getDefaultTime(),
+        });
     } catch (err) {
-      console.log(err);
-      alert('Error adding reservation');
+        console.log(err);
+        alert('Error adding reservation');
     }
-  };
-
+};
   return (
     <div className="div-con">
       <h2 className="add-reservation-title">Add Reservation</h2>
@@ -145,7 +148,14 @@ const AddReservation = () => {
           </label>
           <label>
             Seat Number:
-            <input name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber} readOnly disabled/>
+            <select name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}>
+              <option value="">Select Seat Number</option>
+              {seats.map((seat, index) => (
+                <option key={index} value={seat.seatNumber}>
+                  {seat.seatNumber}
+                </option>
+              ))}
+            </select>
           </label>
           <label>
             Internet Hours:
