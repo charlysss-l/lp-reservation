@@ -30,6 +30,13 @@
   background-color: #90A17D; 
 }
 
+.footer-content p1{
+  color: #f2f2f2;
+  background-color:#90A17D;
+  font-size: 14px;
+
+}
+
 .footer-content a:hover {
   text-decoration: underline;
 }

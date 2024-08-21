@@ -8,7 +8,16 @@ const Footer = () => {
           <p>
             Copyright © 2024 LaunchPad CoWorking | All rights reserved | 
             <a href="/terms-and-conditions"> Terms and Conditions</a>
+            <p1>
+            Launchpad Commercenter:
+Mon-Fri 8am-7pm
+Sat 10am-5pm
+
+Launchpad One Griffinstone
+Mon-Fri 9am-7pm
+            </p1>
           </p>
+  
           <ul className="credits-list">
             <li>Charlize Mikaela Nadela</li>
             <li>Jojo Maninang</li>
