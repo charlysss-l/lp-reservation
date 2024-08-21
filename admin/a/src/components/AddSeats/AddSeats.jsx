@@ -1,14 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './AddSeats.css';
 
 const AddSeats = ({ seatNumber, style }) => {
+  const navigate = useNavigate();
+
+  const handleSeatClick = () => {
+    navigate('/admin/add-reservation', { state: { seatNumber } });
+  };
+
   return (
     <div className="main-container-seat" style={style}>
-      <NavLink to="/admin/add-reservation">
-        <button className="seat">
-          {seatNumber}
-        </button>
-      </NavLink>
+      <button className="seat" onClick={handleSeatClick}>
+        {seatNumber}
+      </button>
     </div>
   );
 }

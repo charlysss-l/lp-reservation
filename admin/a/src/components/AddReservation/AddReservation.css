@@ -54,8 +54,12 @@ input{
     width: 100%;
     background-color: #82b3c4;
     margin-bottom: 15px;
-
 }
+
+input seatNumber {
+    height: 100px;
+}
+
 
 select{
     color: rgb(64, 63, 63);
@@ -63,7 +67,7 @@ select{
     padding: 8px; 
     border-radius: 5px; 
     border: 1px solid rgb(25, 21, 137);
-    width: 100%;
+    width: 103.5%;
     background-color: #82b3c4;
     margin-bottom: 15px;
 }
