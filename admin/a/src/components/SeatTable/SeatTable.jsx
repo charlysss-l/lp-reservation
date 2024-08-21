@@ -48,7 +48,6 @@ const SeatTable = ({ seat = [] }) => {
                 <table className="history-table">
                     <thead>
                         <tr>
-                            <th className="title">Seat ID</th>
                             <th className="title">Seat Number</th>
                             <th className="title">3hr Internet Code</th>
                             <th className="title">24hr Internet Code</th>
@@ -59,7 +58,6 @@ const SeatTable = ({ seat = [] }) => {
                         {seats.length > 0 ? (
                             seats.map((seat, index) => (
                                 <tr key={index}>
-                                    <td className="data">{seat.seat_id}</td>
                                     <td className="data">{seat.seatNumber}</td>
                                     <td className="data">{seat.ThreeHourCode}</td>
                                     <td className="data">{seat.WholeDayCode}</td>

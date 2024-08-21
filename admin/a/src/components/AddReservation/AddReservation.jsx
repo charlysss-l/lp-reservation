@@ -111,25 +111,15 @@ const AddReservation = () => {
       <h2 className="add-reservation-title">Add Reservation</h2>
       <div className="add-reservation-form">
         <form>
-          <label>
-            Date:
-            <input
-              type="text"
-              name="startDate"
-              value={addUsers.startDate}
-              readOnly // Set to readOnly since it's a default value
-            />
-          </label>
-          <label>
-            Start Time:
-            <input
-              type="text"
-              name="startTime"
-              onChange={changeHandler}
-              value={addUsers.startTime}
-              placeholder="HH:MM AM/PM"
-            />
-          </label>
+          <div className="dateTime">
+            <label>
+              Date: {addUsers.startDate}
+            </label>
+            <label>
+              Start Time: {addUsers.startTime}
+            </label>
+          </div>
+
           <label>
             Name:
             <input type="text" name="name" onChange={changeHandler} value={addUsers.name} />

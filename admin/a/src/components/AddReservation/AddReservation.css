@@ -9,7 +9,6 @@
 .add-reservation-title {
     font-size: 40px;
     color: #f2f2f2;
-    
     margin-bottom: 20px; 
     text-align: center;
     text-transform: uppercase;
@@ -25,12 +24,24 @@
     flex-direction: column;
     margin: 2%;
     width: 30%;
-    padding: 20px 40px; 
+    padding: 15px 40px; 
     background-color: #F2F2F2;
     border-radius: 10px; /* Add rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
 
+.dateTime{
+    display: flex;
+    gap: 5%;
+    border-bottom: 2px solid #94b4dc59;
+    padding: 5px;
+    margin: 10px;
+    justify-content: center;
+}
+
+.dateTime label:hover{
+    color:#c25081;
+}
 form {
     display: flex;
     flex-direction: column;
@@ -41,35 +52,35 @@ label {
     color: rgb(9, 9, 9);
     font-size: 16px; 
     font-family: 'Times New Roman', Times, serif;
-    margin-bottom: 10px; 
-    padding: 1px;
+    margin-bottom: 5px; 
+
 }
 
 input{
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     font-size: 14px; 
     padding: 8px; 
     border-radius: 5px; 
     border: 1px solid rgb(25, 21, 137);
     width: 100%;
-    background-color: #82b3c4;
+    background-color: #93C5FD;
     margin-bottom: 15px;
 
 }
 
 select{
     color: rgb(64, 63, 63);
-    font-size: 14px; 
+    font-size: 12px; 
     padding: 8px; 
     border-radius: 5px; 
     border: 1px solid rgb(25, 21, 137);
     width: 100%;
-    background-color: #82b3c4;
+    background-color: #93C5FD;
     margin-bottom: 15px;
 }
 button.submit-button-reservation {
     width: 100%;
-    padding: 15px 0;
+    padding: 10px 0;
     background-color: #90A17D;
     color: white;
     border: 2px solid white;
