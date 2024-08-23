@@ -1,10 +1,10 @@
 .main-container-reservation {
+    position: relative;
+}
+
+.bothContainer {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 20px; 
+    max-width: 100%;
 }
 
 .seatMap-title {
@@ -23,10 +23,19 @@
 
 .seatContainer {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 10px; 
-    margin: 10px;
-    max-width: 100%;
-    justify-content: center;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px; 
+    margin: 100px;
+    width: 50%;
+    align-items: center;
+    
+
 }
 
+.mapContainer {
+    align-items: center;
+    width: 50%;
+    margin: 100px;
+    display: flex;
+    
+}

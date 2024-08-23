@@ -5,14 +5,16 @@
 }
 
 .seat {
-    width: 60px;
-    height: 60px;  
+    width: 80px;
+    height: 80px;  
     background-color: #90A17D;
     border: 2px solid rgba(0, 0, 0, 0.21); 
-    border-radius: 5px; 
+    border-radius: 50px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
     color: white;
     cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .seat-info {
