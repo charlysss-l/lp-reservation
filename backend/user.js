@@ -57,12 +57,12 @@ const userSchema = new mongoose.Schema({
     finalEndDate: {
         type: Date,
         default:null,
-        required: false, // Removed default value
+        required: false, 
     },
     finalEndTime: {
         type: Date,
         default:null,
-        required: false, // Removed default value
+        required: false, 
     },
 });
 
@@ -88,7 +88,7 @@ const addUser = async (req, res) => {
 
         // Calculate expected end date and time
         const expectedEndTime = calculateExpectedEnd(startTime, internetHours);
-        const expectedEndDate = new Date(expectedEndTime); // Ensure it's a Date object
+        const expectedEndDate = new Date(expectedEndTime); 
 
         const user = new User({
             user_id: id,
