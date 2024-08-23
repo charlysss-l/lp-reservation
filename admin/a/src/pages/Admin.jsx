@@ -15,6 +15,7 @@ import Footer from '../components/Footer/footer';
 import DisplayCode from '../components/DisplayCode/DisplayCode';
 import OngoingReservation from './OngoingReservation/OngoingReservation';
 import OngoingReservationTable from '../components/OngoingReservationTable/OngoingReservationTable';
+import AddEndReservation from '../components/AddEndReservation/AddEndReservation';
 
 const Admin = () => {
   return (
@@ -36,6 +37,7 @@ const Admin = () => {
         <Route path="/admin/reservation-success" element={<DisplayCode />} />
         <Route path="/admin/ongoing" element={<OngoingReservation />} />
         <Route path="/admin/ongoing-reservation-table" element={<OngoingReservationTable />} />
+        <Route path="/admin/add-end-reservation" element={<AddEndReservation />} />
       </Routes>
   
       <MaybeShowNavbar>

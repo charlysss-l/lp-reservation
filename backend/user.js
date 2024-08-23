@@ -56,9 +56,13 @@ const userSchema = new mongoose.Schema({
     },
     finalEndDate: {
         type: Date,
+        default:null,
+        required: false, // Removed default value
     },
     finalEndTime: {
         type: Date,
+        default:null,
+        required: false, // Removed default value
     },
 });
 
@@ -123,9 +127,11 @@ const fetchUser = async (req, res) => {
             internetHours: 1,
             startDate: 1,
             startTime: 1,
-            code: 1, // Ensure 'code' field is included
+            code: 1,
             expectedEndDate: 1,
             expectedEndTime: 1,
+            finalEndDate: 1,
+            finalEndTime: 1,
         });
         res.json(users);
     } catch (error) {
@@ -152,4 +158,37 @@ const removeUser = async (req, res) => {
     }
 };
 
-module.exports = { addUser, fetchUser, removeUser };
+const updateEndReservation = async (req, res) => {
+    const { user_id, finalEndDate, finalEndTime } = req.body;
+
+    try {
+        // Combine date and time into a single Date object
+        const finalEndDateTime = new Date(`${finalEndDate}T${finalEndTime}`);
+        console.log('Final End DateTime:', finalEndDateTime);
+
+        if (isNaN(finalEndDateTime.getTime())) {
+            return res.status(400).json({ message: 'Invalid date or time format' });
+        }
+
+        const result = await User.updateOne(
+            { user_id },
+            {
+                finalEndDate: new Date(finalEndDate),
+                finalEndTime: finalEndDateTime
+            }
+        );
+
+        if (result.nModified === 0) {
+            return res.status(404).json({ message: 'Reservation not found' });
+        }
+
+        res.status(200).json({ message: 'Reservation updated successfully' });
+    } catch (error) {
+        console.error('Error updating reservation:', error);
+        res.status(500).json({ message: 'Error updating reservation', error: error.message });
+    }
+};
+
+
+
+module.exports = { addUser, fetchUser, removeUser, updateEndReservation };

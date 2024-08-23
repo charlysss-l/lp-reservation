@@ -1,9 +1,9 @@
 import './HistoryTable.css';
-import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 // Helper function to format date
 const formatDate = (dateString) => {
+    if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -13,6 +13,7 @@ const formatDate = (dateString) => {
 
 // Helper function to format time
 const formatTime = (dateString) => {
+    if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
     let hours = date.getHours();
     const minutes = date.getMinutes();
@@ -95,9 +96,9 @@ const HistoryTable = ({ user = [] }) => {
                                     <td className="data">{user.internetHours} hr</td>
                                     <td className="data">{formatDate(user.startDate)}</td>
                                     <td className="data">{formatTime(user.startTime)}</td>
-                                    <td className="data">{formatDate(user.finalEndDate)}</td>
-                                    <td className="data">{formatTime(user.finalEndTime)}</td>
-                                     {/*<td className="data">{user.code || 'N/A'}</td> */}
+                                    <td className="data">{user.finalEndDate ? formatDate(user.finalEndDate) : 'Ongoing'}</td>
+                                    <td className="data">{user.finalEndTime ? formatTime(user.finalEndTime) : 'Ongoing'}</td>
+                                    {/*<td className="data">{user.code || 'N/A'}</td> */}
                                     <td className="data">
                                         <button
                                             type="button"

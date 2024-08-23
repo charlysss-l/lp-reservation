@@ -1,5 +1,5 @@
-
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './OngoingReservationTable.css';
 
 const formatDate = (dateString) => {
@@ -12,7 +12,6 @@ const formatDate = (dateString) => {
     return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
 };
 
-// Helper function to format time
 const formatTime = (dateString) => {
     if (!dateString) return 'N/A'; 
     const date = new Date(dateString);
@@ -25,17 +24,21 @@ const formatTime = (dateString) => {
     const strMinutes = minutes.toString().padStart(2, '0');
     return `${hours}:${strMinutes} ${ampm}`;
 };
-const OngoingReservationTable = ({ user = [] }) => {
-    const [users, setUsers] = useState(user);
+
+const OngoingReservationTable = () => {
+    const [users, setUsers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 const response = await fetch('http://localhost:3000/admin/history-table');
+                if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setUsers(data);
             } catch (error) {
                 console.error('Error fetching users:', error);
+                // Optionally show user feedback
             }
         };
     
@@ -43,9 +46,13 @@ const OngoingReservationTable = ({ user = [] }) => {
     }, []);
 
 
+    const handleEndClick = (user) => {
+        navigate('/admin/add-end-reservation', { state: { user } });
+    };
+
     return (
         <div className="conn">
-        <h2 className="table-title">Ongoing Reservation</h2>
+            <h2 className="table-title">Ongoing Reservation</h2>
             <div className="history-container1">
                 <table className="history-table">
                     <thead>
@@ -72,7 +79,12 @@ const OngoingReservationTable = ({ user = [] }) => {
                                     <td className="data">{formatDate(user.expectedEndDate)}</td>
                                     <td className="data">{formatTime(user.expectedEndTime)}</td>
                                     <td className="data">
-                                        <button className="end-button">END</button>
+                                        <button 
+                                            className="end-button" 
+                                            onClick={() => handleEndClick(user)}
+                                        >
+                                            END
+                                        </button>
                                     </td>
                                 </tr>
                             ))
