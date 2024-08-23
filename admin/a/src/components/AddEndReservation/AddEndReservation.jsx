@@ -1,9 +1,10 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
 const AddEndReservation = () => {
   const location = useLocation();
+  const navigate = useNavigate();  // Hook to handle navigation
   const user = location.state?.user; // Access passed user data
 
   const getDefaultDate = () => {
@@ -16,11 +17,9 @@ const AddEndReservation = () => {
 
   const getDefaultTime = () => {
     const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes();
-    const strHours = hours.toString().padStart(2, '0');
-    const strMinutes = minutes.toString().padStart(2, '0');
-    return `${strHours}:${strMinutes}`;
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
   };
 
   const [addEnd, setAddEnd] = useState({
@@ -32,34 +31,37 @@ const AddEndReservation = () => {
     e.preventDefault();
     
     if (!user || !user.user_id) {
-        alert('User information is missing');
-        return;
+      alert('User information is missing');
+      return;
     }
+
+    // Confirmation before proceeding
+    const isConfirmed = window.confirm('Are you sure you want to end this reservation?');
+
+    if (!isConfirmed) return; // Exit if the user does not confirm
 
     // Ensure the date and time are valid
     const finalEndDateTimeString = `${addEnd.finalEndDate}T${addEnd.finalEndTime}`;
     const finalEndDateTime = new Date(finalEndDateTimeString);
 
-    console.log('Final End Date:', addEnd.finalEndDate);
-    console.log('Final End Time:', addEnd.finalEndTime);
-    console.log('Final End DateTime String:', finalEndDateTimeString);
-    console.log('Final End DateTime:', finalEndDateTime);
-
     if (isNaN(finalEndDateTime.getTime())) {
-        alert('Invalid date or time format');
-        return;
+      alert('Invalid date or time format');
+      return;
     }
 
     try {
-        await axios.post('http://localhost:3000/admin/end-reservation', {
-            user_id: user.user_id,
-            finalEndDate: addEnd.finalEndDate,
-            finalEndTime: addEnd.finalEndTime,
-        });
+      await axios.post('http://localhost:3000/admin/end-reservation', {
+        user_id: user.user_id,
+        finalEndDate: addEnd.finalEndDate,
+        finalEndTime: addEnd.finalEndTime,
+      });
+
+      alert('Reservation ended successfully!');
+      navigate('/admin/ongoing'); // Redirect after successful save
 
     } catch (err) {
-        console.log('Error adding end date:', err);
-        alert('Error adding end date');
+      console.error('Error adding end date:', err);
+      alert('Error adding end date');
     }
   };
 
