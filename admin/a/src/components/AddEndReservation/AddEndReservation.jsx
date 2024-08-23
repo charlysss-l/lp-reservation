@@ -65,7 +65,7 @@ const AddEndReservation = () => {
 
   return (
     <div className="div-con">
-      <h2 className="add-reservation-title">Add End Reservation</h2>
+      <h2 className="add-reservation-title">End Reservation</h2>
       <div className="add-reservation-form">
         <form onSubmit={submitHandler}>
           <div className="dateTime">
