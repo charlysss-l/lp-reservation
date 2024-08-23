@@ -53,9 +53,9 @@ const Navbar = () => {
           <span className="dropbtn1">Seat</span>
           {seatDropdownOpen && (
             <div className="dropdown-content1">
-              <NavLink to={'/admin/add-seat'}>Add Seat</NavLink>
               <NavLink to={'/admin/seat-map'}>Seat Map</NavLink>
               <NavLink to={'/admin/seat-qr'}>Seat Details</NavLink>
+              <NavLink to={'/admin/add-seat'}>Add Seat</NavLink>
             </div>
           )}
         </li>

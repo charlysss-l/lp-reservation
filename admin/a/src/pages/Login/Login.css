@@ -18,26 +18,31 @@
     margin: auto;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #E4AEC5;
+    background-color: #e4aec57f;
     border-radius: 10px; /* Optional: adds rounded corners to the login form */
 }
 
 .login-title {
     margin-bottom: 10px;
     font-size: 40px;
-    color: black;
-    background-color: #E4AEC5;
+    color: rgb(10, 111, 12);
+    background-color: #e4aec513;
     text-transform: uppercase;
+    
 }
 
+.login-title:hover{
+    border-bottom: 1px  solid white;
+    transition: 2s ease-in white;
+}
 .login-input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     background-color: #e8e8e8;
     color: black;
-    border: 1px solid #222625;
-    border-radius: 3px;
+    border: 1px solid #2226255c;
+    border-radius: 10px;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
@@ -46,7 +51,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    background-color: #E4AEC5;
+    background-color: #e4aec513;
 }
 
 .login-button {
