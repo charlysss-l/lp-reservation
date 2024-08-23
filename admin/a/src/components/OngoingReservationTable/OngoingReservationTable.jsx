@@ -42,21 +42,6 @@ const OngoingReservationTable = ({ user = [] }) => {
         fetchUsers();
     }, []);
 
-    const handleEnd = async (user_id) => {
-        try {
-            const response = await fetch('http://localhost:3000/admin/end-reservation', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user_id }),
-            });
-            const result = await response.json();
-            if (result.success) {
-                setUsers(users.filter(user => user.user_id !== user_id));
-            }
-        } catch (error) {
-            console.error('Error ending reservation:', error);
-        }
-    };
 
     return (
         <div className="conn">
@@ -87,7 +72,7 @@ const OngoingReservationTable = ({ user = [] }) => {
                                     <td className="data">{formatDate(user.expectedEndDate)}</td>
                                     <td className="data">{formatTime(user.expectedEndTime)}</td>
                                     <td className="data">
-                                        <button onClick={() => handleEnd(user.user_id)} className="end-button">END</button>
+                                        <button className="end-button">END</button>
                                     </td>
                                 </tr>
                             ))
