@@ -53,6 +53,8 @@ const removeUser = async (user_id, onUserRemoved) => {
 
 const HistoryTable = ({ user = [] }) => {
     const [users, setUsers] = useState(user);
+    const [currentPage, setCurrentPage] = useState(1);
+    const usersPerPage = 7;
 
     useEffect(() => {
         setUsers(user);
@@ -62,11 +64,19 @@ const HistoryTable = ({ user = [] }) => {
         setUsers(prevUsers => prevUsers.filter(user => user.user_id !== user_id));
     };
 
+    const handleClickPageNumber = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const totalPages = Math.ceil(users.length / usersPerPage);
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
     return (
         <div className="connt">
             <h2 className="table-title">Reservation History</h2>
             <div className="history-container">
-
                 <table className="history-table">
                     <thead>
                         <tr>
@@ -80,13 +90,12 @@ const HistoryTable = ({ user = [] }) => {
                             <th className="title">Start Time</th>
                             <th className="title">End Date</th>
                             <th className="title">End Time</th>
-                            {/*<th className="title">Code</th>*/}
                             <th className="title">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.length > 0 ? (
-                            users.map((user, index) => (
+                        {currentUsers.length > 0 ? (
+                            currentUsers.map((user, index) => (
                                 <tr key={index}>
                                     <td className="data">{user.seatNumber}</td>
                                     <td className="data">{user.name}</td>
@@ -98,7 +107,6 @@ const HistoryTable = ({ user = [] }) => {
                                     <td className="data">{formatTime(user.startTime)}</td>
                                     <td className="data">{user.finalEndDate ? formatDate(user.finalEndDate) : 'Ongoing'}</td>
                                     <td className="data">{user.finalEndTime ? formatTime(user.finalEndTime) : 'Ongoing'}</td>
-                                    {/*<td className="data">{user.code || 'N/A'}</td> */}
                                     <td className="data">
                                         <button
                                             type="button"
@@ -116,6 +124,17 @@ const HistoryTable = ({ user = [] }) => {
                         )}
                     </tbody>
                 </table>
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                            onClick={() => handleClickPageNumber(index + 1)}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );

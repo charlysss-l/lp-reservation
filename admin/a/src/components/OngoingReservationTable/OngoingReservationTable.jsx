@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import './OngoingReservationTable.css';
 
 const formatDate = (dateString) => {
-    if (!dateString) return 'N/A'; 
+    if (!dateString) return 'N/A';
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return 'N/A'; 
+    if (isNaN(date.getTime())) return 'N/A';
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const year = date.getFullYear().toString().slice(-2);
@@ -13,9 +13,9 @@ const formatDate = (dateString) => {
 };
 
 const formatTime = (dateString) => {
-    if (!dateString) return 'N/A'; 
+    if (!dateString) return 'N/A';
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return 'N/A'; 
+    if (isNaN(date.getTime())) return 'N/A';
     let hours = date.getHours();
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -27,6 +27,8 @@ const formatTime = (dateString) => {
 
 const OngoingReservationTable = () => {
     const [users, setUsers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const usersPerPage = 7;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,17 +40,24 @@ const OngoingReservationTable = () => {
                 setUsers(data);
             } catch (error) {
                 console.error('Error fetching users:', error);
-                // Optionally show user feedback
             }
         };
-    
+
         fetchUsers();
     }, []);
-
 
     const handleEndClick = (user) => {
         navigate('/admin/add-end-reservation', { state: { user } });
     };
+
+    const handleClickPageNumber = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const totalPages = Math.ceil(users.length / usersPerPage);
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
     return (
         <div className="conn">
@@ -68,8 +77,8 @@ const OngoingReservationTable = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.length > 0 ? (
-                            users.map((user) => (
+                        {currentUsers.length > 0 ? (
+                            currentUsers.map((user) => (
                                 <tr key={user.user_id}>
                                     <td className="data">{user.seatNumber}</td>
                                     <td className="data">{user.name}</td>
@@ -95,6 +104,17 @@ const OngoingReservationTable = () => {
                         )}
                     </tbody>
                 </table>
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                            onClick={() => handleClickPageNumber(index + 1)}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
