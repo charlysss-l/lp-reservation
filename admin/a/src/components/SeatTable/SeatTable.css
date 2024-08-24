@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  background-color: #7ca7d8;
 }
 
 .page-button {
@@ -20,10 +21,11 @@
   border: 1px solid #c2c6c656;
   background-color: #ffffff;
   cursor: pointer;
+  border-radius: 50px;
 }
 
 .page-button.active {
-  background-color: #7ca7d8;
+  background-color: #d07cd8;
   color: #ffffff;
 }
 
