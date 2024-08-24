@@ -1,11 +1,32 @@
-
 .history-container3 {
   margin: 1%;
   padding: 20px;
   width: 100%; 
   max-width: 800px;
-  background-color:#7ca7d8;
+  background-color: #7ca7d8;
   border: 3px solid #c2c6c656;
   border-radius: 50px;
+}
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #c2c6c656;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.page-button.active {
+  background-color: #7ca7d8;
+  color: #ffffff;
+}
+
+.page-button:hover {
+  background-color: #c2c6c656;
 }

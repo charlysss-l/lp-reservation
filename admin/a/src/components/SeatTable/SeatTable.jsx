@@ -1,5 +1,4 @@
 import './SeatTable.css';
-import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const removeSeat = async (seat_id, onSeatRemoved) => {
@@ -32,6 +31,8 @@ const removeSeat = async (seat_id, onSeatRemoved) => {
 
 const SeatTable = ({ seat = [] }) => {
     const [seats, setSeats] = useState(seat);
+    const [currentPage, setCurrentPage] = useState(1);
+    const seatsPerPage = 10;
 
     useEffect(() => {
         setSeats(seat);
@@ -40,6 +41,15 @@ const SeatTable = ({ seat = [] }) => {
     const handleSeatRemoved = (seat_id) => {
         setSeats(prevSeats => prevSeats.filter(seat => seat.seat_id !== seat_id));
     };
+
+    const handleClickPageNumber = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const totalPages = Math.ceil(seats.length / seatsPerPage);
+    const indexOfLastSeat = currentPage * seatsPerPage;
+    const indexOfFirstSeat = indexOfLastSeat - seatsPerPage;
+    const currentSeats = seats.slice(indexOfFirstSeat, indexOfLastSeat);
 
     return (
         <div className="conn">
@@ -55,8 +65,8 @@ const SeatTable = ({ seat = [] }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {seats.length > 0 ? (
-                            seats.map((seat, index) => (
+                        {currentSeats.length > 0 ? (
+                            currentSeats.map((seat, index) => (
                                 <tr key={index}>
                                     <td className="data">{seat.seatNumber}</td>
                                     <td className="data">{seat.ThreeHourCode}</td>
@@ -79,6 +89,17 @@ const SeatTable = ({ seat = [] }) => {
                         )}
                     </tbody>
                 </table>
+                <div className="pagination">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index + 1}
+                            className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                            onClick={() => handleClickPageNumber(index + 1)}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
