@@ -32,7 +32,7 @@ const removeSeat = async (seat_id, onSeatRemoved) => {
 const SeatTable = ({ seat = [] }) => {
     const [seats, setSeats] = useState(seat);
     const [currentPage, setCurrentPage] = useState(1);
-    const seatsPerPage = 10;
+    const seatsPerPage = 8;
 
     useEffect(() => {
         setSeats(seat);
