@@ -18,6 +18,17 @@ app.get('/', (req, res) => {
     res.send('Express app is running');
 });
 
+//adminAccount
+const createAdminAccount = require('./src/scripts/admin');
+createAdminAccount(); // Call the function to create an admin account
+
+
+//loginroute
+const loginRoute = require('./src/routes/login.js');
+app.use('/auth', loginRoute);
+
+
+
 // Routes
 app.post('/admin/add-reservation', addUser);
 app.get('/admin/history-table', fetchUser);
