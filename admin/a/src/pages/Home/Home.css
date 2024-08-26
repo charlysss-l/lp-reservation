@@ -28,10 +28,10 @@
     width: 300px;
     padding: 15px 0;
      font-family: Arial, Helvetica, sans-serif;
-    background-color: #E4AEC5;
-    color: #222625;
+     background-image: linear-gradient(to bottom, #b27f95, #b27f95);
+    color: #ffffff;
     font-family: Arial, sans-serif;
-    border: 2px solid #000000;
+    border: 2px solid #00000033;
     border-radius: 10px;
     font-size: 18px;
     text-align: center;
@@ -41,7 +41,7 @@
 }
 
 .link-to-reserve-form:hover, .home-availability:hover {
-    background-color: white;
+    background-image: linear-gradient(to bottom, #f2f2f2, #b27f95);
     color: #222625;
     border-color: #222625;
 }
