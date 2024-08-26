@@ -23,7 +23,7 @@
     gap: 20px;
 }
 
-.link-to-reserve-form, .home-availability {
+.home-availability {
     display: block;
     width: 300px;
     padding: 15px 0;
@@ -40,8 +40,9 @@
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.link-to-reserve-form:hover, .home-availability:hover {
-    background-image: linear-gradient(to bottom, #f2f2f2, #b27f95);
-    color: #222625;
-    border-color: #222625;
+.home-availability:hover {
+    background-image: linear-gradient(to bottom, #f2f2f2, #b27f9575);
+    color: #333;
+    border-color: #33333357;
+
 }
