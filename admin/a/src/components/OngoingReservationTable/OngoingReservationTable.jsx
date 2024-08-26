@@ -37,12 +37,15 @@ const OngoingReservationTable = () => {
                 const response = await fetch('http://localhost:3000/admin/history-table');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-                setUsers(data);
+                
+                // Filter out ended reservations
+                const ongoingUsers = data.filter(user => !user.finalEndDate && !user.finalEndTime);
+                setUsers(ongoingUsers);
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
         };
-
+    
         fetchUsers();
     }, []);
 

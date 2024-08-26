@@ -182,7 +182,10 @@ const updateEndReservation = async (req, res) => {
             return res.status(404).json({ message: 'Reservation not found' });
         }
 
-        res.status(200).json({ message: 'Reservation updated successfully' });
+        // Now we also remove this reservation from the ongoing list
+        await User.findOneAndDelete({ user_id, finalEndDate: null, finalEndTime: null });
+
+        res.status(200).json({ message: 'Reservation updated and removed from ongoing successfully' });
     } catch (error) {
         console.error('Error updating reservation:', error);
         res.status(500).json({ message: 'Error updating reservation', error: error.message });
