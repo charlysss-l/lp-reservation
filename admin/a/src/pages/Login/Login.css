@@ -1,12 +1,12 @@
 .container {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Full viewport height */
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
     background-image: url('https://lh3.googleusercontent.com/p/AF1QipOEPpGFmQ3MUN5Vkvc4D0-6X7eZuLbiSWcjRxbi=s1360-w1360-h1020');
-    background-size: cover; /* Cover the entire container */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Prevent repeating the image */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .login-container {
@@ -19,16 +19,16 @@
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background-color: #e4aec57f;
-    border-radius: 10px; /* Optional: adds rounded corners to the login form */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.337);
 }
 
 .login-title {
     margin-bottom: 10px;
     font-size: 40px;
-    color: rgb(10, 111, 12);
+    color: rgb(22, 35, 22);
     background-color: #e4aec513;
-    text-transform: uppercase;
-    
+    text-transform: uppercase;   
 }
 
 .login-title:hover{
@@ -55,21 +55,29 @@
 }
 
 .login-button {
-    width: 60%;
+    width: 100%;
     padding: 10px 0;
-    background-color: #829460;
+    background-image: linear-gradient(to bottom, #829460, #b27f95);
     color: #F2F2F2;
     border: 2px solid #22262534;
     border-radius: 8px;
     font-size: 20px;
-    text-align: center;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight:700;
+
 }
 
 .login-button:hover {
-    background-color: #f2f2f2;
+    background-image: linear-gradient(to bottom, #f2f2f2, #b27f95);
     color: #333;
     border-color: #333;
+    text-transform: uppercase;
+    font-weight:700;
 }

@@ -41,23 +41,18 @@ const handleSubmitButton = async (e) => {
 
   return (
     <>
-      <section className='containerr'>
-        <div>Login</div>
-        <div className="content">
-        <form>
-          <div className="input-box">
-            <label htmlFor="">Email</label>
-          <input type="email" name='email' placeholder='email' onChange={changeHandler} value={formData.email}/>
-          </div>
-          <div className="input-box">
-            <label htmlFor="">Password</label>
-          <input type="password" name='password' placeholder='password' onChange={changeHandler} value={formData.password}/>
-          </div>
-          {/* or navlink? IDK :< */}
-          {/* {onClick={(e) => {handleSubmitButton(e)}} pwede sa button or sa form since submit type naman yung button basta nasa loob ng form} */}
-          <button type='submit' onClick={(e) => {handleSubmitButton(e)}}>Login</button>
-        </form>
+      <section className='container'>
+        <div className="login-container">
+        <div className="login-title">Login</div>
+            <input type="email" name='email' placeholder='email' onChange={changeHandler} value={formData.email}
+            className="login-input"/>
+            <input type="password" name='password' placeholder='password' onChange={changeHandler} value={formData.password}
+            className="login-input"/>
+              {/* or navlink? IDK :< */}
+            {/* {onClick={(e) => {handleSubmitButton(e)}} pwede sa button or sa form since submit type naman yung button basta nasa loob ng form} */}
+            <button type='submit' onClick={(e) => {handleSubmitButton(e)}} className="login-button">Login</button>
         </div>
+
       </section>
     </>
   );
@@ -66,13 +61,3 @@ const handleSubmitButton = async (e) => {
 export default Login;
 
 
-{/* <div className="container">
-      <div className="login-container">
-        <h1 className="login-title">Login</h1>
-        <input type="text" name="username" className="login-input" placeholder="Username" required />
-        <input type="password" name="password" className="login-input" placeholder="Password" required />
-        <div className="button">
-          <NavLink to='/home' className="login-button">Login</NavLink>
-        </div>
-      </div>
-    </div> */}
