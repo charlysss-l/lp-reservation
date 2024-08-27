@@ -33,8 +33,41 @@
 .mapContainer {
     align-items: center;
     width: 50%;
-    margin: 100px;
+    margin: 50px;
+    margin-left: -100px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mapContainer input {
+
+    height: 20px;
+    width: 200px;
+}
+
+.mapContainer button {
+    height: 40px;
+    width: 100px;
+    background-color: #E4AEC5;
+    color: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.mapContainer button:hover {
+    background-color: #c04576;
+    color: #ffffff;
+    border-color: #b693a1;
+}
+
+.mapContainer img {
+    width: 80%;
+    height: 80%;
 }
 
 @media (max-width: 1200px) {

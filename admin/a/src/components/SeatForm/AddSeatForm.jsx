@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const AddSeatForm = ({ onAddSeat }) => {
+function AddSeatForm ({ onAddSeat })  {
   const [addSeat, setAddSeat] = useState({
     seatNumber: "",
     ThreeHourCode: "",
     WholeDayCode: ""
   });
+ 
 
   const changeHandler = (e) => {
     setAddSeat({ ...addSeat, [e.target.name]: e.target.value });
@@ -34,6 +35,11 @@ const AddSeatForm = ({ onAddSeat }) => {
     }
   };
 
+
+  
+
+  
+
   return (
     <div className="div-con">
       <h2 className="add-reservation-title">Add Seats</h2>
@@ -46,10 +52,12 @@ const AddSeatForm = ({ onAddSeat }) => {
           <label>
             Code for 3 Hours:
             <input type="text" name="ThreeHourCode" onChange={changeHandler} value={addSeat.ThreeHourCode} />
+            
           </label>
           <label>
             Code for 24 Hours:
             <input type="text" name="WholeDayCode" onChange={changeHandler} value={addSeat.WholeDayCode} />
+
           </label>
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={(e) => submitHandler(e)}>Save</button>
