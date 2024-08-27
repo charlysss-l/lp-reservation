@@ -64,6 +64,7 @@ const userSchema = new mongoose.Schema({
         default:null,
         required: false, 
     },
+   
 });
 
 // Create User Model
@@ -194,4 +195,9 @@ const updateEndReservation = async (req, res) => {
 
 
 
-module.exports = { addUser, fetchUser, removeUser, updateEndReservation };
+module.exports = {
+    addUser,
+    fetchUser,
+    removeUser,
+    updateEndReservation,
+};
