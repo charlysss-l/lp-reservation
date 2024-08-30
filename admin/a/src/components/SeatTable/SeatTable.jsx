@@ -69,8 +69,16 @@ const SeatTable = ({ seat = [] }) => {
                             currentSeats.map((seat, index) => (
                                 <tr key={index}>
                                     <td className="data">{seat.seatNumber}</td>
-                                    <td className="data">{seat.ThreeHourCode}</td>
-                                    <td className="data">{seat.WholeDayCode}</td>
+                                    <td className="data">
+                                        {seat.ThreeHourCode ? (
+                                            <img src={`http://localhost:3000/Images/${seat.ThreeHourCode}`} alt="3 Hour Code" className="seat-image" />
+                                        ) : 'No Image'}
+                                    </td>
+                                    <td className="data">
+                                        {seat.WholeDayCode ? (
+                                            <img src={`http://localhost:3000/Images/${seat.WholeDayCode}`} alt="24 Hour Code" className="seat-image" />
+                                        ) : 'No Image'}
+                                    </td>
                                     <td className="data">
                                         <button
                                             type="button"
