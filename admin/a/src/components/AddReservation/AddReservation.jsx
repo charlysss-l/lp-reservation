@@ -43,7 +43,6 @@ const AddReservation = () => {
   });
 
   const [seats, setSeats] = useState([]);
-  const [codeImage, setCodeImage] = useState("");
 
   useEffect(() => {
     axios.get('http://localhost:3000/admin/seat-qr')
@@ -52,18 +51,6 @@ const AddReservation = () => {
       })
       .catch(err => console.error('Error fetching seats:', err));
   }, []);
-
-  useEffect(() => {
-    const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
-    if (selectedSeat) {
-      const code = addUsers.internetHours === '3' ? selectedSeat.ThreeHourCode : selectedSeat.WholeDayCode;
-      if (code) {
-        setCodeImage(`http://localhost:3000/Images/${code}`);
-      } else {
-        setCodeImage("");
-      }
-    }
-  }, [addUsers.seatNumber, addUsers.internetHours, seats]);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -90,33 +77,34 @@ const AddReservation = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    // Find the selected seat and determine the correct code
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
     const code = addUsers.internetHours === '3' ? selectedSeat?.ThreeHourCode : selectedSeat?.WholeDayCode;
 
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
     try {
-        await axios.post('http://localhost:3000/admin/add-reservation', {
-            ...addUsers,
-            code: code,
-            startTime: startTime,
-        });
+      await axios.post('http://localhost:3000/admin/add-reservation', {
+        ...addUsers,
+        code: code,
+        startTime: startTime,
+      });
 
-        navigate('/admin/reservation-success', { state: { code } });
+      navigate('/admin/reservation-success', { state: { code: code } });
 
-        setAddUsers({
-            name: "",
-            email: "",
-            contactNumber: "",
-            company: "",
-            seatNumber: "",
-            internetHours: "",
-            startDate: getDefaultDate(),
-            startTime: getDefaultTime(),
-        });
+      setAddUsers({
+        name: "",
+        email: "",
+        contactNumber: "",
+        company: "",
+        seatNumber: "",
+        internetHours: "",
+        startDate: getDefaultDate(),
+        startTime: getDefaultTime(),
+      });
     } catch (err) {
-        console.log(err);
-        alert('Error adding reservation');
+      console.log(err);
+      alert('Error adding reservation');
     }
   };
 
@@ -152,7 +140,7 @@ const AddReservation = () => {
           </label>
           <label>
             Seat Number:
-            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber} readOnly disabled />
+            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber} readOnly disabled/>
           </label>
           <label>
             Internet Hours:
@@ -162,7 +150,6 @@ const AddReservation = () => {
               <option value="24">24 Hours</option>
             </select>
           </label>
-          
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>Save</button>
           </div>
