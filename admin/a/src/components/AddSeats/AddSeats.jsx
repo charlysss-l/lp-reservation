@@ -4,42 +4,32 @@ import { useNavigate } from 'react-router-dom';
 
 import './AddSeats.css';
 
-function AddSeats  ({ seat })  {
-  const [isHovered, setIsHovered] = useState(false);
+function AddSeats({ seat }) {
+  const [status, setStatus] = useState(seat.status || 'available');
   const navigate = useNavigate();
-  
 
-  
-
-
-
+  useEffect(() => {
+    setStatus(seat.status);
+  }, [seat]);
 
   const handleSeatClick = () => {
-    navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
+    if (status === 'available') {
+      navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
+      
+    } 
   };
 
-  
-
   return (
-    <div
-      className="main-container"
-      // onMouseEnter={() => setIsHovered(true)}
-      // onMouseLeave={() => setIsHovered(false)}
-    >
-      <button className="seat" onClick={handleSeatClick}>
+    <div className="main-container">
+      <button
+        className={`seat ${status}`} // Apply class based on status
+        onClick={handleSeatClick}
+        disabled={status !== 'available'} // Disable button if not available
+      >
         {seat.seatNumber}
       </button>
-      {/* {isHovered && (
-        <div className="seat-info">
-          <p>Three Hour Code: 
-          </p>
-          {image && <img src={getImageUrl()} alt="Seat Map" />}
-          <p>Whole Day Code:</p>
-          {image && <img src={getImageUrl()} alt="Seat Map" />}
-        </div>
-      )} */}
     </div>
   );
-};
+}
 
 export default AddSeats;

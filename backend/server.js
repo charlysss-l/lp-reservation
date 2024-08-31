@@ -13,6 +13,8 @@ const ImageIdModel = require('./imageID');
 
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
 const { addSeat, fetchSeats, removeSeat } = require('./seat');
+const { updateSeatStatus } = require('./seat');
+
 
 
 const app = express();
@@ -120,6 +122,8 @@ app.post('/admin/end-reservation', updateEndReservation);
 app.post('/admin/add-seat', addSeat);
 app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
+app.put('/admin/update-seat-status', updateSeatStatus);
+
 
 app.listen(port, err => {
     if (err) {

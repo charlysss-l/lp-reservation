@@ -102,7 +102,17 @@ const AddReservation = () => {
             startTime: startTime,
         });
 
+        // Update the seat's status to 'active'
+        await axios.put('http://localhost:3000/admin/update-seat-status', {
+          seatNumber: addUsers.seatNumber,
+          status: 'active'
+      });
+
+        
+
         navigate('/admin/reservation-success', { state: { code } });
+
+        
 
         setAddUsers({
             name: "",
