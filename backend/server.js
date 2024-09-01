@@ -14,6 +14,7 @@ const ImageIdModel = require('./imageID');
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
 const { addSeat, fetchSeats, removeSeat } = require('./seat');
 
+const loginAdm = require('./src/routes/login')
 
 const app = express();
 const port = 3000;
@@ -108,7 +109,7 @@ app.post('/upload-seat-image', upload.single('file'), async (req, res) => {
 });
 
 
-
+app.use('/auth', loginAdm)
 
 
 // Routes
@@ -120,6 +121,9 @@ app.post('/admin/end-reservation', updateEndReservation);
 app.post('/admin/add-seat', addSeat);
 app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
+
+const admin = require('./src/scripts/admin')
+admin()
 
 app.listen(port, err => {
     if (err) {
