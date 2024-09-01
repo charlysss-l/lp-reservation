@@ -56,6 +56,12 @@ const AddEndReservation = () => {
         finalEndTime: addEnd.finalEndTime,
       });
 
+      // Update the seat status to 'available'
+      await axios.put('http://localhost:3000/admin/update-seat-status', {
+        seatNumber: user.seatNumber, // Assuming user object contains seatNumber
+        status: 'available'
+    });
+
       alert('Reservation ended successfully!');
       navigate('/admin/ongoing'); // Redirect after successful save
 

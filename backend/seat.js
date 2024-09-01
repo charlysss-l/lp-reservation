@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const seatSchema = new mongoose.Schema({
     seat_id: {
         type: Number,
@@ -17,6 +18,11 @@ const seatSchema = new mongoose.Schema({
     WholeDayCode: {
         type: String,
         required: true,
+    },
+    status: { // Add this field to track seat reservation status
+        type: String,
+        enum: ['active', 'available'],
+        default: 'available',
     }
 });
 
@@ -41,6 +47,7 @@ const addSeat = async (req, res) => {
         res.status(500).json({ success: false, message: 'An error occurred while adding the seat', error });
     }
 };
+
 
 
 const fetchSeats = async (req, res) => {
@@ -70,4 +77,24 @@ const removeSeat = async (req, res) => {
     }
 };
 
-module.exports = { addSeat, fetchSeats, removeSeat };
+// Update seat status
+const updateSeatStatus = async (req, res) => {
+    try {
+        const { seatNumber, status } = req.body;
+        const seat = await Seat.findOneAndUpdate({ seatNumber: seatNumber }, { status: status });
+
+        if (!seat) {
+            return res.status(404).json({ success: false, message: 'Seat not found' });
+        }
+
+        res.json({ success: true, message: 'Seat status updated successfully' });
+    } catch (error) {
+        console.error('Error updating seat status:', error);
+        res.status(500).json({ success: false, message: 'An error occurred while updating seat status' });
+    }
+};
+
+
+
+// Export the new function
+module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus };
