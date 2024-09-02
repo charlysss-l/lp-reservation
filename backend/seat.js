@@ -97,8 +97,4 @@ const updateSeatStatus = async (req, res) => {
 
 
 // Export the new function
-<<<<<<< HEAD
 module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus };
-=======
-module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus, Seat };
->>>>>>> parent of 5d4153e (Revert "Merge branch 'kelly'")
