@@ -18,6 +18,7 @@ const { updateSeatStatus } = require('./seat');
 
 const loginAdm = require('./src/routes/login')
 
+
 const app = express();
 const port = 3000;
 
@@ -109,7 +110,6 @@ app.post('/upload-seat-image', upload.single('file'), async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
-
 
 app.use('/auth', loginAdm)
 
