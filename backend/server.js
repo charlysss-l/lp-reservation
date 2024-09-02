@@ -12,7 +12,7 @@ const ImageIdModel = require('./imageID');
 
 
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
-const { addSeat, fetchSeats, removeSeat } = require('./seat');
+const { addSeat, fetchSeats, removeSeat, editSeat } = require('./seat');
 const { updateSeatStatus } = require('./seat');
 
 
@@ -124,6 +124,8 @@ app.post('/admin/add-seat', addSeat);
 app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
 app.put('/admin/update-seat-status', updateSeatStatus);
+app.put('/admin/edit-seat/:seatId', editSeat);
+
 
 
 const admin = require('./src/scripts/admin')
