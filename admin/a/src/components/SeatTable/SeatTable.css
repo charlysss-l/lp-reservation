@@ -37,3 +37,21 @@
   width: 10%; 
   height: 10%;
 }
+
+.edit {
+  width: 80px;
+  padding: 10px 0;
+  background-image: linear-gradient(to bottom, #75b0c2, #274a8d);
+  color: #f2f2f2;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 2px solid #6ca8bc;
+  border-radius: 15px;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3 ease ;
+}
+
+.edit:hover {
+  background-image: linear-gradient(to bottom, #e3e5e6, #164280b2);
+}

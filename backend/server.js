@@ -12,11 +12,13 @@ const ImageIdModel = require('./imageID');
 
 
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
-const { addSeat, fetchSeats, removeSeat, editSeat } = require('./seat');
+const { addSeat, fetchSeats, removeSeat, Seat } = require('./seat');
 const { updateSeatStatus } = require('./seat');
 
 
 const loginAdm = require('./src/routes/login')
+
+
 
 const app = express();
 const port = 3000;
@@ -110,6 +112,34 @@ app.post('/upload-seat-image', upload.single('file'), async (req, res) => {
     }
 });
 
+app.put('/admin/update-seat/:seat_id', async (req, res) => {
+    try {
+        const { seat_id } = req.params;
+        const { seatNumber, ThreeHourImage, WholeDayImage } = req.body;
+
+        // Validate input
+        if (!seat_id || !seatNumber) {
+            return res.status(400).json({ success: false, message: 'Invalid input' });
+        }
+
+        const updatedSeat = await Seat.findOneAndUpdate(
+            { seat_id },
+            { seatNumber, ThreeHourCode: ThreeHourImage, WholeDayCode: WholeDayImage },
+            { new: true } // Return the updated document
+        );
+
+        if (updatedSeat) {
+            res.json({ success: true, seat: updatedSeat });
+        } else {
+            res.status(404).json({ success: false, message: 'Seat not found' });
+        }
+    } catch (error) {
+        console.error('Error updating seat:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
+
 
 app.use('/auth', loginAdm)
 
@@ -124,8 +154,6 @@ app.post('/admin/add-seat', addSeat);
 app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
 app.put('/admin/update-seat-status', updateSeatStatus);
-app.put('/admin/edit-seat/:seatId', editSeat);
-
 
 
 const admin = require('./src/scripts/admin')

@@ -94,33 +94,7 @@ const updateSeatStatus = async (req, res) => {
     }
 };
 
-const editSeat = async (req, res) => {
-    try {
-        const { seat_id, seatNumber, ThreeHourCode, WholeDayCode, status } = req.body;
-
-        // Find the seat by seat_id and update the fields
-        const seat = await Seat.findOneAndUpdate(
-            { seat_id: seat_id },
-            {
-                seatNumber: seatNumber,
-                ThreeHourCode: ThreeHourCode,
-                WholeDayCode: WholeDayCode,
-                status: status
-            },
-            { new: true } // This option returns the updated document
-        );
-
-        if (!seat) {
-            return res.status(404).json({ success: false, message: 'Seat not found' });
-        }
-
-        res.json({ success: true, message: 'Seat updated successfully', seat });
-    } catch (error) {
-        console.error('Error updating seat:', error);
-        res.status(500).json({ success: false, message: 'An error occurred while updating seat', error });
-    }
-};
 
 
 // Export the new function
-module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus, editSeat };
+module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus, Seat };
