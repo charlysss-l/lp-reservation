@@ -1,5 +1,8 @@
 import './SeatTable.css';
 import { useState, useEffect } from 'react';
+import AddSeatForm from '../SeatForm/AddSeatForm';
+import Modal from '../Modal/Modal';
+
 
 const removeSeat = async (seat_id, onSeatRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this seat?');
@@ -33,6 +36,12 @@ const SeatTable = ({ seat = [] }) => {
     const [seats, setSeats] = useState(seat);
     const [currentPage, setCurrentPage] = useState(1);
     const seatsPerPage = 8;
+<<<<<<< HEAD
+=======
+    const [editingSeat, setEditingSeat] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+>>>>>>> parent of 5d4153e (Revert "Merge branch 'kelly'")
 
     useEffect(() => {
         setSeats(seat);
@@ -46,6 +55,19 @@ const SeatTable = ({ seat = [] }) => {
         setCurrentPage(pageNumber);
     };
 
+<<<<<<< HEAD
+=======
+    const handleEditClick = (seat) => {
+        setEditingSeat(seat);
+        setIsModalOpen(true); // Open the modal
+    };
+
+    const handleCloseModal = () => {
+        setEditingSeat(null);
+        setIsModalOpen(false); // Close the modal
+    };
+
+>>>>>>> parent of 5d4153e (Revert "Merge branch 'kelly'")
     const totalPages = Math.ceil(seats.length / seatsPerPage);
     const indexOfLastSeat = currentPage * seatsPerPage;
     const indexOfFirstSeat = indexOfLastSeat - seatsPerPage;
@@ -82,6 +104,18 @@ const SeatTable = ({ seat = [] }) => {
                                     <td className="data">
                                         <button
                                             type="button"
+<<<<<<< HEAD
+=======
+                                            onClick={() => handleEditClick(seat)}
+                                            className="edit"
+                                        >
+                                            Edit
+                                        </button>
+                                    </td>
+                                    <td className="data">
+                                        <button
+                                            type="button"
+>>>>>>> parent of 5d4153e (Revert "Merge branch 'kelly'")
                                             onClick={() => removeSeat(seat.seat_id, handleSeatRemoved)}
                                             className="delete"
                                         >
@@ -109,8 +143,19 @@ const SeatTable = ({ seat = [] }) => {
                     ))}
                 </div>
             </div>
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                <AddSeatForm
+                    onAddSeat={(updatedSeat) => {
+                        setSeats(seats.map(seat => seat.seat_id === updatedSeat.seat_id ? updatedSeat : seat));
+                        setEditingSeat(null);
+                        setIsModalOpen(false);
+                    }}
+                    seat={editingSeat}
+                />
+            </Modal>
         </div>
     );
 };
+
 
 export default SeatTable;
