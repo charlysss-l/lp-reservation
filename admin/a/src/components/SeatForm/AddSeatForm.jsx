@@ -2,17 +2,17 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import './AddSeatForm.css';
 
-function AddSeatForm({ onAddSeat, seat }) {
+function AddSeatForm({ onAddSeat }) {
   const [addSeat, setAddSeat] = useState({
-    seatNumber: seat ? seat.seatNumber : "",
-    ThreeHourImage: seat ? seat.ThreeHourCode : "",
-    WholeDayImage: seat ? seat.WholeDayCode : "",
+    seatNumber: "",
+    ThreeHourImage: "",
+    WholeDayImage: "",
     ThreeHourImageFile: null,
     WholeDayImageFile: null
   });
 
-  const threeHourImageInputRef = useRef(null);
-  const wholeDayImageInputRef = useRef(null);
+  const threeHourImageInputRef = useRef(null); // Reference for 3-hour image input
+  const wholeDayImageInputRef = useRef(null); // Reference for 24-hour image input
 
   const imageHandler = async (file) => {
     let formData = new FormData();
@@ -51,21 +51,15 @@ function AddSeatForm({ onAddSeat, seat }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = seat
-        ? await axios.put(`http://localhost:3000/admin/update-seat/${seat.seat_id}`, {
-            seatNumber: addSeat.seatNumber,
-            ThreeHourImage: addSeat.ThreeHourImage,
-            WholeDayImage: addSeat.WholeDayImage
-          })
-        : await axios.post('http://localhost:3000/admin/add-seat', {
-            seatNumber: addSeat.seatNumber,
-            ThreeHourImage: addSeat.ThreeHourImage,
-            WholeDayImage: addSeat.WholeDayImage
-          });
-
-      alert(seat ? 'Seat updated' : 'Seat added');
-      if (onAddSeat) onAddSeat(response.data.seat);
-
+      const response = await axios.post('http://localhost:3000/admin/add-seat', {
+        seatNumber: addSeat.seatNumber,
+        ThreeHourImage: addSeat.ThreeHourImage, // Include image URL
+        WholeDayImage: addSeat.WholeDayImage   // Include image URL
+      });
+      alert('Seat added');
+      if (onAddSeat) onAddSeat(response.data.seatNumber); // Pass the new seat data
+      
+      // Clear input fields and image previews
       setAddSeat({
         seatNumber: "",
         ThreeHourImage: "",
@@ -73,17 +67,17 @@ function AddSeatForm({ onAddSeat, seat }) {
         ThreeHourImageFile: null,
         WholeDayImageFile: null
       });
-      threeHourImageInputRef.current.value = null;
-      wholeDayImageInputRef.current.value = null;
+      threeHourImageInputRef.current.value = null; // Clear 3-hour image input
+      wholeDayImageInputRef.current.value = null; // Clear 24-hour image input
     } catch (err) {
       console.error('Error:', err);
-      alert('Error adding/updating seat');
+      alert('Error adding seat');
     }
   };
 
   return (
     <div className="div-con">
-      <h2 className="add-reservation-title">{seat ? 'Edit Seat' : 'Add Seat'}</h2>
+      <h2 className="add-reservation-title">Add Seats</h2>
       <div className="add-reservation-form">
         <form>
           <label>
@@ -109,9 +103,7 @@ function AddSeatForm({ onAddSeat, seat }) {
             {addSeat.WholeDayImage && <img src={`http://localhost:3000/Images/${addSeat.WholeDayImage}`} className='imageCode' alt="24 Hour Code" />}
           </label>
           <div className="button">
-            <button type="submit" className="submit-button-reservation" onClick={submitHandler}>
-              {seat ? 'Update' : 'Save'}
-            </button>
+            <button type="submit" className="submit-button-reservation" onClick={submitHandler}>Save</button>
           </div>
         </form>
       </div>

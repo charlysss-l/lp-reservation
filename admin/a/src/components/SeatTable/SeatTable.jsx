@@ -1,8 +1,5 @@
 import './SeatTable.css';
 import { useState, useEffect } from 'react';
-import AddSeatForm from '../SeatForm/AddSeatForm';
-import Modal from '../Modal/Modal';
-
 
 const removeSeat = async (seat_id, onSeatRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this seat?');
@@ -36,9 +33,6 @@ const SeatTable = ({ seat = [] }) => {
     const [seats, setSeats] = useState(seat);
     const [currentPage, setCurrentPage] = useState(1);
     const seatsPerPage = 8;
-    const [editingSeat, setEditingSeat] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
 
     useEffect(() => {
         setSeats(seat);
@@ -50,16 +44,6 @@ const SeatTable = ({ seat = [] }) => {
 
     const handleClickPageNumber = (pageNumber) => {
         setCurrentPage(pageNumber);
-    };
-
-    const handleEditClick = (seat) => {
-        setEditingSeat(seat);
-        setIsModalOpen(true); // Open the modal
-    };
-
-    const handleCloseModal = () => {
-        setEditingSeat(null);
-        setIsModalOpen(false); // Close the modal
     };
 
     const totalPages = Math.ceil(seats.length / seatsPerPage);
@@ -77,7 +61,6 @@ const SeatTable = ({ seat = [] }) => {
                             <th className="title">Seat Number</th>
                             <th className="title">3hr Internet Code</th>
                             <th className="title">24hr Internet Code</th>
-                            <th className="title">Edit</th>
                             <th className="title">Delete</th>
                         </tr>
                     </thead>
@@ -95,15 +78,6 @@ const SeatTable = ({ seat = [] }) => {
                                         {seat.WholeDayCode ? (
                                             <img src={`http://localhost:3000/Images/${seat.WholeDayCode}`} alt="24 Hour Code" className="seat-image" />
                                         ) : 'No Image'}
-                                    </td>
-                                    <td className="data">
-                                        <button
-                                            type="button"
-                                            onClick={() => handleEditClick(seat)}
-                                            className="edit"
-                                        >
-                                            Edit
-                                        </button>
                                     </td>
                                     <td className="data">
                                         <button
@@ -135,19 +109,8 @@ const SeatTable = ({ seat = [] }) => {
                     ))}
                 </div>
             </div>
-            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <AddSeatForm
-                    onAddSeat={(updatedSeat) => {
-                        setSeats(seats.map(seat => seat.seat_id === updatedSeat.seat_id ? updatedSeat : seat));
-                        setEditingSeat(null);
-                        setIsModalOpen(false);
-                    }}
-                    seat={editingSeat}
-                />
-            </Modal>
         </div>
     );
 };
-
 
 export default SeatTable;
