@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const seatSchema = new mongoose.Schema({
     seat_id: {
         type: Number,
@@ -17,6 +18,11 @@ const seatSchema = new mongoose.Schema({
     WholeDayCode: {
         type: String,
         required: true,
+    },
+    status: { // Add this field to track seat reservation status
+        type: String,
+        enum: ['active', 'available'],
+        default: 'available',
     }
 });
 
@@ -24,26 +30,25 @@ const Seat = mongoose.model('Seat', seatSchema);
 
 const addSeat = async (req, res) => {
     try {
-        console.log('Received data:', req.body);
-
         let lastSeat = await Seat.findOne({}).sort({ seat_id: -1 }).limit(1);
         let id = lastSeat ? lastSeat.seat_id + 1 : 1;
 
         const seat = new Seat({
             seat_id: id,
             seatNumber: req.body.seatNumber,
-            ThreeHourCode: req.body.ThreeHourCode,
-            WholeDayCode: req.body.WholeDayCode
+            ThreeHourCode: req.body.ThreeHourImage, // Use image URL
+            WholeDayCode: req.body.WholeDayImage  // Use image URL
         });
 
         await seat.save();
-        console.log('Seat saved');
         res.json({ success: true, seatNumber: req.body.seatNumber });
     } catch (error) {
         console.error('Error adding seat:', error);
         res.status(500).json({ success: false, message: 'An error occurred while adding the seat', error });
     }
 };
+
+
 
 const fetchSeats = async (req, res) => {
     try {
@@ -72,4 +77,50 @@ const removeSeat = async (req, res) => {
     }
 };
 
-module.exports = { addSeat, fetchSeats, removeSeat };
+// Update seat status
+const updateSeatStatus = async (req, res) => {
+    try {
+        const { seatNumber, status } = req.body;
+        const seat = await Seat.findOneAndUpdate({ seatNumber: seatNumber }, { status: status });
+
+        if (!seat) {
+            return res.status(404).json({ success: false, message: 'Seat not found' });
+        }
+
+        res.json({ success: true, message: 'Seat status updated successfully' });
+    } catch (error) {
+        console.error('Error updating seat status:', error);
+        res.status(500).json({ success: false, message: 'An error occurred while updating seat status' });
+    }
+};
+
+const editSeat = async (req, res) => {
+    try {
+        const { seat_id, seatNumber, ThreeHourCode, WholeDayCode, status } = req.body;
+
+        // Find the seat by seat_id and update the fields
+        const seat = await Seat.findOneAndUpdate(
+            { seat_id: seat_id },
+            {
+                seatNumber: seatNumber,
+                ThreeHourCode: ThreeHourCode,
+                WholeDayCode: WholeDayCode,
+                status: status
+            },
+            { new: true } // This option returns the updated document
+        );
+
+        if (!seat) {
+            return res.status(404).json({ success: false, message: 'Seat not found' });
+        }
+
+        res.json({ success: true, message: 'Seat updated successfully', seat });
+    } catch (error) {
+        console.error('Error updating seat:', error);
+        res.status(500).json({ success: false, message: 'An error occurred while updating seat', error });
+    }
+};
+
+
+// Export the new function
+module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus, editSeat };
