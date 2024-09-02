@@ -97,4 +97,4 @@ const updateSeatStatus = async (req, res) => {
 
 
 // Export the new function
-module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus };
+module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus, Seat };
