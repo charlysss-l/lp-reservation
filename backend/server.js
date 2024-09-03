@@ -8,7 +8,7 @@ const ImageIdModel = require('./imageID');
 
 
 
-
+require('dotenv').config();
 
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
 const { addSeat, fetchSeats, removeSeat, Seat } = require('./seat');
