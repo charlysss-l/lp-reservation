@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import './AddSeatForm.css';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 function AddSeatForm({ onAddSeat, seat }) {
   const [addSeat, setAddSeat] = useState({
     seatNumber: seat ? seat.seatNumber : "",
@@ -19,7 +21,7 @@ function AddSeatForm({ onAddSeat, seat }) {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:3000/upload-seat-image', formData, {
+      const response = await axios.post(`${apiUrl}/upload-seat-image`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       if (response.data.success) {
@@ -52,12 +54,12 @@ function AddSeatForm({ onAddSeat, seat }) {
     e.preventDefault();
     try {
       const response = seat
-        ? await axios.put(`http://localhost:3000/admin/update-seat/${seat.seat_id}`, {
+        ? await axios.put(`${apiUrl}/admin/update-seat/${seat.seat_id}`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage
           })
-        : await axios.post('http://localhost:3000/admin/add-seat', {
+        : await axios.post(`${apiUrl}/admin/add-seat`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage
@@ -97,7 +99,7 @@ function AddSeatForm({ onAddSeat, seat }) {
               onChange={(e) => handleImageChange(e, 'ThreeHourImage')}
               ref={threeHourImageInputRef}
             />
-            {addSeat.ThreeHourImage && <img src={`http://localhost:3000/Images/${addSeat.ThreeHourImage}`} className='imageCode' alt="3 Hour Code" />}
+            {addSeat.ThreeHourImage && <img src={`${apiUrl}/Images/${addSeat.ThreeHourImage}`} className='imageCode' alt="3 Hour Code" />}
           </label>
           <label>
             Code for 24 Hours:
@@ -106,7 +108,7 @@ function AddSeatForm({ onAddSeat, seat }) {
               onChange={(e) => handleImageChange(e, 'WholeDayImage')}
               ref={wholeDayImageInputRef}
             />
-            {addSeat.WholeDayImage && <img src={`http://localhost:3000/Images/${addSeat.WholeDayImage}`} className='imageCode' alt="24 Hour Code" />}
+            {addSeat.WholeDayImage && <img src={`${apiUrl}/Images/${addSeat.WholeDayImage}`} className='imageCode' alt="24 Hour Code" />}
           </label>
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>

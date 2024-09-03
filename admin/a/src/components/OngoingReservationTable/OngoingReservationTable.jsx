@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OngoingReservationTable.css';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     const date = new Date(dateString);
@@ -34,11 +36,9 @@ const OngoingReservationTable = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:3000/admin/history-table');
+                const response = await fetch(`${apiUrl}/admin/history-table`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-                
-                // Filter out ended reservations
                 const ongoingUsers = data.filter(user => !user.finalEndDate && !user.finalEndTime);
                 setUsers(ongoingUsers);
             } catch (error) {

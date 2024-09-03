@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import AddSeatForm from '../SeatForm/AddSeatForm';
 import Modal from '../Modal/Modal';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const removeSeat = async (seat_id, onSeatRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this seat?');
 
     if (isConfirmed) {
         try {
-            const response = await fetch('http://localhost:3000/admin/remove-seat', {
+            const response = await fetch(`${apiUrl}/admin/remove-seat`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -38,7 +39,6 @@ const SeatTable = ({ seat = [] }) => {
     const seatsPerPage = 8;
     const [editingSeat, setEditingSeat] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
 
     useEffect(() => {
         setSeats(seat);
@@ -88,12 +88,12 @@ const SeatTable = ({ seat = [] }) => {
                                     <td className="data">{seat.seatNumber}</td>
                                     <td className="data">
                                         {seat.ThreeHourCode ? (
-                                            <img src={`http://localhost:3000/Images/${seat.ThreeHourCode}`} alt="3 Hour Code" className="seat-image" />
+                                            <img src={`${apiUrl}/Images/${seat.ThreeHourCode}`} alt="3 Hour Code" className="seat-image" />
                                         ) : 'No Image'}
                                     </td>
                                     <td className="data">
                                         {seat.WholeDayCode ? (
-                                            <img src={`http://localhost:3000/Images/${seat.WholeDayCode}`} alt="24 Hour Code" className="seat-image" />
+                                            <img src={`${apiUrl}/Images/${seat.WholeDayCode}`} alt="24 Hour Code" className="seat-image" />
                                         ) : 'No Image'}
                                     </td>
                                     <td className="data">
@@ -148,6 +148,5 @@ const SeatTable = ({ seat = [] }) => {
         </div>
     );
 };
-
 
 export default SeatTable;

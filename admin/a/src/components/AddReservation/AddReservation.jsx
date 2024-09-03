@@ -1,32 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './AddReservation.css';
+
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const AddReservation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Retrieve seat number from the location state
+
   const initialSeatNumber = location.state?.seatNumber || "";
 
-  // Function to get today's date in MM-DD-YYYY format
+
   const getDefaultDate = () => {
     const today = new Date();
-    const month = today.getMonth() + 1; // Months are zero-based
+    const month = today.getMonth() + 1; 
     const day = today.getDate();
     const year = today.getFullYear();
     return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
   };
 
-  // Function to get current time in 12-hour format with AM/PM
+
   const getDefaultTime = () => {
     const now = new Date();
     let hours = now.getHours();
     const minutes = now.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12; 
     const strMinutes = minutes.toString().padStart(2, '0');
     return `${hours.toString().padStart(2, '0')}:${strMinutes} ${ampm}`;
   };
@@ -46,7 +49,7 @@ const AddReservation = () => {
   const [codeImage, setCodeImage] = useState("");
 
   useEffect(() => {
-    axios.get('http://localhost:3000/admin/seat-qr')
+    axios.get(`${apiUrl}/admin/seat-qr`)
       .then(res => {
         setSeats(res.data);
       })
@@ -58,7 +61,7 @@ const AddReservation = () => {
     if (selectedSeat) {
       const code = addUsers.internetHours === '3' ? selectedSeat.ThreeHourCode : selectedSeat.WholeDayCode;
       if (code) {
-        setCodeImage(`http://localhost:3000/Images/${code}`);
+        setCodeImage(`${apiUrl}/Images/${code}`);
       } else {
         setCodeImage("");
       }
@@ -76,7 +79,7 @@ const AddReservation = () => {
   const convertTo24HourFormat = (time) => {
     let [hours, minutes] = time.split(':');
     const ampm = minutes.slice(-2);
-    minutes = minutes.slice(0, -3); // Remove AM/PM from minutes
+    minutes = minutes.slice(0, -3); 
 
     hours = parseInt(hours, 10);
     if (ampm === 'PM' && hours < 12) {
@@ -96,37 +99,32 @@ const AddReservation = () => {
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
     try {
-        await axios.post('http://localhost:3000/admin/add-reservation', {
-            ...addUsers,
-            code: code,
-            startTime: startTime,
-        });
-
-        // Update the seat's status to 'active'
-        await axios.put('http://localhost:3000/admin/update-seat-status', {
-          seatNumber: addUsers.seatNumber,
-          status: 'active'
+      await axios.post(`${apiUrl}/admin/add-reservation`, {
+        ...addUsers,
+        code: code,
+        startTime: startTime,
       });
 
-        
+      await axios.put(`${apiUrl}/admin/update-seat-status`, {
+        seatNumber: addUsers.seatNumber,
+        status: 'active'
+      });
 
-        navigate('/admin/reservation-success', { state: { code } });
+      navigate('/admin/reservation-success', { state: { code } });
 
-        
-
-        setAddUsers({
-            name: "",
-            email: "",
-            contactNumber: "",
-            company: "",
-            seatNumber: "",
-            internetHours: "",
-            startDate: getDefaultDate(),
-            startTime: getDefaultTime(),
-        });
+      setAddUsers({
+        name: "",
+        email: "",
+        contactNumber: "",
+        company: "",
+        seatNumber: "",
+        internetHours: "",
+        startDate: getDefaultDate(),
+        startTime: getDefaultTime(),
+      });
     } catch (err) {
-        console.log(err);
-        alert('Error adding reservation');
+      console.log(err);
+      alert('Error adding reservation');
     }
   };
 
