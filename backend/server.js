@@ -15,13 +15,9 @@ const { updateSeatStatus } = require('./seat');
 const loginAdm = require('./src/routes/login');
 
 const app = express();
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 3000; // Use environment variable for port
 
-app.use(cors({
-    origin: 'https://lp-reservation.vercel.app', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 app.use('/Images', express.static(path.join(__dirname, 'public/images')));
 
