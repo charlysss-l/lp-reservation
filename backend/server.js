@@ -36,14 +36,14 @@ app.get('/', (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/images');
+      cb(null, 'public/images');
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+      cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
     }
-});
-
-const upload = multer({ storage: storage });
+  });
+  
+  const upload = multer({ storage: storage });
 
 app.post('/upload', upload.single('file'), async (req, res) => {
     try {
@@ -84,16 +84,18 @@ app.get('/getImage', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+
 app.post('/upload-seat-image', upload.single('file'), async (req, res) => {
     try {
-        const imageUrl = req.file.filename;
-        res.json({ success: true, imageUrl });
+      const imageUrl = req.file.filename;
+      res.json({ success: true, imageUrl });
     } catch (err) {
-        console.error('Error uploading image:', err);
-        res.status(500).json({ success: false, message: 'Server error' });
+      console.error('Error uploading image:', err);
+      res.status(500).json({ success: false, message: 'Server error' });
     }
-});
+  });
 
+  
 app.put('/admin/update-seat/:seat_id', async (req, res) => {
     try {
         const { seat_id } = req.params;
