@@ -6,6 +6,7 @@ const path = require('path');
 const UserModel = require('./Users');
 const { v4: uuidv4 } = require('uuid');
 const ImageIdModel = require('./imageID');
+const serverless = require('serverless-http');
 
 require('dotenv').config();
 
@@ -143,7 +144,7 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
 
 
 app.use('/auth', loginAdm)
-
+app.use('/api', userRoutes);
 
 // Routes
 app.post('/admin/add-reservation', addUser);
@@ -167,3 +168,5 @@ app.listen(port, err => {
         console.log(`Server running on port ${port}`);
     }
 });
+
+module.exports.handler = serverless(app);
