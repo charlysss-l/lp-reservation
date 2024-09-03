@@ -87,15 +87,17 @@ const SeatTable = ({ seat = [] }) => {
                                 <tr key={index}>
                                     <td className="data">{seat.seatNumber}</td>
                                     <td className="data">
-                                        {seat.ThreeHourCode ? (
-                                            <img src={`http://localhost:3000/Images/${seat.ThreeHourCode}`} alt="3 Hour Code" className="seat-image" />
-                                        ) : 'No Image'}
-                                    </td>
-                                    <td className="data">
-                                        {seat.WholeDayCode ? (
-                                            <img src={`http://localhost:3000/Images/${seat.WholeDayCode}`} alt="24 Hour Code" className="seat-image" />
-                                        ) : 'No Image'}
-                                    </td>
+    {seat.ThreeHourCode ? (
+        <img src={seat.ThreeHourCode} alt="3 Hour Code" className="seat-image" />
+    ) : 'No Image'}
+</td>
+<td className="data">
+    {seat.WholeDayCode ? (
+        <img src={seat.WholeDayCode} alt="24 Hour Code" className="seat-image" />
+    ) : 'No Image'}
+</td>
+
+
                                     <td className="data">
                                         <button
                                             type="button"
