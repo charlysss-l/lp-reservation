@@ -22,7 +22,7 @@
     width: 50%;
     height: 50%;
     justify-content: center;
-    background-image: linear-gradient(to bottom, rgb(230, 187, 187), #b27f95);
+    background-image: linear-gradient(to bottom, rgba(230, 187, 187, 0.751), #b27f9571);
     border-radius: 10px;
     color: white;
     font-size: 20px;
