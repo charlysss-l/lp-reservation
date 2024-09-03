@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import './AddSeatForm.css';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const storage = getStorage(); // Initialize Firebase Storage
 
 function AddSeatForm({ onAddSeat, seat }) {
@@ -50,12 +51,12 @@ function AddSeatForm({ onAddSeat, seat }) {
     e.preventDefault();
     try {
       const response = seat
-        ? await axios.put(`http://localhost:3000/admin/update-seat/${seat.seat_id}`, {
+        ? await axios.put(`${apiUrl}/admin/update-seat/${seat.seat_id}`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage
           })
-        : await axios.post('http://localhost:3000/admin/add-seat', {
+        : await axios.post(`${apiUrl}/admin/add-seat`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage
