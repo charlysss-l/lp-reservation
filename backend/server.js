@@ -7,22 +7,28 @@ const UserModel = require('./Users');
 const { v4: uuidv4 } = require('uuid');
 const ImageIdModel = require('./imageID');
 
-// Import routes and handlers
+
+
+
+
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
 const { addSeat, fetchSeats, removeSeat, Seat } = require('./seat');
 const { updateSeatStatus } = require('./seat');
-const loginAdm = require('./src/routes/login');
+
+
+const loginAdm = require('./src/routes/login')
+
+
 
 const app = express();
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());
 app.use('/Images', express.static(path.join(__dirname, 'public/images')));
 
-// Connect to MongoDB using environment variable
-const mongoURI = process.env.MONGODB_URI;
-
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+// Connect to MongoDB
+mongoose.connect('mongodb+srv://lp-reservation:lp-reservation@cluster0.qjwlv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB', err));
 
@@ -39,35 +45,45 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
+const upload = multer ({ 
+    storage: storage
+})
 
 app.post('/upload', upload.single('file'), async (req, res) => {
     try {
+        // Fetch the existing image
         const existingImage = await UserModel.findOne().sort({ image_id: -1 });
 
+        // Delete the old image if it exists
         if (existingImage) {
+            // Delete the image file from the filesystem (optional)
             const fs = require('fs');
             const imagePath = path.join(__dirname, 'public/images', existingImage.image);
             if (fs.existsSync(imagePath)) {
-                fs.unlinkSync(imagePath);
+                fs.unlinkSync(imagePath); // Remove the file from the filesystem
             }
 
+            // Remove the image record from the database
             await UserModel.deleteOne({ _id: existingImage._id });
         }
 
+        // Get or initialize the current image_id
         let imageIdDoc = await ImageIdModel.findOne();
         if (!imageIdDoc) {
             imageIdDoc = new ImageIdModel({ currentId: 0 });
             await imageIdDoc.save();
         }
 
+        // Increment the image_id and save
         const imageId = imageIdDoc.currentId;
         imageIdDoc.currentId += 1;
         await imageIdDoc.save();
 
+        // Create the new image record
         const newImage = new UserModel({ image_id: imageId, image: req.file.filename });
         await newImage.save();
 
+        // Send back the image information
         res.json({ image: newImage.image });
     } catch (err) {
         console.error(err);
@@ -75,15 +91,20 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 });
 
+
+
 app.get('/getImage', (req, res) => {
-    UserModel.find().sort({ image_id: -1 }).limit(1)
+    UserModel.find().sort({ image_id: -1 }).limit(1) // Sort by image_id in descending order
         .then(users => res.json(users))
         .catch(err => res.status(500).json(err));
 });
 
+
 app.post('/upload-seat-image', upload.single('file'), async (req, res) => {
     try {
+        // Save the image file name and URL
         const imageUrl = req.file.filename;
+
         res.json({ success: true, imageUrl });
     } catch (err) {
         console.error('Error uploading image:', err);
@@ -96,6 +117,7 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
         const { seat_id } = req.params;
         const { seatNumber, ThreeHourImage, WholeDayImage } = req.body;
 
+        // Validate input
         if (!seat_id || !seatNumber) {
             return res.status(400).json({ success: false, message: 'Invalid input' });
         }
@@ -103,7 +125,7 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
         const updatedSeat = await Seat.findOneAndUpdate(
             { seat_id },
             { seatNumber, ThreeHourCode: ThreeHourImage, WholeDayCode: WholeDayImage },
-            { new: true }
+            { new: true } // Return the updated document
         );
 
         if (updatedSeat) {
@@ -117,8 +139,12 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
     }
 });
 
-app.use('/auth', loginAdm);
 
+
+app.use('/auth', loginAdm)
+
+
+// Routes
 app.post('/admin/add-reservation', addUser);
 app.get('/admin/history-table', fetchUser);
 app.post('/admin/remove-user', removeUser);
@@ -129,4 +155,14 @@ app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
 app.put('/admin/update-seat-status', updateSeatStatus);
 
-module.exports = app;
+
+const admin = require('./src/scripts/admin')
+admin()
+
+app.listen(port, err => {
+    if (err) {
+        console.error(`Error starting server: ${err}`);
+    } else {
+        console.log(`Server running on port ${port}`);
+    }
+});
