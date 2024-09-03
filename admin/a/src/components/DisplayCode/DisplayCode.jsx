@@ -14,7 +14,7 @@ const DisplayCode = () => {
         <h1 className="display-title">Reservation Successful!</h1>
         
         <div className="button-display-container">
-        <p>Your Reservation Code: 
+        <p>Your Voucher Code: 
 
           <br/>
           {code ? (
