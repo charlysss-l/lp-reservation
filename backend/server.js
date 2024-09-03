@@ -7,6 +7,7 @@ const UserModel = require('./Users');
 const { v4: uuidv4 } = require('uuid');
 const ImageIdModel = require('./imageID');
 
+require('dotenv').config();
 
 
 
@@ -28,7 +29,7 @@ app.use(express.json());
 app.use('/Images', express.static(path.join(__dirname, 'public/images')));
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://lp-reservation:lp-reservation@cluster0.qjwlv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB', err));
 
