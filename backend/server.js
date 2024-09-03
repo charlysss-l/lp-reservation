@@ -161,8 +161,8 @@ admin()
 
 app.listen(port, err => {
     if (err) {
-        console.error('Error starting server: ${err}');
+        console.error(`Error starting server: ${err}`);
     } else {
-        console.log('Server running on port ${port}');
+        console.log(`Server running on port ${port}`);
     }
 });
