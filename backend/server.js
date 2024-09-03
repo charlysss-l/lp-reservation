@@ -144,7 +144,6 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
 
 
 app.use('/auth', loginAdm)
-app.use('/api', userRoutes);
 
 // Routes
 app.post('/admin/add-reservation', addUser);
