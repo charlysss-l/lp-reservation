@@ -1,10 +1,11 @@
+
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import './AddSeatForm.css';
 
 const apiUrl = import.meta.env.VITE_API_URL;
-const storage = getStorage(); // Firebase Storage
+const storage = getStorage(); // Initialize Firebase Storage
 
 function AddSeatForm({ onAddSeat, seat }) {
   const [addSeat, setAddSeat] = useState({
@@ -27,8 +28,8 @@ function AddSeatForm({ onAddSeat, seat }) {
     } catch (error) {
       console.error('Error uploading image:', error);
       alert('Error uploading image');
-      return ""; // Return an empty string on failure
     }
+    return "";
   };
 
   const handleImageChange = async (e, type) => {
@@ -50,23 +51,21 @@ function AddSeatForm({ onAddSeat, seat }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      // Prepare the data for submission
-      const seatData = {
-        seatNumber: addSeat.seatNumber,
-        ThreeHourImage: addSeat.ThreeHourImage,
-        WholeDayImage: addSeat.WholeDayImage,
-      };
-
-      // Send the data to the backend API
       const response = seat
-        ? await axios.put(`${apiUrl}/admin/update-seat/${seat._id}`, seatData)
-        : await axios.post(`${apiUrl}/admin/add-seat`, seatData);
+        ? await axios.put(`${apiUrl}/admin/update-seat/${seat._id}`, { // Note: Use `seat._id` for MongoDB
+            seatNumber: addSeat.seatNumber,
+            ThreeHourImage: addSeat.ThreeHourImage,
+            WholeDayImage: addSeat.WholeDayImage
+          })
+        : await axios.post(`${apiUrl}/admin/add-seat`, {
+            seatNumber: addSeat.seatNumber,
+            ThreeHourImage: addSeat.ThreeHourImage,
+            WholeDayImage: addSeat.WholeDayImage
+          });
 
-      // Notify the parent component
       alert(seat ? 'Seat updated' : 'Seat added');
       if (onAddSeat) onAddSeat(response.data.seat);
 
-      // Reset the form
       setAddSeat({
         seatNumber: "",
         ThreeHourImage: "",
@@ -74,8 +73,8 @@ function AddSeatForm({ onAddSeat, seat }) {
         ThreeHourImageFile: null,
         WholeDayImageFile: null
       });
-      if (threeHourImageInputRef.current) threeHourImageInputRef.current.value = null;
-      if (wholeDayImageInputRef.current) wholeDayImageInputRef.current.value = null;
+      threeHourImageInputRef.current.value = null;
+      wholeDayImageInputRef.current.value = null;
     } catch (err) {
       console.error('Error:', err);
       alert('Error adding/updating seat');
@@ -86,7 +85,7 @@ function AddSeatForm({ onAddSeat, seat }) {
     <div className="div-con">
       <h2 className="add-reservation-title">{seat ? 'Edit Seat' : 'Add Seat'}</h2>
       <div className="add-reservation-form">
-        <form onSubmit={submitHandler}>
+        <form>
           <label>
             Seat Number:
             <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
@@ -110,7 +109,7 @@ function AddSeatForm({ onAddSeat, seat }) {
             {addSeat.WholeDayImage && <img src={addSeat.WholeDayImage} className='imageCode' alt="24 Hour Code" />}
           </label>
           <div className="button">
-            <button type="submit" className="submit-button-reservation">
+            <button type="submit" className="submit-button-reservation" onClick={submitHandler}>
               {seat ? 'Update' : 'Save'}
             </button>
           </div>
