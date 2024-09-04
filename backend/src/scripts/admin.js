@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs'); // Use bcryptjs
 const Userr = require('../models/user.js');
 
 const createAdminAccount = async () => {
@@ -8,7 +8,7 @@ const createAdminAccount = async () => {
             const newAdmin = new Userr({
                 email: 'admintest@gmail.com',
                 name: 'Admin',
-                password: await bcrypt.hash('admin', 10),
+                password: await bcrypt.hash('admin', 10), // bcrypt.hash syntax remains the same
                 role: 'admin'
             });
             await newAdmin.save();
