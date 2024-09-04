@@ -6,7 +6,7 @@ const DisplayCode = () => {
     const location = useLocation();
     const { code } = location.state || { code: '' };
 
-    const imageUrl = code; // Directly use the Firebase Storage URL
+    const imageUrl = `http://localhost:3000/Images/${code}`; // Construct the URL based on the code
 
 
     return (

@@ -53,18 +53,17 @@ const AddReservation = () => {
       .catch(err => console.error('Error fetching seats:', err));
   }, []);
 
-  // Fetch and set the code image URL
-useEffect(() => {
-  const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
-  if (selectedSeat) {
+  useEffect(() => {
+    const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
+    if (selectedSeat) {
       const code = addUsers.internetHours === '3' ? selectedSeat.ThreeHourCode : selectedSeat.WholeDayCode;
       if (code) {
-          setCodeImage(code); // URL from Firebase Storage
+        setCodeImage(`http://localhost:3000/Images/${code}`);
       } else {
-          setCodeImage("");
+        setCodeImage("");
       }
-  }
-}, [addUsers.seatNumber, addUsers.internetHours, seats]);
+    }
+  }, [addUsers.seatNumber, addUsers.internetHours, seats]);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
