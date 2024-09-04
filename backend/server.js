@@ -1,14 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
+
 const UserModel = require('./Users');
+const {v4: uuidv4 }= require('uuid')
 const ImageIdModel = require('./imageID');
 require('dotenv').config();
 
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
-const { addSeat, fetchSeats, removeSeat, Seat, updateSeatStatus } = require('./seat');
+const { addSeat, fetchSeats, removeSeat, Seat } = require('./seat');
+const { updateSeatStatus } = require('./seat')
 const loginAdm = require('./src/routes/login');
 
 const app = express();
@@ -23,7 +24,6 @@ const port = process.env.PORT || 3000;
 
 
 app.use(express.json());
-app.use('/Images', express.static(path.join(__dirname, 'public/images')));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL)
@@ -34,60 +34,57 @@ app.get('/', (req, res) => {
     res.send('Express app is running');
 });
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/images');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
-    }
-});
 
-const upload = multer({ storage });
 
-app.post('/upload', upload.single('file'), async (req, res) => {
+//this is for the seatmap upload image using firebase
+app.post('/upload-image-url', async (req, res) => {
     try {
+        const { imageUrl } = req.body;
+
+        // Fetch the existing image
         const existingImage = await UserModel.findOne().sort({ image_id: -1 });
 
+        // Delete the old image if it exists (optional for Firebase)
         if (existingImage) {
-            const fs = require('fs');
-            const imagePath = path.join(__dirname, 'public/images', existingImage.image);
-            if (fs.existsSync(imagePath)) {
-                fs.unlinkSync(imagePath);
-            }
-
             await UserModel.deleteOne({ _id: existingImage._id });
         }
 
+        // Get or initialize the current image_id
         let imageIdDoc = await ImageIdModel.findOne();
         if (!imageIdDoc) {
             imageIdDoc = new ImageIdModel({ currentId: 0 });
             await imageIdDoc.save();
         }
 
+        // Increment the image_id and save
         const imageId = imageIdDoc.currentId;
         imageIdDoc.currentId += 1;
         await imageIdDoc.save();
 
-        const newImage = new UserModel({ image_id: imageId, image: req.file.filename });
+        // Create the new image record with the Firebase URL
+        const newImage = new UserModel({ image_id: imageId, image: imageUrl });
         await newImage.save();
 
-        res.json({ image: newImage.image });
+        // Send back the image information
+        res.json({ success: true, image: newImage.image });
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
     }
-});
+})
 
 app.get('/getImage', (req, res) => {
-    UserModel.find().sort({ image_id: -1 }).limit(1)
+    UserModel.find().sort({ image_id: -1 }).limit(1) // Sort by image_id in descending order
         .then(users => res.json(users))
         .catch(err => res.status(500).json(err));
 });
 
-app.post('/upload-seat-image', upload.single('file'), async (req, res) => {
+//this is for the seat qr code image
+app.post('/upload-seat-image',  async (req, res) => {
     try {
+        // Save the image file name and URL
         const imageUrl = req.file.filename;
+
         res.json({ success: true, imageUrl });
     } catch (err) {
         console.error('Error uploading image:', err);
@@ -95,18 +92,14 @@ app.post('/upload-seat-image', upload.single('file'), async (req, res) => {
     }
 });
 
-app.put('/admin/update-seat/:seat_id', async (req, res) => {
+app.put('/admin/update-seat-position/:seat_id', async (req, res) => {
     try {
         const { seat_id } = req.params;
-        const { seatNumber, ThreeHourImage, WholeDayImage } = req.body;
-
-        if (!seat_id || !seatNumber) {
-            return res.status(400).json({ success: false, message: 'Invalid input' });
-        }
+        const { x, y } = req.body;
 
         const updatedSeat = await Seat.findOneAndUpdate(
             { seat_id },
-            { seatNumber, ThreeHourCode: ThreeHourImage, WholeDayCode: WholeDayImage },
+            { 'position.x': x, 'position.y': y },
             { new: true }
         );
 
@@ -116,10 +109,26 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
             res.status(404).json({ success: false, message: 'Seat not found' });
         }
     } catch (error) {
-        console.error('Error updating seat:', error);
+        console.error('Error updating seat position:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
+
+
+
+app.get('/admin/seat-position/:seat_id', async (req, res) => {
+    try {
+        const seat = await Seat.findOne({ seat_id: req.params.seat_id });
+        if (seat) {
+            res.json({ position: seat.position });
+        } else {
+            res.status(404).json({ message: 'Seat not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching seat position:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
 
 app.use('/auth', loginAdm);
 

@@ -23,6 +23,10 @@ const seatSchema = new mongoose.Schema({
         type: String,
         enum: ['active', 'available'],
         default: 'available',
+    },
+    position: {
+        x: { type: Number, default: 0 },
+        y: { type: Number, default: 0 }
     }
 });
 
@@ -36,8 +40,8 @@ const addSeat = async (req, res) => {
         const seat = new Seat({
             seat_id: id,
             seatNumber: req.body.seatNumber,
-            ThreeHourCode: req.body.ThreeHourImage, // Use image URL
-            WholeDayCode: req.body.WholeDayImage  // Use image URL
+            ThreeHourCode: req.body.ThreeHourImage, // Firebase Storage URL
+            WholeDayCode: req.body.WholeDayImage  // Firebase Storage URL
         });
 
         await seat.save();
@@ -47,6 +51,8 @@ const addSeat = async (req, res) => {
         res.status(500).json({ success: false, message: 'An error occurred while adding the seat', error });
     }
 };
+
+
 
 
 
@@ -96,5 +102,9 @@ const updateSeatStatus = async (req, res) => {
 
 
 
+
+
+
+
 // Export the new function
-module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus, Seat };
+module.exports = { addSeat, fetchSeats, removeSeat, updateSeatStatus, Seat }
