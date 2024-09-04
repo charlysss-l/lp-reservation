@@ -6,8 +6,6 @@ import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import './SeatMap.css';
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 function SeatMap() {
     const [seats, setSeats] = useState([]);
     const [file, setFile] = useState(null);
@@ -22,7 +20,7 @@ function SeatMap() {
                 setImageUrl(url);
 
                 // After successfully uploading to Firebase, save the image URL to your backend
-                await axios.post(`${apiUrl}/upload-image-url`, { imageUrl: url });
+                await axios.post('http://localhost:3000/upload-image-url', { imageUrl: url });
             } catch (error) {
                 console.error("Error uploading image to Firebase:", error);
             }
@@ -30,7 +28,7 @@ function SeatMap() {
     };
 
     useEffect(() => {
-        axios.get(`${apiUrl}/getImage`)
+        axios.get('http://localhost:3000/getImage')
             .then(res => {
                 const latestImage = res.data[0]; // Assuming the latest image is first
                 setImageUrl(latestImage.image);
@@ -45,7 +43,7 @@ function SeatMap() {
     useEffect(() => {
         const fetchSeats = async () => {
             try {
-                const response = await fetch(`${apiUrl}/admin/seat-qr`);
+                const response = await fetch('http://localhost:3000/admin/seat-qr');
                 const data = await response.json();
                 setSeats(data);
             } catch (error) {

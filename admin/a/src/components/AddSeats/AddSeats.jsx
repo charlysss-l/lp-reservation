@@ -4,8 +4,6 @@ import Draggable from 'react-draggable';
 import axios from 'axios'; // Import axios for HTTP requests
 import './AddSeats.css';
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 function AddSeats({ seat }) {
   const [status, setStatus] = useState(seat.status || 'available');
   const [isDragging, setIsDragging] = useState(false); // State to track dragging
@@ -19,7 +17,7 @@ function AddSeats({ seat }) {
   useEffect(() => {
     const fetchPosition = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/admin/seat-position/${seat.seat_id}`);
+        const response = await axios.get(`http://localhost:3000/admin/seat-position/${seat.seat_id}`);
         const seatPosition = response.data.position;
         if (seatPosition) {
           setPosition(seatPosition);
@@ -52,7 +50,7 @@ function AddSeats({ seat }) {
 
     // Save the new position to MongoDB
     try {
-      await axios.put(`${apiUrl}/admin/update-seat-position/${seat.seat_id}`, {
+      await axios.put(`http://localhost:3000/admin/update-seat-position/${seat.seat_id}`, {
         x: data.x,
         y: data.y
       });
