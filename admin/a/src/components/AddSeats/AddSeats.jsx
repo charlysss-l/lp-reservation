@@ -16,20 +16,22 @@ function AddSeats({ seat }) {
   }, [seat]);
 
   useEffect(() => {
+    console.log("Fetching position for seat_id:", seat.seat_id);
     const fetchPosition = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/seat-position/${seat.seat_id}`);
-        const seatPosition = response.data.position;
-        if (seatPosition) {
-          setPosition(seatPosition);
+        try {
+            const response = await axios.get(`${apiUrl}/admin/seat-position/${seat.seat_id}`);
+            const seatPosition = response.data.position;
+            if (seatPosition) {
+                setPosition(seatPosition);
+            }
+        } catch (error) {
+            console.error('Error fetching seat position:', error);
         }
-      } catch (error) {
-        console.error('Error fetching seat position:', error);
-      }
     };
 
     fetchPosition();
-  }, [seat.seat_id]);
+}, [seat.seat_id]);
+
 
   const handleMouseDown = () => {
     setIsDragging(true); // Set dragging state to true on mouse down
