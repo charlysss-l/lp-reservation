@@ -70,17 +70,22 @@ function AddSeats({ seat }) {
         handleMouseUp();
         handleStop(e, data); // Save position when dragging stops
       }}
+      cancel=".seat" // Prevents dragging if the target is the .seat element
+
     >
       <div className="main-container">
-        <button
-          className={`seat ${status}`} // Apply class based on status
-          onMouseDown={handleMouseDown} // Start tracking dragging
-          onMouseUp={handleMouseUp}     // Stop tracking dragging
-          onClick={handleSeatClick}
-          disabled={status !== 'available'} // Disable button if not available
-        >
-          {seat.seatNumber}
-        </button>
+      <button
+  className={`seat ${status}`}
+  onMouseDown={handleMouseDown}
+  onMouseUp={handleMouseUp}
+  onClick={handleSeatClick}
+  onTouchStart={handleMouseDown}
+  onTouchEnd={handleMouseUp}
+  disabled={status !== 'available'}
+>
+  {seat.seatNumber}
+</button>
+
       </div>
     </Draggable>
   );
