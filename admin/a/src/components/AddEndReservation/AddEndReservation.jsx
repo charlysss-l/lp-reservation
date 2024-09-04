@@ -2,6 +2,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const AddEndReservation = () => {
   const location = useLocation();
   const navigate = useNavigate();  // Hook to handle navigation
@@ -50,14 +52,15 @@ const AddEndReservation = () => {
     }
 
     try {
-      await axios.post('http://localhost:3000/admin/end-reservation', {
+      await axios.post(`${apiUrl}/admin/end-reservation`, {
         user_id: user.user_id,
         finalEndDate: addEnd.finalEndDate,
         finalEndTime: addEnd.finalEndTime,
       });
 
       // Update the seat status to 'available'
-      await axios.put('http://localhost:3000/admin/update-seat-status', {
+      await axios.put(`${apiUrl}
+        /admin/update-seat-status`, {
         seatNumber: user.seatNumber, // Assuming user object contains seatNumber
         status: 'available'
     });

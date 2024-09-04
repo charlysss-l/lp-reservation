@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './AddReservation.css';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const AddReservation = () => {
   const location = useLocation();
@@ -46,7 +47,7 @@ const AddReservation = () => {
   const [codeImage, setCodeImage] = useState("");
 
   useEffect(() => {
-    axios.get('http://localhost:3000/admin/seat-qr')
+    axios.get(`${apiUrl}/admin/seat-qr`)
       .then(res => {
         setSeats(res.data);
       })
@@ -97,14 +98,15 @@ useEffect(() => {
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
     try {
-        await axios.post('http://localhost:3000/admin/add-reservation', {
+        await axios.post(`${apiUrl}
+/admin/add-reservation`, {
             ...addUsers,
             code: code,
             startTime: startTime,
         });
 
         // Update the seat's status to 'active'
-        await axios.put('http://localhost:3000/admin/update-seat-status', {
+        await axios.put(`${apiUrl}/admin/update-seat-status`, {
           seatNumber: addUsers.seatNumber,
           status: 'active'
       });

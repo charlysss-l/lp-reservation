@@ -2,6 +2,7 @@ import './SeatTable.css';
 import { useState, useEffect } from 'react';
 import AddSeatForm from '../SeatForm/AddSeatForm';
 import Modal from '../Modal/Modal';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
 const removeSeat = async (seat_id, onSeatRemoved) => {
@@ -9,7 +10,7 @@ const removeSeat = async (seat_id, onSeatRemoved) => {
 
     if (isConfirmed) {
         try {
-            const response = await fetch('http://localhost:3000/admin/remove-seat', {
+            const response = await fetch(`${apiUrl}/admin/remove-seat`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

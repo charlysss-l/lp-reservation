@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 import './DisplayCode.css';
 

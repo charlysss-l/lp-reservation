@@ -1,5 +1,6 @@
 import './HistoryTable.css';
 import { useState, useEffect } from 'react';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 // Helper function to format date
 const formatDate = (dateString) => {
@@ -29,7 +30,7 @@ const removeUser = async (user_id, onUserRemoved) => {
 
     if (isConfirmed) {
         try {
-            const response = await fetch('http://localhost:3000/admin/remove-user', {
+            const response = await fetch(`${apiUrl}/admin/remove-user`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
