@@ -4,7 +4,7 @@
 
 .bothContainer {
     display: flex;
-    height: 1000px;
+    height: 1200px;
     align-items: center;
     justify-content: center;
     margin: 20px;
@@ -55,7 +55,7 @@
 }
 
 .floorMap{
-    width: 100%;
+    width: 90%;
     height: 90%;
     margin: -10px;
 }
