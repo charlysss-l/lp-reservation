@@ -36,7 +36,7 @@
     width: 200px;
 }
 
-.bothContainer button {
+.uploadBtn {
     height: 40px;
     width: 100px;
     background-color: #E4AEC5;
@@ -49,7 +49,7 @@
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.bothContainer button:hover {
+.uploadBtn:hover {
     background-color: #c04576;
     color: #ffffff;
     border-color: #b693a1;

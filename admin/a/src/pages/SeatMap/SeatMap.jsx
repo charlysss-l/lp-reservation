@@ -68,7 +68,7 @@ function SeatMap() {
                     <br />
 
                     <input type="file" onChange={e => setFile(e.target.files[0])} />
-                    <button onClick={handleUpload}>Upload</button>
+                    <button className="uploadBtn" onClick={handleUpload}>Upload</button>
             </div>
         </div>
     );
