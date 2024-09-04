@@ -91,7 +91,7 @@ const HistoryTable = ({ user = [] }) => {
                             <th className="title">Start Time</th>
                             <th className="title">End Date</th>
                             <th className="title">End Time</th>
-                            <th className="title">Delete</th>
+                            <th className="title">Remove</th>
                         </tr>
                     </thead>
                     <tbody>
