@@ -86,13 +86,11 @@ app.get('/getImage', (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
+//this is for the seat qr code image
 app.post('/upload-seat-image',  async (req, res) => {
     try {
-        const { imageUrl } = req.body; // Expecting imageUrl in request body
-
-        // Save the image URL in your database (this example assumes you have a SeatImage model)
-        const newSeatImage = new SeatImage({ imageUrl });
-        await newSeatImage.save();
+        // Save the image file name and URL
+        const imageUrl = req.file.filename;
 
         res.json({ success: true, imageUrl });
     } catch (err) {
@@ -103,17 +101,16 @@ app.post('/upload-seat-image',  async (req, res) => {
 
 app.put('/admin/update-seat-position/:seat_id', async (req, res) => {
     try {
-        console.log('Updating seat position for seat_id:', req.params.seat_id);
-        console.log('Received position:', req.body.x, req.body.y);
+        const { seat_id } = req.params;
+        const { x, y } = req.body;
 
         const updatedSeat = await Seat.findOneAndUpdate(
-            { seat_id: req.params.seat_id },
-            { 'position.x': req.body.x, 'position.y': req.body.y },
+            { seat_id },
+            { 'position.x': x, 'position.y': y },
             { new: true }
         );
 
         if (updatedSeat) {
-            console.log('Seat updated successfully:', updatedSeat);
             res.json({ success: true, seat: updatedSeat });
         } else {
             res.status(404).json({ success: false, message: 'Seat not found' });
