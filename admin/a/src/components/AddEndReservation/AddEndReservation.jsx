@@ -59,8 +59,7 @@ const AddEndReservation = () => {
       });
 
       // Update the seat status to 'available'
-      await axios.put(`${apiUrl}
-        /admin/update-seat-status`, {
+      await axios.put(`${apiUrl}/admin/update-seat-status`, {
         seatNumber: user.seatNumber, // Assuming user object contains seatNumber
         status: 'available'
     });
