@@ -60,19 +60,15 @@ function SeatMap() {
             <h2 className="seatMap-title">Seat Map</h2>
 
             <div className="bothContainer">
-                <div className="seatContainer">
                     {seats.map(seat => (
                         <AddSeats key={seat.seatNumber} seat={seat} />
                     ))}
-                </div>
 
-                <div className="mapContainer">
                     {imageUrl && <img src={getImageUrl()} alt="Seat Map" />}
                     <br />
 
                     <input type="file" onChange={e => setFile(e.target.files[0])} />
                     <button onClick={handleUpload}>Upload</button>
-                </div>
             </div>
         </div>
     );
