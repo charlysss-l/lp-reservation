@@ -1,6 +1,10 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import './AddSeatForm.css';
+const apiUrl = import.meta.env.VITE_API_URL;
+
+const storage = getStorage(); // Initialize Firebase Storage
 
 function AddSeatForm({ onAddSeat, seat }) {
   const [addSeat, setAddSeat] = useState({
@@ -14,19 +18,14 @@ function AddSeatForm({ onAddSeat, seat }) {
   const threeHourImageInputRef = useRef(null);
   const wholeDayImageInputRef = useRef(null);
 
-  const imageHandler = async (file) => {
-    let formData = new FormData();
-    formData.append('file', file);
-
+  const uploadImageToFirebase = async (file) => {
+    const storageRef = ref(storage, `images/${file.name}`);
     try {
-      const response = await axios.post('http://localhost:3000/upload-seat-image', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      if (response.data.success) {
-        return response.data.imageUrl;
-      }
-    } catch (err) {
-      console.error('Error uploading image:', err);
+      await uploadBytes(storageRef, file);
+      const imageUrl = await getDownloadURL(storageRef);
+      return imageUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
       alert('Error uploading image');
     }
     return "";
@@ -35,7 +34,7 @@ function AddSeatForm({ onAddSeat, seat }) {
   const handleImageChange = async (e, type) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = await imageHandler(file);
+      const imageUrl = await uploadImageToFirebase(file);
       if (type === 'ThreeHourImage') {
         setAddSeat(prev => ({ ...prev, ThreeHourImage: imageUrl, ThreeHourImageFile: file }));
       } else {
@@ -52,12 +51,12 @@ function AddSeatForm({ onAddSeat, seat }) {
     e.preventDefault();
     try {
       const response = seat
-        ? await axios.put(`http://localhost:3000/admin/update-seat/${seat.seat_id}`, {
+        ? await axios.put(`${apiUrl}/admin/update-seat/${seat.seat_id}`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage
           })
-        : await axios.post('http://localhost:3000/admin/add-seat', {
+        : await axios.post(`${apiUrl}/admin/add-seat`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage
@@ -97,7 +96,7 @@ function AddSeatForm({ onAddSeat, seat }) {
               onChange={(e) => handleImageChange(e, 'ThreeHourImage')}
               ref={threeHourImageInputRef}
             />
-            {addSeat.ThreeHourImage && <img src={`http://localhost:3000/Images/${addSeat.ThreeHourImage}`} className='imageCode' alt="3 Hour Code" />}
+            {addSeat.ThreeHourImage && <img src={addSeat.ThreeHourImage} className='imageCode' alt="3 Hour Code" />}
           </label>
           <label>
             Code for 24 Hours:
@@ -106,7 +105,7 @@ function AddSeatForm({ onAddSeat, seat }) {
               onChange={(e) => handleImageChange(e, 'WholeDayImage')}
               ref={wholeDayImageInputRef}
             />
-            {addSeat.WholeDayImage && <img src={`http://localhost:3000/Images/${addSeat.WholeDayImage}`} className='imageCode' alt="24 Hour Code" />}
+            {addSeat.WholeDayImage && <img src={addSeat.WholeDayImage} className='imageCode' alt="24 Hour Code" />}
           </label>
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>

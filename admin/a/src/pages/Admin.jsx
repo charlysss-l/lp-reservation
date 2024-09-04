@@ -16,6 +16,7 @@ import DisplayCode from '../components/DisplayCode/DisplayCode';
 import OngoingReservation from './OngoingReservation/OngoingReservation';
 import OngoingReservationTable from '../components/OngoingReservationTable/OngoingReservationTable';
 import AddEndReservation from '../components/AddEndReservation/AddEndReservation';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Admin = () => {
   return (

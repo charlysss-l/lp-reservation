@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import HistoryTable from '../../components/HistoryTable/HistoryTable';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const History = () => {
     const [users, setUsers] = useState([]);
@@ -10,7 +11,7 @@ const History = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://localhost:3000/admin/history-table');
+            const response = await fetch(`${apiUrl}/admin/history-table`);
             const data = await response.json();
             setUsers(data);
         } catch (error) {

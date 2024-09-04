@@ -1,8 +1,9 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs'); // Use bcryptjs
 const Userr = require('../models/user.js');
-const { generateToken } = require('../utils/jwtUtils.js'); // Correct function name
+const { generateToken } = require('../utils/jwtUtils.js');
 const { verifyToken } = require('../utils/authMiddleware.js');
 
+// Function to log in a user
 const loGin = async (email, password) => {
     try {
         console.log('Login attempt:', email); // Log email
@@ -16,12 +17,14 @@ const loGin = async (email, password) => {
             throw new Error('User not found');
         }
         
+        // Check if the password is valid
         const isPasswordValid = await bcrypt.compare(password, existingUser.password);
         if (!isPasswordValid) {
             console.log('Incorrect password'); // Log incorrect password
             throw new Error('Incorrect password');
         }
         
+        // Generate a token for the user
         const token = generateToken(existingUser);
         console.log('Token generated:', token); // Log generated token
         return token;
@@ -31,6 +34,7 @@ const loGin = async (email, password) => {
     }
 };
 
+// Function to refresh a token
 const refreshTokenService = async (oldToken) => {
     try {
         console.log('Refreshing token:', oldToken); // Log the old token

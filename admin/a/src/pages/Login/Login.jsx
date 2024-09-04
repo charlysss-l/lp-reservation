@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Login.css';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Login = () => {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ const Login = () => {
 const handleSubmitButton = async (e) => {
   e.preventDefault();
   try {
-    const response = await fetch('http://localhost:3000/auth/login', {
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers:{
         'Content-Type': 'application/json'

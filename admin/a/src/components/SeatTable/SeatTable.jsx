@@ -2,6 +2,7 @@ import './SeatTable.css';
 import { useState, useEffect } from 'react';
 import AddSeatForm from '../SeatForm/AddSeatForm';
 import Modal from '../Modal/Modal';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
 const removeSeat = async (seat_id, onSeatRemoved) => {
@@ -9,7 +10,7 @@ const removeSeat = async (seat_id, onSeatRemoved) => {
 
     if (isConfirmed) {
         try {
-            const response = await fetch('http://localhost:3000/admin/remove-seat', {
+            const response = await fetch(`${apiUrl}/admin/remove-seat`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -87,15 +88,17 @@ const SeatTable = ({ seat = [] }) => {
                                 <tr key={index}>
                                     <td className="data">{seat.seatNumber}</td>
                                     <td className="data">
-                                        {seat.ThreeHourCode ? (
-                                            <img src={`http://localhost:3000/Images/${seat.ThreeHourCode}`} alt="3 Hour Code" className="seat-image" />
-                                        ) : 'No Image'}
-                                    </td>
-                                    <td className="data">
-                                        {seat.WholeDayCode ? (
-                                            <img src={`http://localhost:3000/Images/${seat.WholeDayCode}`} alt="24 Hour Code" className="seat-image" />
-                                        ) : 'No Image'}
-                                    </td>
+    {seat.ThreeHourCode ? (
+        <img src={seat.ThreeHourCode} alt="3 Hour Code" className="seat-image" />
+    ) : 'No Image'}
+</td>
+<td className="data">
+    {seat.WholeDayCode ? (
+        <img src={seat.WholeDayCode} alt="24 Hour Code" className="seat-image" />
+    ) : 'No Image'}
+</td>
+
+
                                     <td className="data">
                                         <button
                                             type="button"
