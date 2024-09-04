@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import OngoingReservationTable from '../../components/OngoingReservationTable/OngoingReservationTable';
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
 const OngoingReservation = () => {
     const [users, setUsers] = useState([]);
 
@@ -12,7 +10,7 @@ const OngoingReservation = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch(`${apiUrl}/admin/ongoing-reservation-table`);
+            const response = await fetch('http://localhost:3000/admin/ongoing-reservation-table');
             const data = await response.json();
             setUsers(data);
         } catch (error) {

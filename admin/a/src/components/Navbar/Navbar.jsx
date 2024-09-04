@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Navbar.css'; 
+import './Navbar.css'; // Assuming you have a CSS file for styling
+
 const Navbar = () => {
   const [reservationDropdownOpen, setReservationDropdownOpen] = useState(false);
   const [seatDropdownOpen, setSeatDropdownOpen] = useState(false);
@@ -8,12 +9,12 @@ const Navbar = () => {
 
   const toggleReservationDropdown = () => {
     setReservationDropdownOpen(!reservationDropdownOpen);
-    setSeatDropdownOpen(false); 
+    setSeatDropdownOpen(false); // Close the Seat dropdown when Reservation is clicked
   };
 
   const toggleSeatDropdown = () => {
     setSeatDropdownOpen(!seatDropdownOpen);
-    setReservationDropdownOpen(false); 
+    setReservationDropdownOpen(false); // Close the Reservation dropdown when Seat is clicked
   };
 
   const toggleMenu = () => {

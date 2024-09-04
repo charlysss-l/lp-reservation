@@ -2,13 +2,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-
-const apiUrl = import.meta.env.VITE_API_URL;
-
 const AddEndReservation = () => {
   const location = useLocation();
-  const navigate = useNavigate();  
-  const user = location.state?.user; 
+  const navigate = useNavigate();  // Hook to handle navigation
+  const user = location.state?.user; // Access passed user data
 
   const getDefaultDate = () => {
     const today = new Date();
@@ -38,11 +35,12 @@ const AddEndReservation = () => {
       return;
     }
 
-
+    // Confirmation before proceeding
     const isConfirmed = window.confirm('Are you sure you want to end this reservation?');
 
-    if (!isConfirmed) return; 
+    if (!isConfirmed) return; // Exit if the user does not confirm
 
+    // Ensure the date and time are valid
     const finalEndDateTimeString = `${addEnd.finalEndDate}T${addEnd.finalEndTime}`;
     const finalEndDateTime = new Date(finalEndDateTimeString);
 
@@ -52,21 +50,20 @@ const AddEndReservation = () => {
     }
 
     try {
-     
-      await axios.post(`${apiUrl}/admin/end-reservation`, {
+      await axios.post('http://localhost:3000/admin/end-reservation', {
         user_id: user.user_id,
         finalEndDate: addEnd.finalEndDate,
         finalEndTime: addEnd.finalEndTime,
       });
 
-      
-      await axios.put(`${apiUrl}/admin/update-seat-status`, {
-        seatNumber: user.seatNumber, 
+      // Update the seat status to 'available'
+      await axios.put('http://localhost:3000/admin/update-seat-status', {
+        seatNumber: user.seatNumber, // Assuming user object contains seatNumber
         status: 'available'
-      });
+    });
 
       alert('Reservation ended successfully!');
-      navigate('/admin/ongoing'); 
+      navigate('/admin/ongoing'); // Redirect after successful save
 
     } catch (err) {
       console.error('Error adding end date:', err);

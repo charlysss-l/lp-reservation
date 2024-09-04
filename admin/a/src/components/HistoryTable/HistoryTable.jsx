@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import './HistoryTable.css';
+import { useState, useEffect } from 'react';
 
-const apiUrl = import.meta.env.VITE_API_URL;
-
+// Helper function to format date
 const formatDate = (dateString) => {
     if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
@@ -13,6 +11,7 @@ const formatDate = (dateString) => {
     return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
 };
 
+// Helper function to format time
 const formatTime = (dateString) => {
     if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
@@ -30,12 +29,19 @@ const removeUser = async (user_id, onUserRemoved) => {
 
     if (isConfirmed) {
         try {
-            const response = await axios.post(`${apiUrl}/admin/remove-user`, { user_id });
-            if (response.status === 200) {
+            const response = await fetch('http://localhost:3000/admin/remove-user', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id }),
+            });
+            if (response.ok) {
                 alert('User is removed');
                 if (onUserRemoved) onUserRemoved(user_id);
             } else {
-                const errorData = response.data;
+                const errorData = await response.json();
                 alert(`Failed to remove the user: ${errorData.message}`);
             }
         } catch (error) {

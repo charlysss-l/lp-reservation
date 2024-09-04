@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const Userr = require('../models/user.js');
 const { generateToken } = require('../utils/jwtUtils.js'); // Correct function name
 const { verifyToken } = require('../utils/authMiddleware.js');
