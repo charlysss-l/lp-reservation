@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -52,7 +51,7 @@ function AddSeatForm({ onAddSeat, seat }) {
     e.preventDefault();
     try {
       const response = seat
-        ? await axios.put(`${apiUrl}/admin/update-seat/${seat._id}`, { // Note: Use `seat._id` for MongoDB
+        ? await axios.put(`${apiUrl}/admin/update-seat/${seat.seat_id}`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage
