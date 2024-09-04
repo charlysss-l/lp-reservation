@@ -120,15 +120,46 @@ app.get('/admin/seat-position/:seat_id', async (req, res) => {
     try {
         const seat = await Seat.findOne({ seat_id: req.params.seat_id });
         if (seat) {
+            console.log(`Seat found: ${JSON.stringify(seat)}`);
             res.json({ position: seat.position });
         } else {
+            console.log(`Seat with ID ${req.params.seat_id} not found.`);
             res.status(404).json({ message: 'Seat not found' });
         }
     } catch (error) {
         console.error('Error fetching seat position:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
-})
+});
+
+
+
+app.put('/admin/update-seat/:seat_id', async (req, res) => {
+    try {
+        const { seat_id } = req.params;
+        const { seatNumber, ThreeHourImage, WholeDayImage } = req.body;
+
+        // Validate input
+        if (!seat_id || !seatNumber) {
+            return res.status(400).json({ success: false, message: 'Invalid input' });
+        }
+
+        const updatedSeat = await Seat.findOneAndUpdate(
+            { seat_id },
+            { seatNumber, ThreeHourCode: ThreeHourImage, WholeDayCode: WholeDayImage },
+            { new: true } // Return the updated document
+        );
+
+        if (updatedSeat) {
+            res.json({ success: true, seat: updatedSeat });
+        } else {
+            res.status(404).json({ success: false, message: 'Seat not found' });
+        }
+    } catch (error) {
+        console.error('Error updating seat:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
 
 app.use('/auth', loginAdm);
 

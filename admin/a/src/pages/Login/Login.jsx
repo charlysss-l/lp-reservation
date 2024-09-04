@@ -33,7 +33,7 @@ const handleSubmitButton = async (e) => {
     localStorage.setItem("token", result.token)
     console.log(result);
     navigate('/home');
-    alert('successfully log (logged?) in')
+    alert('successfully logged in')
   } catch (error) {
     console.error("Error: ", error);
     alert('invalid credentials')

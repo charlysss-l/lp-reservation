@@ -16,7 +16,7 @@ const DisplayCode = () => {
         
         <div className="button-display-container">
 
-        <p>Your Voucher Code: 
+        <p>Please Scan Your Voucher Code: 
 
           <br/>
           {code ? (

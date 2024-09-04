@@ -148,27 +148,27 @@ useEffect(() => {
           </div>
 
           <label>
-            Name:
+            Name:<span className='asterisk'>*</span>
             <input type="text" name="name" onChange={changeHandler} value={addUsers.name} />
           </label>
           <label>
-            Email:
+            Email:<span className='asterisk'>*</span>
             <input type="text" name="email" onChange={changeHandler} value={addUsers.email} />
           </label>
           <label>
-            Contact Number:
+            Contact Number:<span className='asterisk'>*</span>
             <input type="text" name="contactNumber" onChange={changeHandler} value={addUsers.contactNumber} />
           </label>
           <label>
-            Company:
+            Company:<span className='asterisk'>*</span>
             <input type="text" name="company" onChange={changeHandler} value={addUsers.company} />
           </label>
           <label>
-            Seat Number:
+            Seat Number:<span className='asterisk'>*</span>
             <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber} readOnly disabled />
           </label>
           <label>
-            Internet Hours:
+            Internet Hours:<span className='asterisk'>*</span>
             <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
               <option value="">Select Internet Hours</option>
               <option value="3">3 Hours</option>
