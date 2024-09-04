@@ -60,26 +60,3 @@
     height: 100%;
 }
 
-/* Adjustments for smaller screens */
-@media (max-width: 768px) { /* iPad in portrait mode and smaller devices */
-    .bothContainer {
-        height: auto; /* Adjust height to content */
-    }
-    .bothContainer input,
-    .bothContainer button {
-        width: 100%; /* Make inputs and buttons take full width */
-        max-width: 300px; /* Restrict maximum width to avoid overly wide elements */
-    }
-}
-
-/* Adjustments for very small screens */
-@media (max-width: 480px) { /* Mobile phones */
-    .bothContainer {
-        padding: 10px; /* Less padding for smaller screens */
-    }
-    .bothContainer input,
-    .bothContainer button {
-        width: 100%;
-        max-width: 250px; /* Further restrict maximum width */
-    }
-}
