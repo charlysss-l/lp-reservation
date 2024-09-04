@@ -64,7 +64,7 @@ function SeatMap() {
                         <AddSeats key={seat.seatNumber} seat={seat} />
                     ))}
 
-                    {imageUrl && <img src={getImageUrl()} alt="Seat Map" />}
+                    {imageUrl && <img className="floorMap" src={getImageUrl()} alt="Seat Map" />}
                     <br />
 
                     <input type="file" onChange={e => setFile(e.target.files[0])} />
