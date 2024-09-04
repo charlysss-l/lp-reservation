@@ -9,6 +9,8 @@
     align-items: center;
     justify-content: center;
     margin: 20px;
+    flex-direction: column;
+
 
 }
 
