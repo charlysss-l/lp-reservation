@@ -122,13 +122,15 @@ app.get('/admin/seat-position/:seat_id', async (req, res) => {
         if (seat) {
             res.json({ position: seat.position });
         } else {
+            console.log(`Seat with ID ${req.params.seat_id} not found.`);
             res.status(404).json({ message: 'Seat not found' });
         }
     } catch (error) {
         console.error('Error fetching seat position:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
-})
+});
+
 
 app.put('/admin/update-seat/:seat_id', async (req, res) => {
     try {
