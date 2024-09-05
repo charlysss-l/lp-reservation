@@ -25,6 +25,8 @@
     position: absolute;
     right: 20px;
     top: 50%;
+    background-color: #E4AEC5;
+
     transform: translateY(-50%);
 }
 
@@ -63,7 +65,7 @@
 
 .bothContainer {
     display: flex;
-    height: 680px;
+    height: 660px;
     align-items: center;
     justify-content: center;
     margin: 20px;
@@ -74,4 +76,5 @@
     width: 90%;
     height: 90%;
     margin: -10px;
+
 }
