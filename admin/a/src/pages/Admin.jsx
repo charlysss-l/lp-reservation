@@ -10,7 +10,7 @@ import MaybeShowNavbar from '../components/MaybeShowNavbar/MaybeShowNavbar';
 import SeatQR from './SeatQr/SeatQR';
 import AddSeatForm from '../components/SeatForm/AddSeatForm';
 import SeatTable from '../components/SeatTable/SeatTable';
-import Footer from '../components/Footer/Footer';
+import Footer from '../components/Footer/footer';
 import DisplayCode from '../components/DisplayCode/DisplayCode';
 import OngoingReservation from './OngoingReservation/OngoingReservation';
 import OngoingReservationTable from '../components/OngoingReservationTable/OngoingReservationTable';
