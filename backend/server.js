@@ -15,10 +15,10 @@ const loginAdm = require('./src/routes/login');
 const app = express();
 
 app.use(cors({
-    origin: 'https://lp-reservation.vercel.app', // Allow your frontend URL
-    methods: 'GET,POST,PUT,DELETE,OPTIONS', // Add the HTTP methods you need
-    credentials: true // Enable credentials if necessary (e.g., cookies)
-  }));
+    origin: 'https://lp-reservation.vercel.app', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
 const port = process.env.PORT || 3000; 
 
