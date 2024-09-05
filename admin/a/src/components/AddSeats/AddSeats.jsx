@@ -70,6 +70,7 @@ function AddSeats({ seat }) {
         handleMouseUp();
         handleStop(e, data); // Save position when dragging stops
       }}
+      cancel=".seat" // Prevents dragging if the target is the .seat element
 
     >
       <div className="main-container">

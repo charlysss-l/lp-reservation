@@ -1,7 +1,7 @@
 .main-container {
     position: absolute; /* Allows free positioning */
     display: flex;
-    padding: 10px;
+    padding: 15px;
     background-color: #05050500;
     border-radius: 50px;
     
@@ -10,7 +10,7 @@
 
   .main-container:hover {
     transform: scale(0.5); /* Zooms in the seat by 10% */
-    border-top: 7px solid rgba(231, 144, 227, 0.747);
+    border-top: 10px solid rgba(231, 144, 227, 0.747);
   }
   
 .seat {
