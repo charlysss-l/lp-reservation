@@ -32,7 +32,7 @@ const handleSubmitButton = async (e) => {
       throw new Error('Network response was not ok');
     }
     const result = await response.json();
-    if (result.ok){
+    if (response.ok){
       localStorage.setItem("token", result.token)
     console.log(result);
     navigate('/home');
