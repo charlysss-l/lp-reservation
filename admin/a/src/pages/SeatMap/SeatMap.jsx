@@ -67,8 +67,12 @@ function SeatMap() {
                     {imageUrl && <img className="floorMap" src={getImageUrl()} alt="Seat Map" />}
                     <br />
 
+            <div className="fileUploadBtn">
+
                     <input type="file" onChange={e => setFile(e.target.files[0])} />
                     <button className="uploadBtn" onClick={handleUpload}>Upload</button>
+
+            </div>
             </div>
         </div>
     );
