@@ -32,7 +32,8 @@ const handleSubmitButton = async (e) => {
       throw new Error('Network response was not ok');
     }
     const result = await response.json();
-    localStorage.setItem("token", result.token)
+    if (response.ok){
+      localStorage.setItem("token", result.token)
     console.log(result);
     navigate('/home');
     toast.success('🦄 successfully logged in!', {
@@ -46,6 +47,7 @@ const handleSubmitButton = async (e) => {
       theme: "light",
       transition: Bounce,
       });
+    }
   } catch (error) {
     console.error("Error: ", error);
     toast.error('🦄 invalid credentials!', {
