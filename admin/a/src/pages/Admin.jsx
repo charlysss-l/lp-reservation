@@ -1,5 +1,4 @@
-
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import Home from './Home/Home';
 import SeatMap from './SeatMap/SeatMap';
@@ -11,14 +10,17 @@ import MaybeShowNavbar from '../components/MaybeShowNavbar/MaybeShowNavbar';
 import SeatQR from './SeatQr/SeatQR';
 import AddSeatForm from '../components/SeatForm/AddSeatForm';
 import SeatTable from '../components/SeatTable/SeatTable';
-import Footer from '../components/Footer/footer';
+import Footer from '../components/Footer/Footer';
 import DisplayCode from '../components/DisplayCode/DisplayCode';
 import OngoingReservation from './OngoingReservation/OngoingReservation';
 import OngoingReservationTable from '../components/OngoingReservationTable/OngoingReservationTable';
 import AddEndReservation from '../components/AddEndReservation/AddEndReservation';
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Admin = () => {
+  const location = useLocation(); // Get current route
+  
   return (
     <main className="admin-page">
       <MaybeShowNavbar>
@@ -41,10 +43,12 @@ const Admin = () => {
         <Route path="/admin/add-end-reservation" element={<AddEndReservation />} />
       </Routes>
   
-      <MaybeShowNavbar>
-      <Footer/>
-      </MaybeShowNavbar>
-    
+      {/* Conditionally render the Footer, excluding SeatMap */}
+      {location.pathname !== '/admin/seat-map' && (
+        <MaybeShowNavbar>
+          <Footer />
+        </MaybeShowNavbar>
+      )}
     </main>
   );
 };
