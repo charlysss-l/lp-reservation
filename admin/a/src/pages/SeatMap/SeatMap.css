@@ -2,26 +2,21 @@
     position: relative;
 }
 
-.bothContainer {
+.title-container {
     display: flex;
-    height: 680px;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     margin: 20px;
-    flex-direction: column;
-
-
 }
 
 .seatMap-title {
     font-size: 40px;
     color: #f2f2f2;
     font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 20px; 
     text-align: center;
     text-transform: uppercase;
     background-color: #E4AEC5;
-    width: 98%;
+    width: 100%; /* Adjust width to fit the parent container */
     padding: 1%;
     margin: 0;
     box-shadow: 0 8px 8px rgb(112, 111, 111);
@@ -34,25 +29,27 @@
 }
 
 .fileUploadBtn input {
-
     height: 20px;
-    width: 80px;
+    width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0px;
-    
+    margin: 0;
+    cursor: pointer;
+    font-size: 12px;
+
+
 }
 
 .uploadBtn {
     height: 40px;
-    width: 100px;
+    width: 50px;
     background-color: #E4AEC5;
     color: #f2f2f2;
     border: 1px solid #f2f2f2;
     border-radius: 10px;
-    font-size: 20px;
-    margin: 0px;
+    font-size: 14px;
+    margin: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -66,9 +63,17 @@
     border-color: #b693a1;
 }
 
-.floorMap{
+.bothContainer {
+    display: flex;
+    height: 680px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    flex-direction: column;
+}
+
+.floorMap {
     width: 90%;
     height: 90%;
     margin: -10px;
 }
-
