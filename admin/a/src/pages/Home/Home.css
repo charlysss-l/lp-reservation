@@ -5,10 +5,12 @@
     justify-content: center;
     margin: 10% 0%;
     text-align: center;
-    
-    
+    background-image: url('../../assets/home-background.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 100vh; 
 }
-
 .home-title {
     font-family: 'Courier New: font-family: 'Courier New', Courier, monospace';
     font-size: 40px;
