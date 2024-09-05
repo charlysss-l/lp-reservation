@@ -57,22 +57,22 @@ function SeatMap() {
 
     return (
         <div className="main-container-reservation">
-    <div className="title-container">
-        <h2 className="seatMap-title">Seat Map</h2>
-        <div className="fileUploadBtn">
-            <input type="file" onChange={e => setFile(e.target.files[0])} />
-            <button className="uploadBtn" onClick={handleUpload}>Upload</button>
+            <h2 className="seatMap-title">
+                Seat Map
+                <div className="fileUploadBtn">
+                    <input type="file" onChange={e => setFile(e.target.files[0])} />
+                    <button className="uploadBtn" onClick={handleUpload}>Upload</button>
+                </div>
+            </h2>
+
+            <div className="bothContainer">
+                {seats.map(seat => (
+                    <AddSeats key={seat.seatNumber} seat={seat} />
+                ))}
+
+                {imageUrl && <img className="floorMap" src={getImageUrl()} alt="Seat Map" />}
+            </div>
         </div>
-    </div>
-
-    <div className="bothContainer">
-        {seats.map(seat => (
-            <AddSeats key={seat.seatNumber} seat={seat} />
-        ))}
-
-        {imageUrl && <img className="floorMap" src={getImageUrl()} alt="Seat Map" />}
-    </div>
-</div>
 
 
     );
