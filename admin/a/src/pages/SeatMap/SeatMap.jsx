@@ -74,6 +74,7 @@ function SeatMap() {
     </div>
 </div>
 
+
     );
 }
 
