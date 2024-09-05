@@ -36,7 +36,12 @@
 .fileUploadBtn input {
 
     height: 20px;
-    width: 100px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    
 }
 
 .uploadBtn {
@@ -49,6 +54,9 @@
     font-size: 20px;
     margin: 0px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: background-color 0.4s, color 0.3s, border-color 0.3s;
 }
 
