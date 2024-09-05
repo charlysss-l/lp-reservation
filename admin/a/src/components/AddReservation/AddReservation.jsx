@@ -135,7 +135,7 @@ useEffect(() => {
 
   return (
     <div className="div-con">
-      <h2 className="add-reservation-title">Add Reservation</h2>
+      <h2 className="add-reservation-title">Add Your Information!</h2>
       <div className="add-reservation-form">
         <form>
           <div className="dateTime">
@@ -172,7 +172,7 @@ useEffect(() => {
             <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
               <option value="">Select Internet Hours</option>
               <option value="3">3 Hours</option>
-              <option value="24">24 Hours</option>
+              <option value="24">Whole Day</option>
             </select>
           </label>
           
