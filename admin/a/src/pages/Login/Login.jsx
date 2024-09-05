@@ -2,6 +2,8 @@
 import { NavLink } from 'react-router-dom';
 import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast,Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Login.css';
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -33,10 +35,30 @@ const handleSubmitButton = async (e) => {
     localStorage.setItem("token", result.token)
     console.log(result);
     navigate('/home');
-    alert('successfully logged in')
+    toast.success('🦄 successfully logged in!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
   } catch (error) {
     console.error("Error: ", error);
-    alert('invalid credentials')
+    toast.error('🦄 invalid credentials!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
   }
 };
 
@@ -53,7 +75,7 @@ const handleSubmitButton = async (e) => {
             {/* {onClick={(e) => {handleSubmitButton(e)}} pwede sa button or sa form since submit type naman yung button basta nasa loob ng form} */}
             <button type='submit' onClick={(e) => {handleSubmitButton(e)}} className="login-button">Login</button>
         </div>
-
+    <ToastContainer />
       </section>
     </>
   );
