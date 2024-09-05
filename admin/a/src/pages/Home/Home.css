@@ -3,17 +3,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 10% 0%;
     text-align: center;
-    
-    
+    background-image: url('../../assets/home-background.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 100vh; 
 }
-
 .home-title {
-    font-family: 'Courier New: font-family: 'Courier New', Courier, monospace';
-    font-size: 40px;
-    color: rgb(8, 8, 8);
-    margin-bottom: 40px;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    margin-bottom: 60px;
+    background-color: transparent;
 }
 
 .button-container {
@@ -21,6 +23,7 @@
 
     align-items: center;
     gap: 20px;
+    background-color: transparent;
 }
 
 .home-availability {
@@ -38,6 +41,7 @@
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    background-color: transparent;
 }
 
 .home-availability:hover {
