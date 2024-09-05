@@ -16,7 +16,6 @@
     margin-bottom: 30px;
 }
 .button-display-container p {
-
     margin-left: 22%;
     width: 50%;
     height: 50%;
@@ -26,13 +25,9 @@
     border: 1px solid rgba(0, 0, 0, 0.289);
     box-shadow: 0px 10px 10px rgba(132, 98, 98, 0.399);
     border-radius: 10px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 20px;
     padding: 30px;
-}
-
-.button-display-container p:hover{
-    background-image: linear-gradient(to bottom, rgb(230, 187, 187), #de6b9d);
 }
 
 .display-image {
