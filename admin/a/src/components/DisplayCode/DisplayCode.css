@@ -16,13 +16,15 @@
     margin-bottom: 30px;
 }
 .button-display-container p {
-    align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.082);
+
     margin-left: 22%;
     width: 50%;
     height: 50%;
     justify-content: center;
-    background-image: linear-gradient(to bottom, rgb(230, 187, 187), #b27f95);
+    background-color: white;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.289);
+    box-shadow: 0px 10px 10px rgba(132, 98, 98, 0.399);
     border-radius: 10px;
     color: white;
     font-size: 20px;
