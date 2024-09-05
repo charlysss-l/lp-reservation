@@ -70,13 +70,13 @@
     justify-content: center;
     margin: 20px;
     flex-direction: column;
+    margin-bottom: -20px;
 }
 
 .floorMap {
     width: 90%;
     height: 90%;
     margin: -10px;
-    margin-top: -20px;
-    margin-bottom: -20px;
+    
 
 }
