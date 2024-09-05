@@ -20,43 +20,23 @@ const Login = () => {
 
 const handleSubmitButton = async (e) => {
   e.preventDefault();
-
   try {
     const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
+      headers:{
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formData)
     });
-
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-
     const result = await response.json();
-
-    if (result.ok) {
-      localStorage.setItem("token", result.token);
-      console.log(result);
-      navigate('/home');
-      toast.success('🦄 Successfully logged in!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
-    } else {
-      throw new Error('Login failed');
-    }
-  } catch (error) {
-    console.error("Error: ", error);
-    toast.error('🦄 Invalid credentials!', {
+    if (result.ok){
+      localStorage.setItem("token", result.token)
+    console.log(result);
+    navigate('/home');
+    toast.success('🦄 successfully logged in!', {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -66,7 +46,21 @@ const handleSubmitButton = async (e) => {
       progress: undefined,
       theme: "light",
       transition: Bounce,
-    });
+      });
+    }
+  } catch (error) {
+    console.error("Error: ", error);
+    toast.error('🦄 invalid credentials!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
   }
 };
 
