@@ -81,9 +81,9 @@
 .choose-photo:hover{
     border: 1px solid green;
 }
-.floorMap {
+.floorMapImage {
     width: 90%;
-    height: 70%;
+    height: 500px;
     margin: -10px;
     
 

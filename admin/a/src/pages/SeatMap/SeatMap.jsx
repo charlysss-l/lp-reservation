@@ -70,7 +70,7 @@ function SeatMap() {
                     <AddSeats key={seat.seatNumber} seat={seat} />
                 ))}
 
-                {imageUrl && <img className="floorMap" src={getImageUrl()} alt="Seat Map" />}
+                {imageUrl && <img className="floorMapImage" src={getImageUrl()} alt="Seat Map" />}
             </div>
         </div>
 
