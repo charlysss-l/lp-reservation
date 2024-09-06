@@ -26,13 +26,12 @@
     right: 20px;
     top: 50%;
     background-color: #E4AEC5;
-
     transform: translateY(-50%);
 }
 
 .fileUploadBtn input {
     height: 20px;
-    width: 40px;
+    width: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,10 +42,10 @@
 
 .uploadBtn {
     height: 40px;
-    width: 50px;
-    background-color: #E4AEC5;
-    color: #f2f2f2;
-    border: 1px solid #f2f2f2;
+    width: 80px;
+    background-color: #c04576;
+    color: #ffffff;
+    border-color: #b693a14c;
     border-radius: 10px;
     font-size: 14px;
     margin: 0;
@@ -58,9 +57,9 @@
 }
 
 .uploadBtn:hover {
-    background-color: #c04576;
-    color: #ffffff;
-    border-color: #b693a1;
+    background-color: #ac8797;
+    color: #f2f2f2;
+    border: 1px solid #f2f2f268;
 }
 
 .bothContainer {
@@ -72,7 +71,15 @@
     flex-direction: column;
     margin-bottom: -40px;
 }
-
+.choose-photo{
+    background-color: #E4AEC5;
+    border: 1px solid rgba(0, 0, 0, 0.268);
+    width: 100px;
+    color: rgba(28, 24, 24, 0.448);
+}
+.choose-photo:hover{
+    border: 1px solid green;
+}
 .floorMap {
     width: 90%;
     height: 90%;

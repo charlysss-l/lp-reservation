@@ -60,7 +60,7 @@ function SeatMap() {
             <h2 className="seatMap-title">
                 Seat Map
                 <div className="fileUploadBtn">
-                    <input type="file" onChange={e => setFile(e.target.files[0])} />
+                    <input type="file" onChange={e => setFile(e.target.files[0])} className="choose-photo"/>
                     <button className="uploadBtn" onClick={handleUpload}>Upload</button>
                 </div>
             </h2>
