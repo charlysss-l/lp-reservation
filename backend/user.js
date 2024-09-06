@@ -56,12 +56,12 @@ const userSchema = new mongoose.Schema({
     },
     finalEndDate: {
         type: Date,
-        default:null,
+        default: null,
         required: false, 
     },
     finalEndTime: {
         type: Date,
-        default:null,
+        default: null,
         required: false, 
     },
     status: { // Add this field to track seat reservation status
@@ -69,9 +69,6 @@ const userSchema = new mongoose.Schema({
         enum: ['active', 'available'],
         default: 'available',
     }
-
-    
-   
 });
 
 // Create User Model
@@ -84,10 +81,12 @@ const calculateExpectedEnd = (startTime, internetHours) => {
     return endTime;
 };
 
+// Function to add user
 const addUser = async (req, res) => {
     try {
         const { seatNumber, startTime, internetHours } = req.body;
 
+        // Check for existing reservation
         const existingReservation = await User.findOne({
             seatNumber,
             expectedEndTime: { $gte: new Date(startTime) },
@@ -99,9 +98,11 @@ const addUser = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Seat is already reserved during this time' });
         }
 
+        // Generate new user_id
         let lastUser = await User.findOne({}).sort({ user_id: -1 }).limit(1);
         let id = lastUser ? lastUser.user_id + 1 : 1;
 
+        // Create new user
         const startDate = new Date(req.body.startDate);
         const startTimeDate = new Date(req.body.startTime);
         const expectedEndTime = calculateExpectedEnd(startTimeDate, internetHours);
@@ -124,18 +125,12 @@ const addUser = async (req, res) => {
 
         await user.save();
 
-        
-
         res.json({ success: true, name: req.body.name });
     } catch (error) {
         console.error('Error adding user:', error);
         res.status(500).json({ success: false, message: 'An error occurred while adding the user' });
     }
 };
-
-
-
-
 
 // Function to fetch users
 const fetchUser = async (req, res) => {
@@ -167,12 +162,19 @@ const fetchUser = async (req, res) => {
 // Function to remove user
 const removeUser = async (req, res) => {
     try {
-        await User.findOneAndDelete({ user_id: req.body.user_id });
-        console.log("User removed");
-        res.json({
-            success: true,
-            user_id: req.body.user_id,
-        });
+        const result = await User.findOneAndDelete({ user_id: req.body.user_id });
+        if (result) {
+            console.log("User removed");
+            res.json({
+                success: true,
+                user_id: req.body.user_id,
+            });
+        } else {
+            res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
+        }
     } catch (error) {
         console.error("Error removing user:", error);
         res.status(500).json({
@@ -182,10 +184,7 @@ const removeUser = async (req, res) => {
     }
 };
 
-
-
-
-
+// Function to update reservation end date and time
 const updateEndReservation = async (req, res) => {
     const { user_id, finalEndDate, finalEndTime } = req.body;
 
@@ -200,15 +199,13 @@ const updateEndReservation = async (req, res) => {
             {
                 finalEndDate: finalEndDateTime,
                 finalEndTime: finalEndDateTime,
-                status: 'available', // Update status to 'ended'
+                status: 'available', // Update status to 'available'
             }
         );
 
         if (result.nModified === 0) {
             return res.status(404).json({ message: 'Reservation not found' });
         }
-
-        
 
         console.log(`Reservation ${user_id} ended at ${finalEndDateTime}`);
         res.status(200).json({ message: 'Reservation updated successfully' });
@@ -217,14 +214,6 @@ const updateEndReservation = async (req, res) => {
         res.status(500).json({ message: 'Error updating reservation', error: error.message });
     }
 };
-
-
-
-
-
-
-
-
 
 module.exports = {
     addUser,

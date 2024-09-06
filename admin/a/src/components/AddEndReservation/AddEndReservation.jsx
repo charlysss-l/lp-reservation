@@ -31,8 +31,8 @@ const AddEndReservation = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
-    if (!user || !user.user_id) {
+
+    if (!user || !user.user_id || !user.seatNumber) {
       alert('User information is missing');
       return;
     }
@@ -62,14 +62,14 @@ const AddEndReservation = () => {
       await axios.put(`${apiUrl}/admin/update-seat-status`, {
         seatNumber: user.seatNumber, // Assuming user object contains seatNumber
         status: 'available'
-    });
+      });
 
       alert('Reservation ended successfully!');
       navigate('/admin/ongoing'); // Redirect after successful save
 
     } catch (err) {
-      console.error('Error adding end date:', err);
-      alert('Error adding end date');
+      console.error('Error ending reservation:', err);
+      alert('Error ending reservation. Please try again.');
     }
   };
 
