@@ -55,17 +55,13 @@ const AddReservation = () => {
   }, []);
 
   // Fetch and set the code image URL
-useEffect(() => {
-  const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
-  if (selectedSeat) {
+  useEffect(() => {
+    const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
+    if (selectedSeat) {
       const code = addUsers.internetHours === '3' ? selectedSeat.ThreeHourCode : selectedSeat.WholeDayCode;
-      if (code) {
-          setCodeImage(code); // URL from Firebase Storage
-      } else {
-          setCodeImage("");
-      }
-  }
-}, [addUsers.seatNumber, addUsers.internetHours, seats]);
+      setCodeImage(code || ""); // URL from Firebase Storage
+    }
+  }, [addUsers.seatNumber, addUsers.internetHours, seats]);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -76,10 +72,8 @@ useEffect(() => {
   };
 
   const convertTo24HourFormat = (time) => {
-    let [hours, minutes] = time.split(':');
-    const ampm = minutes.slice(-2);
-    minutes = minutes.slice(0, -3); // Remove AM/PM from minutes
-
+    let [timePart, ampm] = time.split(' ');
+    let [hours, minutes] = timePart.split(':');
     hours = parseInt(hours, 10);
     if (ampm === 'PM' && hours < 12) {
       hours += 12;
@@ -98,38 +92,34 @@ useEffect(() => {
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
     try {
-        await axios.post(`${apiUrl}
-/admin/add-reservation`, {
-            ...addUsers,
-            code: code,
-            startTime: startTime,
-        });
-
-        // Update the seat's status to 'active'
-        await axios.put(`${apiUrl}/admin/update-seat-status`, {
-          seatNumber: addUsers.seatNumber,
-          status: 'active'
+      await axios.post(`${apiUrl}/admin/add-reservation`, {
+        ...addUsers,
+        code: code,
+        startTime: startTime,
       });
 
-        
+      // Update the seat's status to 'active'
+      await axios.put(`${apiUrl}/admin/update-seat-status`, {
+        seatNumber: addUsers.seatNumber,
+        status: 'active'
+      });
 
-        navigate('/admin/reservation-success', { state: { code } });
+      navigate('/admin/reservation-success', { state: { code } });
 
-        
-
-        setAddUsers({
-            name: "",
-            email: "",
-            contactNumber: "",
-            company: "",
-            seatNumber: "",
-            internetHours: "",
-            startDate: getDefaultDate(),
-            startTime: getDefaultTime(),
-        });
+      // Reset form state
+      setAddUsers({
+        name: "",
+        email: "",
+        contactNumber: "",
+        company: "",
+        seatNumber: initialSeatNumber,
+        internetHours: "",
+        startDate: getDefaultDate(),
+        startTime: getDefaultTime(),
+      });
     } catch (err) {
-        console.log(err);
-        alert('Error adding reservation');
+      console.error('Error adding reservation:', err);
+      alert('Error adding reservation. Please try again.');
     }
   };
 
@@ -153,7 +143,7 @@ useEffect(() => {
           </label>
           <label>
             Email:<span className='asterisk'>*</span>
-            <input type="text" name="email" onChange={changeHandler} value={addUsers.email} />
+            <input type="email" name="email" onChange={changeHandler} value={addUsers.email} />
           </label>
           <label>
             Contact Number:<span className='asterisk'>*</span>
@@ -175,7 +165,7 @@ useEffect(() => {
               <option value="24">Whole Day</option>
             </select>
           </label>
-          
+
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>Save</button>
           </div>
