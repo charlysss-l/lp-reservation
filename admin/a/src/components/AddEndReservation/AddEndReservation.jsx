@@ -17,8 +17,20 @@ const AddEndReservation = () => {
     return `${year}-${month}-${day}`;
   };
 
+  // Commenting out the function to get default time
+  /*
+  const getDefaultTime = () => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+  */
+
   const [addEnd, setAddEnd] = useState({
     finalEndDate: getDefaultDate(),
+    // Commenting out finalEndTime in the state
+    // finalEndTime: getDefaultTime(),
   });
 
   const submitHandler = async (e) => {
@@ -34,11 +46,23 @@ const AddEndReservation = () => {
 
     if (!isConfirmed) return; // Exit if the user does not confirm
 
+    // Ensure the date is valid (commenting out time validation)
+    /*
+    const finalEndDateTime = new Date(`${addEnd.finalEndDate}T${addEnd.finalEndTime}`);
+    const adjustedFinalEndDateTime = new Date(finalEndDateTime.getTime() - (finalEndDateTime.getTimezoneOffset() * 60000));
+
+    if (isNaN(finalEndDateTime.getTime())) {
+      alert('Invalid date or time format');
+      return;
+    }
+    */
+
     try {
-      // Send the request to end the reservation
       await axios.post(`${apiUrl}/admin/end-reservation`, {
         user_id: user.user_id,
         finalEndDate: addEnd.finalEndDate,
+        // Commenting out finalEndTime in the request
+        // finalEndTime: addEnd.finalEndTime,
       });
 
       // Update the seat status to 'available'
@@ -70,6 +94,15 @@ const AddEndReservation = () => {
                 onChange={(e) => setAddEnd({...addEnd, finalEndDate: e.target.value})} 
               />
             </label>
+            {/* Commenting out End Time input */}
+            {/* <label>
+              End Time: 
+              <input 
+                type="time" 
+                value={addEnd.finalEndTime} 
+                onChange={(e) => setAddEnd({...addEnd, finalEndTime: e.target.value})} 
+              />
+            </label> */}
           </div>
           <div className="button">
             <button type="submit" className="submit-button-reservation">Save</button>
