@@ -17,8 +17,13 @@ const formatTime = (dateString) => {
     if (!dateString) return 'N/A';
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return 'N/A';
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
+
+     // Adjust for timezone offset (e.g., -4 hours for your timezone)
+  const localTimeOffset = date.getTimezoneOffset() * 60000;
+  const adjustedDate = new Date(date.getTime() - localTimeOffset);
+
+     let hours = adjustedDate.getHours();
+  const minutes = adjustedDate.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
     hours = hours ? hours : 12;
