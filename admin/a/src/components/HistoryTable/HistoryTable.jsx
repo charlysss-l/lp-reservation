@@ -4,35 +4,35 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 // Helper function to format date
 const formatDate = (dateString) => {
-    if (!dateString) return 'Ongoing';
+   if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
-    const options = {
-        year: '2-digit',
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: 'Asia/Manila'
-    };
-    return new Intl.DateTimeFormat('en-US', options).format(date);
+   const options = {
+       year: '2-digit',
+       month: '2-digit',
+       day: '2-digit',
+       timeZone: 'Asia/Manila'
+   };
+   return new Intl.DateTimeFormat('en-US', options).format(date);
 };
 
 // Helper function to format time
 const formatTime = (dateString) => {
-    if (!dateString) return 'Ongoing';
-    const date = new Date(dateString);
+   if (!dateString) return 'Ongoing';
+   const date = new Date(dateString);
 
-    // Adjust to the correct time zone (Asia/Manila)
-    const manilaTimeOffset = 8 * 60; // 8 hours in minutes
-    const adjustedDate = new Date(date.getTime() + (manilaTimeOffset * 60000));
-    console.log('Original date:', dateString);  // Log the raw date from the backend
-    console.log('Formatted date:', date);  // Log the formatted date object
+   // Adjust to the correct time zone (Asia/Manila)
+  const manilaTimeOffset = 8 * 60; // 8 hours in minutes
+  const adjustedDate = new Date(date.getTime() + (manilaTimeOffset * 60000));
+   console.log('Original date:', dateString);  // Log the raw date from the backend
+   console.log('Formatted date:', date);  // Log the formatted date object
 
-    const options = {
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        hour12: true
-    };
-    return new Intl.DateTimeFormat('en-US', options).format(adjustedDate);
+   const options = {
+       hour: 'numeric',
+       minute: 'numeric',
+       second: 'numeric',
+       hour12: true
+   };
+   return new Intl.DateTimeFormat('en-US', options).format(adjustedDate);
 };
 
 const removeUser = async (user_id, onUserRemoved) => {
@@ -100,8 +100,7 @@ const HistoryTable = ({ user = [] }) => {
                             <th className="title">Start Date</th>
                             <th className="title">Start Time</th>
                             <th className="title">End Date</th>
-                            {/* Commenting out End Time column */}
-                            {/* <th className="title">End Time</th> */}
+                            <th className="title">End Time</th>
                             <th className="title">Remove</th>
                         </tr>
                     </thead>
@@ -115,11 +114,10 @@ const HistoryTable = ({ user = [] }) => {
                                     <td className="data">{user.contactNumber}</td>
                                     <td className="data">{user.company}</td>
                                     <td className="data">{user.internetHours} hr</td>
-                                    <td className="data">{formatDate(user.startDate)}</td>
-                                    <td className="data">{formatTime(user.startTime)}</td>
-                                    <td className="data">{user.finalEndDate ? formatDate(user.finalEndDate) : 'Ongoing'}</td>
-                                    {/* Commenting out End Time display */}
-                                    {/* <td className="data">{user.finalEndTime ? user.finalEndTime : 'Ongoing'}</td> */}
+                                    <td className="data">{user.startDate}</td>
+                                    <td className="data">{user.startTime}</td>
+                                    <td className="data">{user.finalEndDate ? user.finalEndDate : 'Ongoing'}</td>
+                                    <td className="data">{user.finalEndTime ? user.finalEndTime : 'Ongoing'}</td>
                                     <td className="data">
                                         <button
                                             type="button"
@@ -132,7 +130,7 @@ const HistoryTable = ({ user = [] }) => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="10" className="data">No users available</td>
+                                <td colSpan="11" className="data">No users available</td>
                             </tr>
                         )}
                     </tbody>
