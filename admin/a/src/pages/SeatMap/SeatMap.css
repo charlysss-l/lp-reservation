@@ -67,9 +67,12 @@
     height: 660px;
     align-items: center;
     justify-content: center;
-    margin: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
     flex-direction: column;
-    margin-bottom: -50px;
+    margin-bottom: -40px;
 }
 .choose-photo{
     background-color: #E4AEC5;
