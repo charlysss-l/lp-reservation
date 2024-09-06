@@ -69,9 +69,8 @@
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
-
+    margin-bottom: 0px;
     flex-direction: column;
-    margin-bottom: -40px;
 }
 .choose-photo{
     background-color: #E4AEC5;
@@ -86,7 +85,6 @@
     width: 90%;
     height: 90%;
     margin: -10px;
-    margin-bottom: -20px;
     
 
 }
