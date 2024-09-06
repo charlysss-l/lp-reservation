@@ -58,11 +58,12 @@ const userSchema = new mongoose.Schema({
         default: null,
         required: false, 
     },
-    finalEndTime: {
-        type: Date,
-        default: null,
-        required: false, 
-    },
+    // Commenting out finalEndTime field
+    // finalEndTime: {
+    //     type: Date,
+    //     default: null,
+    //     required: false, 
+    // },
     status: { // Add this field to track seat reservation status
         type: String,
         enum: ['active', 'available'],
@@ -88,7 +89,7 @@ const addUser = async (req, res) => {
         // Check for existing reservation
         const existingReservation = await User.findOne({
             seatNumber,
-            expectedEndTime: { $gte: new Date(startTime) },
+            expectedEndDate: { $gte: new Date(startTime) },
             startTime: { $lte: calculateExpectedEnd(new Date(startTime), internetHours) },
             status: 'active' // Ensure we're checking for active reservations only
         });
@@ -104,7 +105,7 @@ const addUser = async (req, res) => {
         // Create new user
         const startDate = new Date(req.body.startDate);
         const startTimeDate = new Date(req.body.startTime);
-        const expectedEndTime = calculateExpectedEnd(startTimeDate, internetHours);
+        const expectedEndDate = calculateExpectedEnd(startTimeDate, internetHours);
 
         const user = new User({
             user_id: id,
@@ -117,8 +118,8 @@ const addUser = async (req, res) => {
             code: req.body.code,
             startDate: startDate,
             startTime: startTimeDate,
-            expectedEndDate: new Date(expectedEndTime),
-            expectedEndTime: expectedEndTime,
+            expectedEndDate: expectedEndDate,
+            expectedEndTime: expectedEndDate,
             status: 'active' // Set status to 'active' when adding reservation
         });
 
@@ -148,7 +149,8 @@ const fetchUser = async (req, res) => {
             expectedEndDate: 1,
             expectedEndTime: 1,
             finalEndDate: 1,
-            finalEndTime: 1,
+            // Commenting out finalEndTime field
+            // finalEndTime: 1,
             status: 1,
         });
         res.json(users);
@@ -197,7 +199,8 @@ const updateEndReservation = async (req, res) => {
             { user_id },
             {
                 finalEndDate: finalEndDateTime,
-                finalEndTime: finalEndDateTime,
+                // Commenting out finalEndTime update
+                // finalEndTime: finalEndDateTime,
                 status: 'available', // Update status to 'available'
             }
         );
