@@ -15,12 +15,12 @@ const formatDate = (dateString) => {
     return new Intl.DateTimeFormat('en-US', options).format(date);
 };
 
-// Helper function to format time
 const formatTime = (dateString) => {
     if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
-    console.log('Original date:', dateString);  // Log the raw date from the backend
-    console.log('Formatted date:', date);  // Log the formatted date object
+    console.log('UTC-adjusted date:', utcDate);
+    // Explicitly set the date to UTC without local timezone conversion
+    const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
 
     const options = {
         hour: 'numeric',
@@ -28,7 +28,9 @@ const formatTime = (dateString) => {
         second: 'numeric',
         hour12: true
     };
-    return new Intl.DateTimeFormat('en-US', options).format(date);
+
+    // Display the UTC-adjusted time
+    return new Intl.DateTimeFormat('en-US', options).format(utcDate);
 };
 
 const removeUser = async (user_id, onUserRemoved) => {
