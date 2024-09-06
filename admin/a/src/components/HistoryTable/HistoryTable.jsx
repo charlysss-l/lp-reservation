@@ -2,26 +2,34 @@ import './HistoryTable.css';
 import { useState, useEffect } from 'react';
 const apiUrl = import.meta.env.VITE_API_URL;
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const month = date.getMonth() + 1; // Months are zero-based
-        const day = date.getDate();
-        const year = date.getFullYear().toString().slice(-2); // Last two digits of the year
-        return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
+// Helper function to format date
+const formatDate = (dateString) => {
+    if (!dateString) return 'Ongoing';
+    const date = new Date(dateString);
+    const options = {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'Asia/Manila'
     };
-    
-    // Helper function to format time
-    const formatTime = (dateString) => {
-        const date = new Date(dateString);
-        let hours = date.getHours();
-        const minutes = date.getMinutes();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        const strMinutes = minutes.toString().padStart(2, '0');
-        return `${hours}:${strMinutes} ${ampm}`;
-    };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+};
 
+// Helper function to format time
+const formatTime = (dateString) => {
+    if (!dateString) return 'Ongoing';
+    const date = new Date(dateString);
+    console.log('Original date:', dateString);  // Log the raw date from the backend
+    console.log('Formatted date:', date);  // Log the formatted date object
+
+    const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+};
 
 const removeUser = async (user_id, onUserRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this user?');
