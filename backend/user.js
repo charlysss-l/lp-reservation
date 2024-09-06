@@ -43,7 +43,6 @@ const userSchema = new mongoose.Schema({
     },
     startTime: {
         type: Date,
-        default: Date.now,
         required: true,
     },
     expectedEndDate: {

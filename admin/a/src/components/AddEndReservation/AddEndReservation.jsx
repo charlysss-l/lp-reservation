@@ -43,8 +43,8 @@ const AddEndReservation = () => {
     if (!isConfirmed) return; // Exit if the user does not confirm
 
     // Ensure the date and time are valid
-    const finalEndDateTimeString = `${addEnd.finalEndDate}T${addEnd.finalEndTime}`;
-    const finalEndDateTime = new Date(finalEndDateTimeString);
+    const finalEndDateTime = new Date(`${addEnd.finalEndDate}T${addEnd.finalEndTime}`);
+    const adjustedFinalEndDateTime = new Date(finalEndDateTime.getTime() - (finalEndDateTime.getTimezoneOffset() * 60000));
 
     if (isNaN(finalEndDateTime.getTime())) {
       alert('Invalid date or time format');
@@ -54,9 +54,9 @@ const AddEndReservation = () => {
     try {
       await axios.post(`${apiUrl}/admin/end-reservation`, {
         user_id: user.user_id,
-        finalEndDate: addEnd.finalEndDate,
-        finalEndTime: addEnd.finalEndTime,
-      });
+        finalEndDate: adjustedFinalEndDateTime.toISOString().split('T')[0],  // Send date
+    finalEndTime: adjustedFinalEndDateTime.toISOString().split('T')[1],  // Send time
+  });
 
       // Update the seat status to 'available'
       await axios.put(`${apiUrl}/admin/update-seat-status`, {
