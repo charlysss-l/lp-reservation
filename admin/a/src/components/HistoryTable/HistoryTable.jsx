@@ -2,30 +2,7 @@ import './HistoryTable.css';
 import { useState, useEffect } from 'react';
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// Helper function to format date
-const formatDate = (dateString) => {
-    if (!dateString) return 'Ongoing';
-    const date = new Date(dateString);
-    console.log('Formatted Date:', date.toLocaleDateString()); 
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const year = date.getFullYear().toString().slice(-2);
-    return `${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}-${year}`;
-};
 
-// Helper function to format time
-const formatTime = (dateString) => {
-    if (!dateString) return 'Ongoing';
-    const date = new Date(dateString);
-    console.log('Formatted Time:', date.toLocaleTimeString()); 
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    const strMinutes = minutes.toString().padStart(2, '0');
-    return `${hours}:${strMinutes} ${ampm}`;
-};
 
 const removeUser = async (user_id, onUserRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this user?');
@@ -106,10 +83,10 @@ const HistoryTable = ({ user = [] }) => {
                                     <td className="data">{user.contactNumber}</td>
                                     <td className="data">{user.company}</td>
                                     <td className="data">{user.internetHours} hr</td>
-                                    <td className="data">{formatDate(user.startDate)}</td>
-                                    <td className="data">{formatTime(user.startTime)}</td>
-                                    <td className="data">{user.finalEndDate ? formatDate(user.finalEndDate) : 'Ongoing'}</td>
-                                    <td className="data">{user.finalEndTime ? formatTime(user.finalEndTime) : 'Ongoing'}</td>
+                                    <td className="data">{user.startDate}</td>
+                                    <td className="data">{user.startTime}</td>
+                                    <td className="data">{user.finalEndDate ? user.finalEndDate : 'Ongoing'}</td>
+                                    <td className="data">{user.finalEndTime ? user.finalEndTime : 'Ongoing'}</td>
                                     <td className="data">
                                         <button
                                             type="button"
