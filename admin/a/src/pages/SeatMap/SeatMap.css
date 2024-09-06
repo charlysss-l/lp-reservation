@@ -64,7 +64,6 @@
 
 .bothContainer {
     display: flex;
-    height: 660px;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
