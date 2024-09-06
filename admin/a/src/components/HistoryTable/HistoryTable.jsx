@@ -23,12 +23,10 @@ const formatTime = (dateString) => {
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
-        hour12: true,
-        timeZone: 'Asia/Manila'
+        hour12: true
     };
     return new Intl.DateTimeFormat('en-US', options).format(date);
 };
-
 const removeUser = async (user_id, onUserRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this user?');
 
