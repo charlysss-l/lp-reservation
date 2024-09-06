@@ -36,7 +36,7 @@ const AddEndReservation = () => {
 
     try {
       // Send the request to end the reservation
-      await axios.post(`${apiUrl}/admin/add-end-reservation`, {
+      await axios.post(`${apiUrl}/admin/end-reservation`, {
         user_id: user.user_id,
         finalEndDate: addEnd.finalEndDate,
       });
