@@ -6,6 +6,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const formatDate = (dateString) => {
     if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
+    console.log('Formatted Date:', date.toLocaleDateString()); 
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const year = date.getFullYear().toString().slice(-2);
@@ -16,6 +17,7 @@ const formatDate = (dateString) => {
 const formatTime = (dateString) => {
     if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
+    console.log('Formatted Time:', date.toLocaleTimeString()); 
     let hours = date.getHours();
     const minutes = date.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
