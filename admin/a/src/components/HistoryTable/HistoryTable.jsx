@@ -19,6 +19,9 @@ const formatDate = (dateString) => {
 const formatTime = (dateString) => {
     if (!dateString) return 'Ongoing';
     const date = new Date(dateString);
+    console.log('Original date:', dateString);  // Log the raw date from the backend
+    console.log('Formatted date:', date);  // Log the formatted date object
+
     const options = {
         hour: 'numeric',
         minute: 'numeric',
@@ -27,6 +30,7 @@ const formatTime = (dateString) => {
     };
     return new Intl.DateTimeFormat('en-US', options).format(date);
 };
+
 const removeUser = async (user_id, onUserRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this user?');
 
