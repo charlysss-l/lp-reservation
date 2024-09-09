@@ -58,11 +58,11 @@ const userSchema = new mongoose.Schema({
         default: null,
         required: false, 
     },
-    finalEndTime: {
-        type: Date,
-        default: null,
-        required: false, 
-    },
+    //finalEndTime: {
+     //   type: Date,
+     //   default: null,
+    //    required: false, 
+   // },
     status: { // Add this field to track seat reservation status
         type: String,
         enum: ['active', 'available'],
@@ -148,7 +148,6 @@ const fetchUser = async (req, res) => {
             expectedEndDate: 1,
             expectedEndTime: 1,
             finalEndDate: 1,
-            finalEndTime: 1,
             status: 1,
         });
         res.json(users);
@@ -183,21 +182,19 @@ const removeUser = async (req, res) => {
     }
 };
 
-// Function to update reservation end date and time
 const updateEndReservation = async (req, res) => {
-    const { user_id, finalEndDate, finalEndTime } = req.body;
+    const { user_id, finalEndDate } = req.body;
 
     try {
-        const finalEndDateTime = new Date(`${finalEndDate}T${finalEndTime}`);
+        const finalEndDateTime = new Date(finalEndDate);
         if (isNaN(finalEndDateTime.getTime())) {
-            return res.status(400).json({ message: 'Invalid date or time format' });
+            return res.status(400).json({ message: 'Invalid date format' });
         }
 
         const result = await User.updateOne(
             { user_id },
             {
                 finalEndDate: finalEndDateTime,
-                finalEndTime: finalEndDateTime,
                 status: 'available', // Update status to 'available'
             }
         );

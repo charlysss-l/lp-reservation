@@ -98,9 +98,9 @@ const HistoryTable = ({ user = [] }) => {
                             <th className="title">Company</th>
                             <th className="title">Internet Hours</th>
                             <th className="title">Start Date</th>
-                            <th className="title">Start Time</th>
+                           { /*<th className="title">Start Time</th>*/}
                             <th className="title">End Date</th>
-                            <th className="title">End Time</th>
+                            {/*<th className="title">End Time</th>*/}
                             <th className="title">Remove</th>
                         </tr>
                     </thead>
@@ -114,10 +114,10 @@ const HistoryTable = ({ user = [] }) => {
                                     <td className="data">{user.contactNumber}</td>
                                     <td className="data">{user.company}</td>
                                     <td className="data">{user.internetHours} hr</td>
-                                    <td className="data">{user.startDate}</td>
-                                    <td className="data">{user.startTime}</td>
-                                    <td className="data">{user.finalEndDate ? user.finalEndDate : 'Ongoing'}</td>
-                                    <td className="data">{user.finalEndTime ? user.finalEndTime : 'Ongoing'}</td>
+                                    <td className="data">{formatDate(user.startDate)}</td>
+                                    {/*<td className="data">{user.startTime}</td>*/}
+                                    <td className="data">{user.finalEndDate ? formatDate(user.finalEndDate ): 'Ongoing'}</td>
+                                    {/*<td className="data">{user.finalEndTime ? user.finalEndTime : 'Ongoing'}</td>*/}
                                     <td className="data">
                                         <button
                                             type="button"
