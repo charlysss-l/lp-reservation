@@ -13,7 +13,7 @@ const Home = () => {
       </p>
       <div className="button-container">
         <NavLink to={'/admin/seat-map'} className="home-availability">
-          Check Availability
+          Check Seat Availability
         </NavLink>
       </div>
     </div>
