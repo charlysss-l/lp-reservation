@@ -20,6 +20,7 @@
 }
 .button-display-container{
     background-color: transparent;
+    margin-left: 185px;
     width: 500px;
     margin-bottom: 50px;
     justify-content: center;
