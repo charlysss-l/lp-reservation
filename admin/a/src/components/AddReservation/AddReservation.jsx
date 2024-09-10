@@ -131,6 +131,9 @@ const AddReservation = () => {
 
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
+    // Determine status based on internetHours
+  const status = ['168', '720'].includes(addUsers.internetHours) ? 'reserved' : 'active';
+    
     try {
       await axios.post(`${apiUrl}/admin/add-reservation`, {
         ...addUsers,
@@ -141,7 +144,7 @@ const AddReservation = () => {
       // Update the seat's status to 'active'
       await axios.put(`${apiUrl}/admin/update-seat-status`, {
         seatNumber: addUsers.seatNumber,
-        status: 'active'
+        status: status
       });
 
       navigate('/admin/reservation-success', { state: { code } });
