@@ -47,23 +47,19 @@ const userSchema = new mongoose.Schema({
     },
     expectedEndDate: {
         type: Date,
-        required: true,
+        required: function() { return this.internetHours !== '720' && this.internetHours !== '168'; }, // Only required if not weekly/monthly
     },
     expectedEndTime: {
         type: Date,
-        required: true,
+        default: null, // Allow null for weekly/monthly reservations
+        required: function() { return this.internetHours !== '720' && this.internetHours !== '168'; }, // Only required if not weekly/monthly
     },
     finalEndDate: {
         type: Date,
         default: null,
-        required: false, 
+        required: false,
     },
-    //finalEndTime: {
-     //   type: Date,
-     //   default: null,
-    //    required: false, 
-   // },
-    status: { // Add this field to track seat reservation status
+    status: {
         type: String,
         enum: ['active', 'available'],
         default: 'available',
@@ -72,6 +68,7 @@ const userSchema = new mongoose.Schema({
 
 // Create User Model
 const User = mongoose.model('User', userSchema);
+
 
 const calculateExpectedEnd = (startTime, internetHours) => {
     const endTime = new Date(startTime);
@@ -113,7 +110,15 @@ const addUser = async (req, res) => {
         // Create new user
         const startDate = new Date(req.body.startDate);
         const startTimeDate = new Date(req.body.startTime);
-        const expectedEndTime = calculateExpectedEnd(startTimeDate, internetHours);
+
+        let expectedEndDate = null;
+        let expectedEndTime = null;
+
+        if (internetHours !== '720' && internetHours !== '168') {
+            const calculatedEndTime = calculateExpectedEnd(startTimeDate, internetHours);
+            expectedEndDate = new Date(calculatedEndTime);
+            expectedEndTime = calculatedEndTime;
+        }
 
         const user = new User({
             user_id: id,
