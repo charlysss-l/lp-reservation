@@ -43,3 +43,65 @@
     height: 100%;
 }
 
+@keyframes fly-circle-exit {
+    0% {
+      left: 0;
+      transform: translateX(-50%, -50%);
+    }
+    
+    15% {
+        left: 60%;
+        top: 500px;
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+    30% {
+      left: 60%;
+      top: 500px;
+      transform: translate(-50%, -50%) rotate(340deg);
+    }
+    
+    
+    
+    
+   
+    100% {
+        left: 100%;
+        top: 0;
+        transform: translate(-50%, -50%) rotate(340deg);
+    }
+    
+    
+   
+  }
+  
+  .plane {
+      background-color: rgba(255, 255, 255, 0);
+      height: 250px;
+      width: 250px;
+      position: fixed;
+      top: 100px; /* Adjust this value to set the initial vertical position */
+      left: 0;
+      margin-left: -220px;
+      background-image: url('../../assets/plane-image.png'); /* Add your plane image */
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: fly-circle-exit 3s ease-in-out 1; /* Adjust duration and easing */
+  }
+  
+  @keyframes confetti {
+    0% {
+        transform: translateY(-70vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(3600deg);
+    }
+}
+
+.confetti {
+    position: fixed;
+    width: 15px;
+    height: 8px;
+    animation: confetti 3s linear infinite;
+}
+
+/* No need for nth-child selectors if using JavaScript for random colors */
