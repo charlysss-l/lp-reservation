@@ -111,7 +111,7 @@ function AddSeatForm({ onAddSeat, seat }) {
             {addSeat.ThreeHourImage && <img src={addSeat.ThreeHourImage} className='imageCode' alt="3 Hour Code" />}
           </label>
           <label>
-            Code for 24 Hours:
+            Code for Whole Day:
             <input
               type="file"
               onChange={(e) => handleImageChange(e, 'WholeDay')}
@@ -120,7 +120,7 @@ function AddSeatForm({ onAddSeat, seat }) {
             {addSeat.WholeDayImage && <img src={addSeat.WholeDayImage} className='imageCode' alt="24 Hour Code" />}
           </label>
           <label>
-            Code for 1 Week:
+            Code for Weekly:
             <input
               type="file"
               onChange={(e) => handleImageChange(e, 'Weekly')}
@@ -129,7 +129,7 @@ function AddSeatForm({ onAddSeat, seat }) {
             {addSeat.WeeklyImage && <img src={addSeat.WeeklyImage} className='imageCode' alt="1 Week Code" />}
           </label>
           <label>
-            Code for 1 Month:
+            Code for Monthly:
             <input
               type="file"
               onChange={(e) => handleImageChange(e, 'Monthly')}

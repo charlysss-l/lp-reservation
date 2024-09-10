@@ -76,7 +76,7 @@ const SeatTable = ({ seat = [] }) => {
                         <tr>
                             <th className="title">Seat Number</th>
                             <th className="title">3hr Internet Code</th>
-                            <th className="title">24hr Internet Code</th>
+                            <th className="title">Whole Day Internet Code</th>
                             <th className="title">Weekly Internet Code</th>
                             <th className="title">Monthly Internet Code</th>
                             <th className="title">Edit</th>
@@ -95,7 +95,7 @@ const SeatTable = ({ seat = [] }) => {
                                     </td>
                                     <td className="data">
                                         {seat.WholeDayCode ? (
-                                            <img src={seat.WholeDayCode} alt="24 Hour Code" className="seat-image" />
+                                            <img src={seat.WholeDayCode} alt="Whole Day Code" className="seat-image" />
                                         ) : 'No Image'}
                                     </td>
                                     <td className="data">
