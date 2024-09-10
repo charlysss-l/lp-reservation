@@ -42,6 +42,11 @@
     cursor: pointer;
     }
 
+    .seat.reserved {
+      background-color: gold; 
+      cursor: pointer;
+  }
+
    
     
 .seat-info {

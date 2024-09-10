@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     },
     internetHours: {
         type: String,
-        enum: ['3', '24'],
+        enum: ['3', '24', '168', '720'], 
         required: true,
     },
     code: {
@@ -73,12 +73,16 @@ const userSchema = new mongoose.Schema({
 // Create User Model
 const User = mongoose.model('User', userSchema);
 
-// Function to calculate expected end date and time
 const calculateExpectedEnd = (startTime, internetHours) => {
     const endTime = new Date(startTime);
-    endTime.setHours(endTime.getHours() + parseInt(internetHours, 10));
+    const hours = parseInt(internetHours, 10);
+
+    // Add hours to the endTime
+    endTime.setHours(endTime.getHours() + hours);
+
     return endTime;
 };
+
 
 // Function to add user
 const addUser = async (req, res) => {

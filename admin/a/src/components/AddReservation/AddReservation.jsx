@@ -58,8 +58,24 @@ const AddReservation = () => {
   useEffect(() => {
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
     if (selectedSeat) {
-      const code = addUsers.internetHours === '3' ? selectedSeat.ThreeHourCode : selectedSeat.WholeDayCode;
-      setCodeImage(code || ""); // URL from Firebase Storage
+      let code = "";
+      switch (addUsers.internetHours) {
+        case '3':
+          code = selectedSeat.ThreeHourCode;
+          break;
+        case '24':
+          code = selectedSeat.WholeDayCode;
+          break;
+        case 'weekly':
+          code = selectedSeat.WeeklyCode;
+          break;
+        case 'monthly':
+          code = selectedSeat.MonthlyCode;
+          break;
+        default:
+          code = "";
+      }
+      setCodeImage(code || "");
     }
   }, [addUsers.seatNumber, addUsers.internetHours, seats]);
 
@@ -94,8 +110,24 @@ const AddReservation = () => {
     alert('This seat is already reserved. Please choose a different seat.');
     return; // Prevent submission if the seat is reserved
   }
-  
-    const code = addUsers.internetHours === '3' ? selectedSeat?.ThreeHourCode : selectedSeat?.WholeDayCode;
+
+  let code = "";
+  switch (addUsers.internetHours) {
+    case '3':
+      code = selectedSeat?.ThreeHourCode;
+      break;
+    case '24':
+      code = selectedSeat?.WholeDayCode;
+      break;
+    case 'weekly':
+      code = selectedSeat?.WeeklyCode;
+      break;
+    case 'monthly':
+      code = selectedSeat?.MonthlyCode;
+      break;
+    default:
+      code = "";
+  }
 
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
@@ -171,6 +203,8 @@ const AddReservation = () => {
               <option value="">Select Internet Hours</option>
               <option value="3">3 Hours</option>
               <option value="24">Whole Day</option>
+              <option value="168">Weekly</option>
+              <option value="720">Monthly</option>
             </select>
           </label>
 

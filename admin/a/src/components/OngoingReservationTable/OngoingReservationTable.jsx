@@ -26,6 +26,21 @@ const formatTime = (dateString) => {
     return `${hours}:${strMinutes} ${ampm}`;
 };
 
+const formatInternetHours = (hours) => {
+    switch (hours) {
+        case '3':
+            return '3 Hours';
+        case '24':
+            return 'Whole Day';
+        case '168':
+            return 'Weekly';
+        case '720':
+            return 'Monthly';
+        default:
+            return 'N/A';
+    }
+};
+
 const OngoingReservationTable = () => {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +101,7 @@ const OngoingReservationTable = () => {
                                 <tr key={user.user_id}>
                                     <td className="data">{user.seatNumber}</td>
                                     <td className="data">{user.name}</td>
-                                    <td className="data">{user.internetHours} hr</td>
+                                    <td className="data">{formatInternetHours(user.internetHours)}</td>
                                     <td className="data">{formatDate(user.startDate)}</td>
                                     <td className="data">{formatTime(user.startTime)}</td>
                                     <td className="data">{formatDate(user.expectedEndDate)}</td>

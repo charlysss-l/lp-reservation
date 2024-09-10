@@ -11,12 +11,18 @@ function AddSeatForm({ onAddSeat, seat }) {
     seatNumber: seat ? seat.seatNumber : "",
     ThreeHourImage: seat ? seat.ThreeHourCode : "",
     WholeDayImage: seat ? seat.WholeDayCode : "",
+    WeeklyImage: seat ? seat.WeeklyCode : "",
+    MonthlyImage: seat ? seat.MonthlyCode : "",
     ThreeHourImageFile: null,
-    WholeDayImageFile: null
+    WholeDayImageFile: null,
+    WeeklyImageFile: null,
+    MonthlyImageFile: null
   });
 
   const threeHourImageInputRef = useRef(null);
   const wholeDayImageInputRef = useRef(null);
+  const weeklyImageInputRef = useRef(null);
+  const monthlyImageInputRef = useRef(null);
 
   const uploadImageToFirebase = async (file) => {
     const storageRef = ref(storage, `images/${file.name}`);
@@ -35,11 +41,7 @@ function AddSeatForm({ onAddSeat, seat }) {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = await uploadImageToFirebase(file);
-      if (type === 'ThreeHourImage') {
-        setAddSeat(prev => ({ ...prev, ThreeHourImage: imageUrl, ThreeHourImageFile: file }));
-      } else {
-        setAddSeat(prev => ({ ...prev, WholeDayImage: imageUrl, WholeDayImageFile: file }));
-      }
+      setAddSeat(prev => ({ ...prev, [`${type}Image`]: imageUrl, [`${type}ImageFile`]: file }));
     }
   };
 
@@ -54,12 +56,16 @@ function AddSeatForm({ onAddSeat, seat }) {
         ? await axios.put(`${apiUrl}/admin/update-seat/${seat.seat_id}`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
-            WholeDayImage: addSeat.WholeDayImage
+            WholeDayImage: addSeat.WholeDayImage,
+            WeeklyImage: addSeat.WeeklyImage,
+            MonthlyImage: addSeat.MonthlyImage
           })
         : await axios.post(`${apiUrl}/admin/add-seat`, {
             seatNumber: addSeat.seatNumber,
             ThreeHourImage: addSeat.ThreeHourImage,
-            WholeDayImage: addSeat.WholeDayImage
+            WholeDayImage: addSeat.WholeDayImage,
+            WeeklyImage: addSeat.WeeklyImage,
+            MonthlyImage: addSeat.MonthlyImage
           });
 
       alert(seat ? 'Seat updated' : 'Seat added');
@@ -69,11 +75,17 @@ function AddSeatForm({ onAddSeat, seat }) {
         seatNumber: "",
         ThreeHourImage: "",
         WholeDayImage: "",
+        WeeklyImage: "",
+        MonthlyImage: "",
         ThreeHourImageFile: null,
-        WholeDayImageFile: null
+        WholeDayImageFile: null,
+        WeeklyImageFile: null,
+        MonthlyImageFile: null
       });
       threeHourImageInputRef.current.value = null;
       wholeDayImageInputRef.current.value = null;
+      weeklyImageInputRef.current.value = null;
+      monthlyImageInputRef.current.value = null;
     } catch (err) {
       console.error('Error:', err);
       alert('Error adding/updating seat');
@@ -93,7 +105,7 @@ function AddSeatForm({ onAddSeat, seat }) {
             Code for 3 Hours:
             <input
               type="file"
-              onChange={(e) => handleImageChange(e, 'ThreeHourImage')}
+              onChange={(e) => handleImageChange(e, 'ThreeHour')}
               ref={threeHourImageInputRef}
             />
             {addSeat.ThreeHourImage && <img src={addSeat.ThreeHourImage} className='imageCode' alt="3 Hour Code" />}
@@ -102,10 +114,28 @@ function AddSeatForm({ onAddSeat, seat }) {
             Code for 24 Hours:
             <input
               type="file"
-              onChange={(e) => handleImageChange(e, 'WholeDayImage')}
+              onChange={(e) => handleImageChange(e, 'WholeDay')}
               ref={wholeDayImageInputRef}
             />
             {addSeat.WholeDayImage && <img src={addSeat.WholeDayImage} className='imageCode' alt="24 Hour Code" />}
+          </label>
+          <label>
+            Code for 1 Week:
+            <input
+              type="file"
+              onChange={(e) => handleImageChange(e, 'Weekly')}
+              ref={weeklyImageInputRef}
+            />
+            {addSeat.WeeklyImage && <img src={addSeat.WeeklyImage} className='imageCode' alt="1 Week Code" />}
+          </label>
+          <label>
+            Code for 1 Month:
+            <input
+              type="file"
+              onChange={(e) => handleImageChange(e, 'Monthly')}
+              ref={monthlyImageInputRef}
+            />
+            {addSeat.MonthlyImage && <img src={addSeat.MonthlyImage} className='imageCode' alt="1 Month Code" />}
           </label>
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>

@@ -19,9 +19,17 @@ const seatSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    status: { // Add this field to track seat reservation status
+    WeeklyCode: {
         type: String,
-        enum: ['active', 'available'],
+        required: true, 
+    },
+    MonthlyCode: {
+        type: String,
+        required: true, 
+    },
+    status: {
+        type: String,
+        enum: ['active', 'available', 'reserved'], // Added 'reserved' status
         default: 'available',
     },
     position: {
@@ -41,7 +49,9 @@ const addSeat = async (req, res) => {
             seat_id: id,
             seatNumber: req.body.seatNumber,
             ThreeHourCode: req.body.ThreeHourImage, // Firebase Storage URL
-            WholeDayCode: req.body.WholeDayImage  // Firebase Storage URL
+            WholeDayCode: req.body.WholeDayImage,  // Firebase Storage URL
+            WeeklyCode: req.body.WeeklyImage, // Firebase Storage URL
+            MonthlyCode: req.body.MonthlyImage, // Firebase Storage URL
         });
 
         await seat.save();

@@ -2,8 +2,8 @@ import './SeatTable.css';
 import { useState, useEffect } from 'react';
 import AddSeatForm from '../SeatForm/AddSeatForm';
 import Modal from '../Modal/Modal';
-const apiUrl = import.meta.env.VITE_API_URL;
 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const removeSeat = async (seat_id, onSeatRemoved) => {
     const isConfirmed = window.confirm('Are you sure you want to remove this seat?');
@@ -39,7 +39,6 @@ const SeatTable = ({ seat = [] }) => {
     const seatsPerPage = 8;
     const [editingSeat, setEditingSeat] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
 
     useEffect(() => {
         setSeats(seat);
@@ -78,6 +77,8 @@ const SeatTable = ({ seat = [] }) => {
                             <th className="title">Seat Number</th>
                             <th className="title">3hr Internet Code</th>
                             <th className="title">24hr Internet Code</th>
+                            <th className="title">Weekly Internet Code</th>
+                            <th className="title">Monthly Internet Code</th>
                             <th className="title">Edit</th>
                             <th className="title">Delete</th>
                         </tr>
@@ -88,17 +89,25 @@ const SeatTable = ({ seat = [] }) => {
                                 <tr key={index}>
                                     <td className="data">{seat.seatNumber}</td>
                                     <td className="data">
-    {seat.ThreeHourCode ? (
-        <img src={seat.ThreeHourCode} alt="3 Hour Code" className="seat-image" />
-    ) : 'No Image'}
-</td>
-<td className="data">
-    {seat.WholeDayCode ? (
-        <img src={seat.WholeDayCode} alt="24 Hour Code" className="seat-image" />
-    ) : 'No Image'}
-</td>
-
-
+                                        {seat.ThreeHourCode ? (
+                                            <img src={seat.ThreeHourCode} alt="3 Hour Code" className="seat-image" />
+                                        ) : 'No Image'}
+                                    </td>
+                                    <td className="data">
+                                        {seat.WholeDayCode ? (
+                                            <img src={seat.WholeDayCode} alt="24 Hour Code" className="seat-image" />
+                                        ) : 'No Image'}
+                                    </td>
+                                    <td className="data">
+                                        {seat.WeeklyCode ? (
+                                            <img src={seat.WeeklyCode} alt="Weekly Code" className="seat-image" />
+                                        ) : 'No Image'}
+                                    </td>
+                                    <td className="data">
+                                        {seat.MonthlyCode ? (
+                                            <img src={seat.MonthlyCode} alt="Monthly Code" className="seat-image" />
+                                        ) : 'No Image'}
+                                    </td>
                                     <td className="data">
                                         <button
                                             type="button"
@@ -121,7 +130,7 @@ const SeatTable = ({ seat = [] }) => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="5" className="data">No seats available</td>
+                                <td colSpan="7" className="data">No seats available</td>
                             </tr>
                         )}
                     </tbody>
@@ -151,6 +160,5 @@ const SeatTable = ({ seat = [] }) => {
         </div>
     );
 };
-
 
 export default SeatTable;
