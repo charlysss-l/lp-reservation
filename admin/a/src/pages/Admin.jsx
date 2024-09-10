@@ -28,7 +28,7 @@ const Admin = () => {
       </MaybeShowNavbar>
 
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/admin/seat-map" element={<SeatMap />} />
         <Route path="/admin/add-reservation" element={<AddReservation />} />
@@ -37,7 +37,7 @@ const Admin = () => {
         <Route path="/admin/seat-qr" element={<SeatQR />} />
         <Route path="/admin/add-seat" element={<AddSeatForm />} />
         <Route path="/admin/seat-table" element={<SeatTable />} />
-        <Route path="/" element={<DisplayCode />} />
+        <Route path="/admin/reservation-success" element={<DisplayCode />} />
         <Route path="/admin/ongoing" element={<OngoingReservation />} />
         <Route path="/admin/ongoing-reservation-table" element={<OngoingReservationTable />} />
         <Route path="/admin/add-end-reservation" element={<AddEndReservation />} />
