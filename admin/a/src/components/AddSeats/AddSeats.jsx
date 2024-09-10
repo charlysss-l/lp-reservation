@@ -5,7 +5,7 @@ import axios from 'axios'; // Import axios for HTTP requests
 import './AddSeats.css';
 const apiUrl = import.meta.env.VITE_API_URL;
 
-function AddSeats({ seat, currentReservedSeat, setCurrentReservedSeat }) {
+function AddSeats({ seat, onSeatChange }) {
   const [status, setStatus] = useState(seat.status || 'available');
   const [isDragging, setIsDragging] = useState(false); // State to track dragging
   const [position, setPosition] = useState({ x: 0, y: 0 }); // State to track position
@@ -40,36 +40,9 @@ function AddSeats({ seat, currentReservedSeat, setCurrentReservedSeat }) {
     setIsDragging(false); // Set dragging state to false on mouse up
   };
 
-  const handleSeatClick = async () => {
+  const handleSeatClick = (e) => {
     if (status === 'available' || status === 'reserved') { // Allow click for both available and reserved
-      if (status === 'reserved') {
-        // If the seat is already reserved, navigate to the edit page with the current seat number
-        navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
-      } else {
-        // Update the status of the previously reserved seat to available
-        if (currentReservedSeat) {
-          try {
-            await axios.put(`${apiUrl}/admin/update-seat-status`, {
-              seatNumber: currentReservedSeat.seatNumber,
-              status: 'available'
-            });
-          } catch (error) {
-            console.error('Error updating previous seat status:', error);
-          }
-        }
-        
-        // Update the status of the newly reserved seat to reserved
-        try {
-          await axios.put(`${apiUrl}/admin/update-seat-status`, {
-            seatNumber: seat.seatNumber,
-            status: 'reserved'
-          });
-          setCurrentReservedSeat(seat);
-          navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
-        } catch (error) {
-          console.error('Error updating seat status:', error);
-        }
-      }
+      navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
     }
   };
 
@@ -85,6 +58,29 @@ function AddSeats({ seat, currentReservedSeat, setCurrentReservedSeat }) {
       });
     } catch (error) {
       console.error('Error updating seat position:', error);
+    }
+  };
+
+  const handleChangeSeat = async (newSeatNumber) => {
+    try {
+      // Mark the current seat as available
+      await axios.put(`${apiUrl}/admin/update-seat-status`, {
+        seatNumber: seat.seatNumber,
+        status: 'available'
+      });
+
+      // Mark the new seat as reserved
+      await axios.put(`${apiUrl}/admin/update-seat-status`, {
+        seatNumber: newSeatNumber,
+        status: 'reserved'
+      });
+
+      // Call the parent callback to handle state update
+      if (onSeatChange) {
+        onSeatChange(newSeatNumber);
+      }
+    } catch (error) {
+      console.error('Error changing seat:', error);
     }
   };
 
@@ -106,6 +102,7 @@ function AddSeats({ seat, currentReservedSeat, setCurrentReservedSeat }) {
           onClick={handleSeatClick}
           onTouchStart={handleMouseDown}
           onTouchEnd={handleMouseUp}
+          disabled={status === 'active'} // Disable only for 'active' status
         >
           {seat.seatNumber}
         </button>
