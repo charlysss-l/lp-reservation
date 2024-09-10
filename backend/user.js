@@ -77,11 +77,16 @@ const calculateExpectedEnd = (startTime, internetHours) => {
     const endTime = new Date(startTime);
     const hours = parseInt(internetHours, 10);
 
+    if (isNaN(hours) || hours <= 0) {
+        throw new Error('Invalid internet hours value');
+    }
+
     // Add hours to the endTime
     endTime.setHours(endTime.getHours() + hours);
 
     return endTime;
 };
+
 
 
 // Function to add user
@@ -130,10 +135,11 @@ const addUser = async (req, res) => {
 
         res.json({ success: true, name: req.body.name });
     } catch (error) {
-        console.error('Error adding user:', error.message); // Print detailed error message
+        console.error('Error adding user:', error); // Log detailed error message
         res.status(500).json({ success: false, message: 'An error occurred while adding the user', error: error.message });
     }
 };
+
 
 
 // Function to fetch users
