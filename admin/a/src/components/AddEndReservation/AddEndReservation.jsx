@@ -21,9 +21,6 @@ const AddEndReservation = () => {
     finalEndDate: getDefaultDate(),
   });
 
-  const [reservationType, setReservationType] = useState('daily'); // Added state for reservation type
-
-
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -48,9 +45,7 @@ const AddEndReservation = () => {
     try {
       await axios.post(`${apiUrl}/admin/end-reservation`, {
         user_id: user.user_id,
-        finalEndDate: adjustedFinalEndDate.toISOString().split('T')[0],
-        expectedEndDate: reservationType === 'weekly' || reservationType === 'monthly' ? null : adjustedFinalEndDate.toISOString().split('T')[0],
-        expectedEndTime: reservationType === 'weekly' || reservationType === 'monthly' ? null : new Date().toISOString().split('T')[1]
+        finalEndDate: adjustedFinalEndDate.toISOString().split('T')[0],  // Send date in YYYY-MM-DD format
       });
 
       // Update the seat status to 'available'
@@ -81,16 +76,6 @@ const AddEndReservation = () => {
                 value={addEnd.finalEndDate} 
                 onChange={(e) => setAddEnd({...addEnd, finalEndDate: e.target.value})} 
               />
-            </label>
-          </div>
-          <div className="reservationType">
-            <label>
-              Reservation Type: 
-              <select value={reservationType} onChange={(e) => setReservationType(e.target.value)}>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-              </select>
             </label>
           </div>
           <div className="button">

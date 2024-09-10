@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OngoingReservationTable.css';
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const formatDate = (dateString) => {
@@ -39,6 +40,16 @@ const formatInternetHours = (hours) => {
         default:
             return 'N/A';
     }
+};
+
+const formatExpectedEndDate = (dateString, internetHours) => {
+    if (internetHours === '168' || internetHours === '720') return 'N/A';
+    return formatDate(dateString);
+};
+
+const formatExpectedEndTime = (dateString, internetHours) => {
+    if (internetHours === '168' || internetHours === '720') return 'N/A';
+    return formatTime(dateString);
 };
 
 const OngoingReservationTable = () => {
@@ -104,8 +115,8 @@ const OngoingReservationTable = () => {
                                     <td className="data">{formatInternetHours(user.internetHours)}</td>
                                     <td className="data">{formatDate(user.startDate)}</td>
                                     <td className="data">{formatTime(user.startTime)}</td>
-                                    <td className="data">{formatDate(user.expectedEndDate)}</td>
-                                    <td className="data">{formatTime(user.expectedEndTime)}</td>
+                                    <td className="data">{formatExpectedEndDate(user.expectedEndDate, user.internetHours)}</td>
+                                    <td className="data">{formatExpectedEndTime(user.expectedEndTime, user.internetHours)}</td>
                                     <td className="data">
                                         <button 
                                             className="end-button" 
