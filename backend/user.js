@@ -122,6 +122,9 @@ const addUser = async (req, res) => {
             expectedEndTime = calculatedEndTime;
         }
 
+        // Determine status based on internetHours
+        const status = ['168', '720'].includes(internetHours) ? 'reserved' : 'active';
+
         const user = new User({
             user_id: id,
             name: req.body.name,
@@ -135,7 +138,7 @@ const addUser = async (req, res) => {
             startTime: startTimeDate,
             expectedEndDate: new Date(expectedEndTime),
             expectedEndTime: expectedEndTime,
-            status: 'active' // Set status to 'active' when adding reservation
+            status: status // Set status to 'active' when adding reservation
         });
 
         await user.save();
