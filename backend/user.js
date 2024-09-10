@@ -130,10 +130,11 @@ const addUser = async (req, res) => {
 
         res.json({ success: true, name: req.body.name });
     } catch (error) {
-        console.error('Error adding user:', error);
-        res.status(500).json({ success: false, message: 'An error occurred while adding the user' });
+        console.error('Error adding user:', error.message); // Print detailed error message
+        res.status(500).json({ success: false, message: 'An error occurred while adding the user', error: error.message });
     }
 };
+
 
 // Function to fetch users
 const fetchUser = async (req, res) => {
