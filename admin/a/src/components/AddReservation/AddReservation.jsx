@@ -87,6 +87,14 @@ const AddReservation = () => {
     e.preventDefault();
 
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
+
+     // Check if the seat is already reserved (assuming the seat has a 'status' field)
+  if (selectedSeat && selectedSeat.status === 'active') {
+    console.log('This seat is already reserved.');
+    alert('This seat is already reserved. Please choose a different seat.');
+    return; // Prevent submission if the seat is reserved
+  }
+  
     const code = addUsers.internetHours === '3' ? selectedSeat?.ThreeHourCode : selectedSeat?.WholeDayCode;
 
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
