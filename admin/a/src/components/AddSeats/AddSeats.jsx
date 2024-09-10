@@ -83,7 +83,7 @@ function AddSeats({ seat }) {
   onClick={handleSeatClick}
   onTouchStart={handleMouseDown}
   onTouchEnd={handleMouseUp}
-  disabled={status !== 'available'}
+  disabled={status === 'active'} // Disable only for 'active' status
 >
   {seat.seatNumber}
 </button>
