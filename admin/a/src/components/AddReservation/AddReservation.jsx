@@ -63,7 +63,7 @@ const AddReservation = () => {
         case '3':
           code = selectedSeat.ThreeHourCode;
           break;
-        case 'WholeDay':
+        case '7':
           code = selectedSeat.WholeDayCode;
           break;
         case '168':
@@ -116,7 +116,7 @@ const AddReservation = () => {
     case '3':
       code = selectedSeat?.ThreeHourCode;
       break;
-    case 'WholeDay':
+    case '7':
       code = selectedSeat?.WholeDayCode;
       break;
     case '168':
@@ -202,7 +202,7 @@ const AddReservation = () => {
             <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
               <option value="">Select Internet Hours</option>
               <option value="3">3 Hours</option>
-              <option value="wholeday">Whole Day</option>
+              <option value="7">Whole Day</option>
               <option value="168">Weekly</option>
               <option value="720">Monthly</option>
             </select>

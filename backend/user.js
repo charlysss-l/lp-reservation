@@ -47,6 +47,8 @@ const userSchema = new mongoose.Schema({
     },
     expectedEndDate: {
         type: Date,
+        default: null, // Allow null for weekly/monthly reservations
+
         required: function() { return this.internetHours !== '720' && this.internetHours !== '168'; }, // Only required if not weekly/monthly
     },
     expectedEndTime: {
