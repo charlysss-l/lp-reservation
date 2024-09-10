@@ -9,6 +9,8 @@ function AddSeats({ seat }) {
   const [status, setStatus] = useState(seat.status || 'available');
   const [isDragging, setIsDragging] = useState(false); // State to track dragging
   const [position, setPosition] = useState({ x: 0, y: 0 }); // State to track position
+  const [isEditing, setIsEditing] = useState(false); // State to track if editing
+  const [newSeatNumber, setNewSeatNumber] = useState(seat.seatNumber); // State for new seat number
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +34,6 @@ function AddSeats({ seat }) {
     fetchPosition();
 }, [seat.seat_id]);
 
-
   const handleMouseDown = () => {
     setIsDragging(true); // Set dragging state to true on mouse down
   };
@@ -41,10 +42,45 @@ function AddSeats({ seat }) {
     setIsDragging(false); // Set dragging state to false on mouse up
   };
 
-  const handleSeatClick = (e) => {
-    if (status === 'available' || status === 'reserved') { // Check if not dragging
+  const handleSeatClick = () => {
+    if (status === 'available' || status === 'reserved') { // Allow click for both available and reserved
       navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
     }
+  };
+
+  const handleEditClick = () => {
+    if (status === 'reserved') {
+      // Save changes to seat
+      const updateSeats = async () => {
+        try {
+          // Update the new seat to 'reserved' status
+          await axios.put(`${apiUrl}/admin/update-seat-status`, {
+            seatNumber: newSeatNumber,
+            status: 'reserved'
+          });
+
+          // Update the previous seat to 'available' status
+          await axios.put(`${apiUrl}/admin/update-seat-status`, {
+            seatNumber: seat.seatNumber,
+            status: 'available'
+          });
+
+          // Navigate to a new page or show a success message
+          navigate('/admin/seat-updated-success');
+        } catch (error) {
+          console.error('Error updating seat:', error);
+        }
+      };
+
+      updateSeats();
+      setIsEditing(false); // Exit editing mode
+    } else {
+      setIsEditing(true); // Enter editing mode
+    }
+  };
+
+  const handleNewSeatNumberChange = (e) => {
+    setNewSeatNumber(e.target.value); // Update new seat number
   };
 
   const handleStop = async (e, data) => {
@@ -62,8 +98,6 @@ function AddSeats({ seat }) {
     }
   };
 
-  
-
   return (
     <Draggable
       position={position} // Set the initial position
@@ -73,21 +107,28 @@ function AddSeats({ seat }) {
         handleStop(e, data); // Save position when dragging stops
       }}
       cancel=".seat" // Prevents dragging if the target is the .seat element
-
     >
       <div className="main-container">
-      <button
-  className={`seat ${status}`}
-  onMouseDown={handleMouseDown}
-  onMouseUp={handleMouseUp}
-  onClick={handleSeatClick}
-  onTouchStart={handleMouseDown}
-  onTouchEnd={handleMouseUp}
-  disabled={status === 'active'} // Disable only for 'active' status
->
-  {seat.seatNumber}
-</button>
-
+        <button
+          className={`seat ${status}`}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onClick={status === 'reserved' ? handleEditClick : handleSeatClick} // Click handling based on status
+          onTouchStart={handleMouseDown}
+          onTouchEnd={handleMouseUp}
+          disabled={status === 'active'} // Disable only for 'active' status
+        >
+          {status === 'reserved' && isEditing ? (
+            <input 
+              type="text" 
+              value={newSeatNumber} 
+              onChange={handleNewSeatNumberChange} 
+              onBlur={() => setIsEditing(false)} // Exit editing mode on blur
+            />
+          ) : (
+            seat.seatNumber
+          )}
+        </button>
       </div>
     </Draggable>
   );
