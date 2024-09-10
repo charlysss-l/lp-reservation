@@ -63,13 +63,13 @@ const AddReservation = () => {
         case '3':
           code = selectedSeat.ThreeHourCode;
           break;
-        case '24':
+        case 'WholeDay':
           code = selectedSeat.WholeDayCode;
           break;
-        case 'weekly':
+        case '168':
           code = selectedSeat.WeeklyCode;
           break;
-        case 'monthly':
+        case '720':
           code = selectedSeat.MonthlyCode;
           break;
         default:
@@ -116,13 +116,13 @@ const AddReservation = () => {
     case '3':
       code = selectedSeat?.ThreeHourCode;
       break;
-    case '24':
+    case 'WholeDay':
       code = selectedSeat?.WholeDayCode;
       break;
-    case 'weekly':
+    case '168':
       code = selectedSeat?.WeeklyCode;
       break;
-    case 'monthly':
+    case '720':
       code = selectedSeat?.MonthlyCode;
       break;
     default:
@@ -202,7 +202,7 @@ const AddReservation = () => {
             <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
               <option value="">Select Internet Hours</option>
               <option value="3">3 Hours</option>
-              <option value="24">Whole Day</option>
+              <option value="wholeday">Whole Day</option>
               <option value="168">Weekly</option>
               <option value="720">Monthly</option>
             </select>
