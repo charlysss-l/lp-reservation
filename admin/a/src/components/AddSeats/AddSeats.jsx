@@ -42,7 +42,7 @@ function AddSeats({ seat }) {
   };
 
   const handleSeatClick = (e) => {
-    if (status === 'available' && !isDragging || status === 'reserved') { // Check if not dragging
+    if (status === 'available' || status === 'reserved') { // Check if not dragging
       navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
     }
   };
