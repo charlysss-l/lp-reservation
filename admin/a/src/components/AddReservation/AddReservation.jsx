@@ -155,7 +155,7 @@ const AddReservation = () => {
           </label>
           <label>
             Seat Number:<span className='asterisk'>*</span>
-            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber} readOnly disabled />
+            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}/>
           </label>
           <label>
             Internet Hours:<span className='asterisk'>*</span>
