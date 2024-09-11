@@ -95,7 +95,7 @@ function AddSeats({ seat, onSeatChange }) {
         handleMouseUp();
         handleStop(e, data); // Save position when dragging stops
       }}
-      cancel={status === 'available' } 
+      cancel={status === 'available' && '.seat'} 
       
     >
       <div className="main-container">
