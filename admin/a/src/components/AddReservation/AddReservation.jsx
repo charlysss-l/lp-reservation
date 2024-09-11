@@ -8,8 +8,9 @@ const AddReservation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Retrieve seat number from the location state
+  // Retrieve seat number and reservation (if editing) from the location state
   const initialSeatNumber = location.state?.seatNumber || "";
+  const initialReservation = location.state?.reservation || {};
 
   // Function to get today's date in MM-DD-YYYY format
   const getDefaultDate = () => {
@@ -33,14 +34,14 @@ const AddReservation = () => {
   };
 
   const [addUsers, setAddUsers] = useState({
-    name: "",
-    email: "",
-    contactNumber: "",
-    company: "",
-    seatNumber: initialSeatNumber,
-    internetHours: "",
-    startDate: getDefaultDate(),
-    startTime: getDefaultTime(),
+    name: initialReservation.name || "",
+    email: initialReservation.email || "",
+    contactNumber: initialReservation.contactNumber || "",
+    company: initialReservation.company || "",
+    seatNumber: initialReservation.seatNumber || initialSeatNumber,
+    internetHours: initialReservation.internetHours || "",
+    startDate: initialReservation.startDate || getDefaultDate(),
+    startTime: initialReservation.startTime || getDefaultTime(),
   });
 
   const [seats, setSeats] = useState([]);
@@ -104,48 +105,58 @@ const AddReservation = () => {
 
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
 
-     // Check if the seat is already reserved (assuming the seat has a 'status' field)
-  if (selectedSeat && selectedSeat.status === 'active') {
-    console.log('This seat is already reserved.');
-    alert('This seat is already reserved. Please choose a different seat.');
-    return; // Prevent submission if the seat is reserved
-  }
+    // Check if the seat is already reserved
+    if (selectedSeat && selectedSeat.status === 'active' && !initialReservation._id) {
+      console.log('This seat is already reserved.');
+      alert('This seat is already reserved. Please choose a different seat.');
+      return; // Prevent submission if the seat is reserved and it's a new reservation
+    }
 
-  let code = "";
-  switch (addUsers.internetHours) {
-    case '3':
-      code = selectedSeat?.ThreeHourCode;
-      break;
-    case '7':
-      code = selectedSeat?.WholeDayCode;
-      break;
-    case '168':
-      code = selectedSeat?.WeeklyCode;
-      break;
-    case '720':
-      code = selectedSeat?.MonthlyCode;
-      break;
-    default:
-      code = "";
-  }
+    let code = "";
+    switch (addUsers.internetHours) {
+      case '3':
+        code = selectedSeat?.ThreeHourCode;
+        break;
+      case '7':
+        code = selectedSeat?.WholeDayCode;
+        break;
+      case '168':
+        code = selectedSeat?.WeeklyCode;
+        break;
+      case '720':
+        code = selectedSeat?.MonthlyCode;
+        break;
+      default:
+        code = "";
+    }
 
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
 
     // Determine status based on internetHours
-  const status = ['168', '720'].includes(addUsers.internetHours) ? 'reserved' : 'active';
-    
-    try {
-      await axios.post(`${apiUrl}/admin/add-reservation`, {
-        ...addUsers,
-        code: code,
-        startTime: startTime,
-      });
+    const status = ['168', '720'].includes(addUsers.internetHours) ? 'reserved' : 'active';
 
-      // Update the seat's status to 'active'
-      await axios.put(`${apiUrl}/admin/update-seat-status`, {
-        seatNumber: addUsers.seatNumber,
-        status: status
-      });
+    try {
+      if (initialReservation._id) {
+        // Edit the existing reservation
+        await axios.put(`${apiUrl}/admin/edit-reservation/${initialReservation._id}`, {
+          ...addUsers,
+          code: code,
+          startTime: startTime,
+        });
+      } else {
+        // Create a new reservation
+        await axios.post(`${apiUrl}/admin/add-reservation`, {
+          ...addUsers,
+          code: code,
+          startTime: startTime,
+        });
+
+        // Update seat status to 'active'
+        await axios.put(`${apiUrl}/admin/update-seat-status`, {
+          seatNumber: addUsers.seatNumber,
+          status: status,
+        });
+      }
 
       navigate('/admin/reservation-success', { state: { code } });
 
@@ -161,14 +172,16 @@ const AddReservation = () => {
         startTime: getDefaultTime(),
       });
     } catch (err) {
-      console.error('Error adding reservation:', err);
-      alert('Error adding reservation. Please try again.');
+      console.error('Error adding/editing reservation:', err);
+      alert('Error adding/editing reservation. Please try again.');
     }
   };
 
   return (
     <div className="div-con">
-      <h2 className="add-reservation-title">Add Your Information!</h2>
+      <h2 className="add-reservation-title">
+        {initialReservation._id ? "Edit Your Reservation!" : "Add Your Information!"}
+      </h2>
       <div className="add-reservation-form">
         <form>
           <div className="dateTime">

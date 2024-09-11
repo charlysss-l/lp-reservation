@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Draggable from 'react-draggable';
-import axios from 'axios'; // Import axios for HTTP requests
+import axios from 'axios'; 
 import './AddSeats.css';
-import AddReservation from '../AddReservation/AddReservation';
-import Modal from '../Modal/Modal';
+import Modal from './Modal'; 
+import AddReservation from './AddReservation';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -12,15 +11,14 @@ function AddSeats({ seat }) {
   const [status, setStatus] = useState(seat.status || 'available');
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [showModal, setShowModal] = useState(false); // Modal visibility state
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [reservationId, setReservationId] = useState(null); // Store reservation ID for editing
 
   useEffect(() => {
     setStatus(seat.status);
   }, [seat]);
 
   useEffect(() => {
-    console.log("Fetching position for seat_id:", seat.seat_id);
     const fetchPosition = async () => {
       try {
         const response = await axios.get(`${apiUrl}/admin/seat-position/${seat.seat_id}`);
@@ -36,19 +34,17 @@ function AddSeats({ seat }) {
     fetchPosition();
   }, [seat.seat_id]);
 
-  const handleMouseDown = () => {
-    setIsDragging(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleSeatClick = (e) => {
-    if (status === 'available') {
-      navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
-    } else if (status === 'reserved') {
-      setShowModal(true); // Open the modal when a reserved seat is clicked
+  const handleSeatClick = async () => {
+    if (status === 'reserved') {
+      // Fetch the existing reservation for this seat
+      try {
+        const response = await axios.get(`${apiUrl}/reservations/by-seat/${seat.seat_id}`);
+        const existingReservation = response.data;
+        setReservationId(existingReservation._id); // Set the reservation ID for editing
+        setShowModal(true); // Open the modal
+      } catch (error) {
+        console.error('Error fetching reservation:', error);
+      }
     }
   };
 
@@ -66,37 +62,30 @@ function AddSeats({ seat }) {
   };
 
   const closeModal = () => {
-    setShowModal(false); // Close the modal
+    setShowModal(false);
+    setReservationId(null); // Reset reservation ID when modal is closed
   };
 
   return (
     <>
       <Draggable
         position={position}
-        onStart={handleMouseDown}
-        onStop={(e, data) => {
-          handleMouseUp();
-          handleStop(e, data);
-        }}
+        onStop={handleStop}
         cancel=".seat"
       >
         <div className="main-container">
           <button
             className={`seat ${status}`}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
             onClick={handleSeatClick}
-            disabled={status === 'active'} // Disable only for 'active' seats
+            disabled={status === 'active'}
           >
             {seat.seatNumber}
           </button>
         </div>
       </Draggable>
 
-      {/* Show the modal when showModal is true */}
       <Modal isOpen={showModal} onClose={closeModal}>
-        {/* Pass the seat number to the AddReservation component */}
-        <AddReservation seatNumber={seat.seatNumber} />
+        <AddReservation seatNumber={seat.seatNumber} reservationId={reservationId} onClose={closeModal} />
       </Modal>
     </>
   );
