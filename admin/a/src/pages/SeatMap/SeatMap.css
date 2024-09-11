@@ -65,12 +65,10 @@
 .bothContainer {
     display: flex;
     align-items: center;
-    justify-content: center;
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 0px;
-    flex-direction: column;
 }
 .choose-photo{
     background-color: #E4AEC5;
@@ -82,8 +80,9 @@
     border: 1px solid green;
 }
 .floorMapImage {
-    width: 700px;
-    height: 600px;
+    width: 80%;
+    height: 500px;
+    margin: -5px;
     left: 1px;
     
 
