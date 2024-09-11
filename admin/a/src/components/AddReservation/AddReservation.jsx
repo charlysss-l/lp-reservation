@@ -198,7 +198,7 @@ const AddReservation = () => {
           </label>
           <label>
             Seat Number:<span className='asterisk'>*</span>
-            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}/>
+            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}  pattern="\d*" />
           </label>
           <label>
             Walk In:<span className='asterisk'></span>

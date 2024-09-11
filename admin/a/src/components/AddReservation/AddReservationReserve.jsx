@@ -197,8 +197,9 @@ const AddReservationReserve = () => {
             <input type="text" name="company" onChange={changeHandler} value={addUsers.company} />
           </label>
           <label>
-            Seat Number:<span className='asterisk'>*</span>
-            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}/>
+            Seat Letter:<span className='asterisk'>*</span>
+            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber} pattern="[A-Za-z]*"
+              />
           </label>
           {/* <label>
             Walk In:<span className='asterisk'></span>

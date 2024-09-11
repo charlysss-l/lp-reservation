@@ -105,7 +105,8 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
         <form>
           <label>
           Seat Letter:<span className='asterisk'>*</span>
-          <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
+          <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} pattern="[A-Za-z]*"
+              title="Only letters are allowed"/>
           </label>
           {/* <label>
             Code for 3 Hours:

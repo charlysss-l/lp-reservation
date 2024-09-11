@@ -107,7 +107,8 @@ function AddSeatForm({ onAddSeat, seat }) {
           <label>
             Seat Number:<span className='asterisk'>*</span>
 
-            <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
+            <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} pattern="\d*" 
+              title="Please enter a valid number" />
           </label>
           <label>
             Code for 3 Hours:
