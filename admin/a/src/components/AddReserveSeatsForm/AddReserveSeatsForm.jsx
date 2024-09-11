@@ -51,10 +51,15 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+     // Determine seatType
+     const seatType = isNaN(addSeat.seatNumber) ? 'lettered' : 'numbered';
     try {
       const response = seat
         ? await axios.put(`${apiUrl}/admin/update-seat/${seat.seat_id}`, {
             seatNumber: addSeat.seatNumber,
+            seatType: seatType, // Set seat type
+
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage,
             WeeklyImage: addSeat.WeeklyImage,
@@ -62,6 +67,8 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
           })
         : await axios.post(`${apiUrl}/admin/add-seat`, {
             seatNumber: addSeat.seatNumber,
+            seatType: seatType, // Set seat type
+
             ThreeHourImage: addSeat.ThreeHourImage,
             WholeDayImage: addSeat.WholeDayImage,
             WeeklyImage: addSeat.WeeklyImage,

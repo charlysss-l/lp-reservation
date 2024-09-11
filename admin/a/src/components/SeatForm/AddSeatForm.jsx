@@ -106,7 +106,7 @@ function AddSeatForm({ onAddSeat, seat }) {
       <div className="add-reservation-form">
         <form>
           <label>
-            Seat Number/Letter:<span className='asterisk'>*</span>
+            Seat Number:<span className='asterisk'>*</span>
 
             <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
           </label>
@@ -128,7 +128,7 @@ function AddSeatForm({ onAddSeat, seat }) {
             />
             {addSeat.WholeDayImage && <img src={addSeat.WholeDayImage} className='imageCode' alt="24 Hour Code" />}
           </label>
-          <label>
+          {/* <label>
             Code for Weekly:
             <input
               type="file"
@@ -145,7 +145,7 @@ function AddSeatForm({ onAddSeat, seat }) {
               ref={monthlyImageInputRef}
             />
             {addSeat.MonthlyImage && <img src={addSeat.MonthlyImage} className='imageCode' alt="1 Month Code" />}
-          </label>
+          </label> */}
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>
               {seat ? 'Update' : 'Save'}
