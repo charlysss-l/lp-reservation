@@ -44,16 +44,16 @@
 .seat.reserved {
   background-color: gold; /* Gold for reserved seats */
   cursor: pointer;
-  height: 70PX;
-  width: 70px;
+  height: 60PX;
+  width: 60px;
 }
 
 /* Additional styling for lettered seats */
 .seat.lettered.available {
   background-color: #d3d3d3; /* Grey for available lettered seats */
   cursor: pointer;
-  height: 60PX;
-  width: 60px;
+  height: 50PX;
+  width: 50px;
 }
 
 .seat-info {
