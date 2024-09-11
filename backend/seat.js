@@ -13,19 +13,19 @@ const seatSchema = new mongoose.Schema({
     },
     ThreeHourCode: {
         type: String,
-        required: true,
+        required: false,
     },
     WholeDayCode: {
         type: String,
-        required: true,
+        required: false,
     },
     WeeklyCode: {
         type: String,
-        required: true, 
+        required: false, 
     },
     MonthlyCode: {
         type: String,
-        required: true, 
+        required: false, 
     },
     status: {
         type: String,

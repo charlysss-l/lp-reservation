@@ -9,6 +9,7 @@ import Login from './Login/Login';
 import MaybeShowNavbar from '../components/MaybeShowNavbar/MaybeShowNavbar';
 import SeatQR from './SeatQr/SeatQR';
 import AddSeatForm from '../components/SeatForm/AddSeatForm';
+import AddReserveSeatsForm from '../components/AddReserveSeatsForm/AddReserveSeatsForm';
 import SeatTable from '../components/SeatTable/SeatTable';
 import Footer from '../components/Footer/footer';
 import DisplayCode from '../components/DisplayCode/DisplayCode';
@@ -36,6 +37,7 @@ const Admin = () => {
         <Route path="/admin/history-table" element={<HistoryTable />} />
         <Route path="/admin/seat-qr" element={<SeatQR />} />
         <Route path="/admin/add-seat" element={<AddSeatForm />} />
+        <Route path="/admin/add-reserve-seats" element={<AddReserveSeatsForm />} />
         <Route path="/admin/seat-table" element={<SeatTable />} />
         <Route path="/admin/reservation-success" element={<DisplayCode />} />
         <Route path="/admin/ongoing" element={<OngoingReservation />} />

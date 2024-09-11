@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import './AddSeatForm.css';
+import './AddReserveSeatsForm.css';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const storage = getStorage(); // Initialize Firebase Storage
 
-function AddSeatForm({ onAddSeat, seat }) {
+function AddReserveSeatsForm({ onAddSeat, seat }) {
   const [addSeat, setAddSeat] = useState({
     seatNumber: seat ? seat.seatNumber : "",
     ThreeHourImage: seat ? seat.ThreeHourCode : "",
@@ -98,10 +98,10 @@ function AddSeatForm({ onAddSeat, seat }) {
       <div className="add-reservation-form">
         <form>
           <label>
-            Seat Number:
-            <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
+          Seat Letter:<span className='asterisk'>*</span>
+          <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
           </label>
-          <label>
+          {/* <label>
             Code for 3 Hours:
             <input
               type="file"
@@ -118,8 +118,8 @@ function AddSeatForm({ onAddSeat, seat }) {
               ref={wholeDayImageInputRef}
             />
             {addSeat.WholeDayImage && <img src={addSeat.WholeDayImage} className='imageCode' alt="24 Hour Code" />}
-          </label>
-          {/* <label>
+          </label> */}
+          <label>
             Code for Weekly:
             <input
               type="file"
@@ -136,7 +136,7 @@ function AddSeatForm({ onAddSeat, seat }) {
               ref={monthlyImageInputRef}
             />
             {addSeat.MonthlyImage && <img src={addSeat.MonthlyImage} className='imageCode' alt="1 Month Code" />}
-          </label> */}
+          </label>
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>
               {seat ? 'Update' : 'Save'}
@@ -148,4 +148,4 @@ function AddSeatForm({ onAddSeat, seat }) {
   );
 }
 
-export default AddSeatForm;
+export default AddReserveSeatsForm;
