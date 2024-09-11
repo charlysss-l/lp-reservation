@@ -201,11 +201,18 @@ const AddReservation = () => {
             <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}/>
           </label>
           <label>
-            Internet Hours:<span className='asterisk'>*</span>
-            <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
+            Internet Hours:<span className='asterisk'></span>
+            <select name="Walk In" onChange={changeHandler} value={addUsers.internetHours}>
               <option value="">Select Internet Hours</option>
               <option value="3">3 Hours</option>
               <option value="24">Whole Day</option>
+             
+            </select>
+          </label>
+          <label>
+            Internet Hours:<span className='asterisk'></span>
+            <select name="Reserve" onChange={changeHandler} value={addUsers.internetHours}>
+              <option value="">Select Internet Hours</option>
               <option value="168">Weekly</option>
               <option value="720">Monthly</option>
             </select>
