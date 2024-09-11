@@ -52,8 +52,8 @@
 .seat.lettered.available {
   background-color: #d3d3d3; /* Grey for available lettered seats */
   cursor: pointer;
-  height: 70PX;
-  width: 70px;
+  height: 60PX;
+  width: 60px;
 }
 
 .seat-info {

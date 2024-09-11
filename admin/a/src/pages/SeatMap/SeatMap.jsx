@@ -71,6 +71,8 @@ function SeatMap() {
                 ))}
 
                 {imageUrl && <img className="floorMapImage" src={getImageUrl()} alt="Seat Map" />}
+
+                <p>RESERVED SEATS</p>
             </div>
         </div>
 
