@@ -7,7 +7,7 @@ const {v4: uuidv4 }= require('uuid')
 const ImageIdModel = require('./imageID');
 require('dotenv').config();
 
-const { addUser, fetchUser, removeUser, updateEndReservation, updateReservation } = require('./user');
+const { addUser, fetchUser, removeUser, updateEndReservation, updateSeatStatuses } = require('./user');
 const { addSeat, fetchSeats, removeSeat, Seat } = require('./seat');
 const { updateSeatStatus } = require('./seat')
 const loginAdm = require('./src/routes/login');
@@ -165,21 +165,6 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
     }
 });
 
-app.get('/admin/reservation/:id', async (req, res) => {
-    try {
-        const user = await UserModel.findOne({ user_id: req.params.id });
-        if (user) {
-            res.json(user);
-        } else {
-            res.status(404).json({ message: 'Reservation not found' });
-        }
-    } catch (error) {
-        console.error('Error fetching reservation details:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-
 app.use('/auth', loginAdm);
 
 app.post('/admin/add-reservation', addUser);
@@ -191,9 +176,6 @@ app.post('/admin/add-seat', addSeat);
 app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
 app.put('/admin/update-seat-status', updateSeatStatus);
-app.put('/admin/update-reservation', updateReservation);
-
-
 
 const admin = require('./src/scripts/admin');
 admin();

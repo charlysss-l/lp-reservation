@@ -231,33 +231,26 @@ const updateEndReservation = async (req, res) => {
     }
 };
 
-const updateReservation = async (req, res) => {
-    const { user_id, updates } = req.body;
-
+// Function to update seat status
+const updateSeatStatuses = async (req, res) => {
     try {
-        // Validate the updates object to ensure it contains valid fields
-        if (!user_id || !updates) {
-            return res.status(400).json({ message: 'Invalid input' });
-        }
-
-        const result = await User.updateOne(
-            { user_id },
-            { $set: updates }, // Use $set to update specific fields
-            { new: true } // Return the updated document
-        );
-
-        if (result.nModified === 0) {
-            return res.status(404).json({ message: 'Reservation not found or no changes made' });
-        }
-
-        res.status(200).json({ message: 'Reservation updated successfully' });
+      const { seatNumber, status } = req.body;
+      const updatedSeat = await Seat.findOneAndUpdate(
+        { seatNumber: seatNumber },
+        { status: status },
+        { new: true }
+      );
+  
+      if (!updatedSeat) {
+        return res.status(404).json({ success: false, message: 'Seat not found' });
+      }
+  
+      res.json({ success: true, updatedSeat });
     } catch (error) {
-        console.error('Error updating reservation:', error);
-        res.status(500).json({ message: 'Error updating reservation', error: error.message });
+      console.error('Error updating seat status:', error);
+      res.status(500).json({ success: false, message: 'An error occurred while updating seat status' });
     }
-};
-
-
+  };
   
 
 module.exports = {
@@ -265,6 +258,5 @@ module.exports = {
     fetchUser,
     removeUser,
     updateEndReservation,
-    updateReservation
-    
+    updateSeatStatuses
 };
