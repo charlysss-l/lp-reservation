@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './AddReservation.css';
-
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const AddReservation = () => {
@@ -56,6 +55,7 @@ const AddReservation = () => {
       .catch(err => console.error('Error fetching seats:', err));
   }, []);
 
+  // Fetch and set the code image URL
   useEffect(() => {
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
     if (selectedSeat) {

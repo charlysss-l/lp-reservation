@@ -165,55 +165,17 @@ app.put('/admin/update-seat/:seat_id', async (req, res) => {
     }
 });
 
-app.put('/admin/edit-reservation/:user_id', async (req, res) => {
+app.get('/admin/reservation/:id', async (req, res) => {
     try {
-        const { user_id } = req.params;
-        const {
-            name,
-            email,
-            contactNumber,
-            company,
-            seatNumber,
-            startDate,
-            startTime,
-            internetHours,
-            code,
-            expectedEndDate,
-            expectedEndTime
-        } = req.body;
-
-        // Validate input
-        if (!user_id) {
-            return res.status(400).json({ success: false, message: 'Invalid input' });
-        }
-
-        // Find and update the reservation
-        const updatedReservation = await UserModel.findOneAndUpdate(
-            { user_id },
-            {
-                name,
-                email,
-                contactNumber,
-                company,
-                seatNumber,
-                startDate: new Date(startDate),
-                startTime: new Date(startTime),
-                internetHours,
-                code,
-                expectedEndDate: expectedEndDate ? new Date(expectedEndDate) : null,
-                expectedEndTime: expectedEndTime ? new Date(expectedEndTime) : null
-            },
-            { new: true } // Return the updated document
-        );
-
-        if (updatedReservation) {
-            res.json({ success: true, reservation: updatedReservation });
+        const user = await UserModel.findOne({ user_id: req.params.id });
+        if (user) {
+            res.json(user);
         } else {
-            res.status(404).json({ success: false, message: 'Reservation not found' });
+            res.status(404).json({ message: 'Reservation not found' });
         }
     } catch (error) {
-        console.error('Error updating reservation:', error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
+        console.error('Error fetching reservation details:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
@@ -229,7 +191,7 @@ app.post('/admin/add-seat', addSeat);
 app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
 app.put('/admin/update-seat-status', updateSeatStatus);
-
+app.put('/admin/update-reservation', updateReservation);
 
 
 
