@@ -41,8 +41,12 @@ function AddSeats({ seat, onSeatChange }) {
   };
 
   const handleSeatClick = (e) => {
-    if (status === 'available' || status === 'reserved') { // Allow click for both available and reserved
-      navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
+    if (status === 'available' ) { // Allow click for both available and reserved
+      if (seat.seatType === 'numbered') {
+        navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
+      } else if (seat.seatType === 'lettered') {
+        navigate('/admin/add-reservation-reserve', { state: { seatNumber: seat.seatNumber } });
+      }
     }
   };
 

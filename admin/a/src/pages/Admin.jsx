@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Home from './Home/Home';
 import SeatMap from './SeatMap/SeatMap';
 import AddReservation from '../components/AddReservation/AddReservation';
+import AddReservationReserve from '../components/AddReservationReserve/AddReservationReserve';
 import History from './History/History';
 import HistoryTable from '../components/HistoryTable/HistoryTable';
 import Login from './Login/Login';
@@ -11,7 +12,6 @@ import SeatQR from './SeatQr/SeatQR';
 import AddSeatForm from '../components/SeatForm/AddSeatForm';
 import AddReserveSeatsForm from '../components/AddReserveSeatsForm/AddReserveSeatsForm';
 import SeatTable from '../components/SeatTable/SeatTable';
-import ReserveTable from '../components/ReserveTable/ReserveTable';
 import Footer from '../components/Footer/footer';
 import DisplayCode from '../components/DisplayCode/DisplayCode';
 import OngoingReservation from './OngoingReservation/OngoingReservation';
@@ -34,13 +34,13 @@ const Admin = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/admin/seat-map" element={<SeatMap />} />
         <Route path="/admin/add-reservation" element={<AddReservation />} />
+        <Route path="/admin/add-reservation-reserve" element={<AddReservationReserve />} />
         <Route path="/admin/history" element={<History />} />
         <Route path="/admin/history-table" element={<HistoryTable />} />
         <Route path="/admin/seat-qr" element={<SeatQR />} />
         <Route path="/admin/add-seat" element={<AddSeatForm />} />
         <Route path="/admin/add-reserve-seats" element={<AddReserveSeatsForm />} />
         <Route path="/admin/seat-table" element={<SeatTable />} />
-        <Route path="/admin/reserve-table" element={<ReserveTable />} />
         <Route path="/admin/reservation-success" element={<DisplayCode />} />
         <Route path="/admin/ongoing" element={<OngoingReservation />} />
         <Route path="/admin/ongoing-reservation-table" element={<OngoingReservationTable />} />

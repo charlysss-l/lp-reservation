@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './AddReservation.css';
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const AddReservation = () => {
+const AddReservationReserve = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -200,7 +200,7 @@ const AddReservation = () => {
             Seat Number:<span className='asterisk'>*</span>
             <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}/>
           </label>
-          <label>
+          {/* <label>
             Walk In:<span className='asterisk'></span>
             <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
               <option value="">Select Internet Hours</option>
@@ -208,8 +208,8 @@ const AddReservation = () => {
               <option value="24">Whole Day</option>
        
             </select>
-          </label>
-          {/* <label>
+          </label> */}
+          <label>
             Reserve:<span className='asterisk'></span>
             <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
               <option value="">Select Internet Hours</option>
@@ -217,7 +217,7 @@ const AddReservation = () => {
               <option value="168">Weekly</option>
               <option value="720">Monthly</option>
             </select>
-          </label> */}
+          </label>
 
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>Save</button>
@@ -228,4 +228,4 @@ const AddReservation = () => {
   );
 };
 
-export default AddReservation;
+export default AddReservationReserve;
