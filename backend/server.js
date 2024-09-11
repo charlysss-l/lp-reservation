@@ -8,7 +8,7 @@ const ImageIdModel = require('./imageID');
 require('dotenv').config();
 
 const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
-const { addSeat, addReserveSeat, fetchSeats, removeSeat, Seat } = require('./seat');
+const { addSeat, fetchSeats, removeSeat, Seat } = require('./seat');
 const { updateSeatStatus } = require('./seat')
 const loginAdm = require('./src/routes/login');
 
@@ -173,8 +173,6 @@ app.post('/admin/remove-user', removeUser);
 app.post('/admin/end-reservation', updateEndReservation);
 
 app.post('/admin/add-seat', addSeat);
-app.post('/admin/add-seat', addReserveSeat);
-
 app.get('/admin/seat-qr', fetchSeats);
 app.post('/admin/remove-seat', removeSeat);
 app.put('/admin/update-seat-status', updateSeatStatus);
