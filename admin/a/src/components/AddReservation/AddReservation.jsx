@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './AddReservation.css';
-
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const AddReservation = ({ seatNumber, reservation }) => {
+const AddReservation = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  // Retrieve seat number and reservation (if editing) from the location state
+  const initialSeatNumber = location.state?.seatNumber || "";
+  const initialReservation = location.state?.reservation || {};
 
   // Function to get today's date in MM-DD-YYYY format
   const getDefaultDate = () => {
@@ -30,14 +34,14 @@ const AddReservation = ({ seatNumber, reservation }) => {
   };
 
   const [addUsers, setAddUsers] = useState({
-    name: reservation?.name || "",
-    email: reservation?.email || "",
-    contactNumber: reservation?.contactNumber || "",
-    company: reservation?.company || "",
-    seatNumber: seatNumber || "",
-    internetHours: reservation?.internetHours || "",
-    startDate: reservation?.startDate || getDefaultDate(),
-    startTime: reservation?.startTime || getDefaultTime(),
+    name: initialReservation.name || "",
+    email: initialReservation.email || "",
+    contactNumber: initialReservation.contactNumber || "",
+    company: initialReservation.company || "",
+    seatNumber: initialReservation.seatNumber || initialSeatNumber,
+    internetHours: initialReservation.internetHours || "",
+    startDate: initialReservation.startDate || getDefaultDate(),
+    startTime: initialReservation.startTime || getDefaultTime(),
   });
 
   const [seats, setSeats] = useState([]);
@@ -51,6 +55,7 @@ const AddReservation = ({ seatNumber, reservation }) => {
       .catch(err => console.error('Error fetching seats:', err));
   }, []);
 
+  // Fetch and set the code image URL
   useEffect(() => {
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
     if (selectedSeat) {
@@ -100,10 +105,11 @@ const AddReservation = ({ seatNumber, reservation }) => {
 
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
 
-    if (selectedSeat && selectedSeat.status === 'active') {
+    // Check if the seat is already reserved
+    if (selectedSeat && selectedSeat.status === 'active' && !initialReservation._id) {
       console.log('This seat is already reserved.');
       alert('This seat is already reserved. Please choose a different seat.');
-      return; // Prevent submission if the seat is reserved
+      return; // Prevent submission if the seat is reserved and it's a new reservation
     }
 
     let code = "";
@@ -128,122 +134,102 @@ const AddReservation = ({ seatNumber, reservation }) => {
 
     // Determine status based on internetHours
     const status = ['168', '720'].includes(addUsers.internetHours) ? 'reserved' : 'active';
-    
+
     try {
-      if (reservation) {
-        // Update existing reservation
-        await axios.put(`${apiUrl}/admin/update-reservation`, {
+      if (initialReservation._id) {
+        // Edit the existing reservation
+        await axios.put(`${apiUrl}/admin/edit-reservation/${initialReservation._id}`, {
           ...addUsers,
           code: code,
           startTime: startTime,
-          status: status
         });
       } else {
-        // Create new reservation
-        await axios.post(`${apiUrl}/admin/create-reservation`, {
+        // Create a new reservation
+        await axios.post(`${apiUrl}/admin/add-reservation`, {
           ...addUsers,
           code: code,
           startTime: startTime,
-          status: status
+        });
+
+        // Update seat status to 'active'
+        await axios.put(`${apiUrl}/admin/update-seat-status`, {
+          seatNumber: addUsers.seatNumber,
+          status: status,
         });
       }
-      navigate('/admin/reservation-history');
+
+      navigate('/admin/reservation-success', { state: { code } });
+
+      // Reset form state
+      setAddUsers({
+        name: "",
+        email: "",
+        contactNumber: "",
+        company: "",
+        seatNumber: initialSeatNumber,
+        internetHours: "",
+        startDate: getDefaultDate(),
+        startTime: getDefaultTime(),
+      });
     } catch (err) {
-      console.error('Error saving reservation:', err);
+      console.error('Error adding/editing reservation:', err);
+      alert('Error adding/editing reservation. Please try again.');
     }
   };
 
   return (
-    <form className="reservation-form" onSubmit={submitHandler}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={addUsers.name}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={addUsers.email}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <label>
-        Contact Number:
-        <input
-          type="text"
-          name="contactNumber"
-          value={addUsers.contactNumber}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <label>
-        Company:
-        <input
-          type="text"
-          name="company"
-          value={addUsers.company}
-          onChange={changeHandler}
-        />
-      </label>
-      <label>
-        Seat Number:
-        <input
-          type="text"
-          name="seatNumber"
-          value={addUsers.seatNumber}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <label>
-        Internet Hours:
-        <select
-          name="internetHours"
-          value={addUsers.internetHours}
-          onChange={changeHandler}
-          required
-        >
-          <option value="">Select Hours</option>
-          <option value="3">3 Hours</option>
-          <option value="7">1 Day</option>
-          <option value="168">1 Week</option>
-          <option value="720">1 Month</option>
-        </select>
-      </label>
-      <label>
-        Start Date:
-        <input
-          type="date"
-          name="startDate"
-          value={addUsers.startDate}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <label>
-        Start Time:
-        <input
-          type="text"
-          name="startTime"
-          value={addUsers.startTime}
-          onChange={changeHandler}
-          required
-        />
-      </label>
-      <div className="code-preview">
-        {codeImage && <img src={codeImage} alt="Reservation Code" />}
+    <div className="div-con">
+      <h2 className="add-reservation-title">
+        {initialReservation._id ? "Edit Your Reservation!" : "Add Your Information!"}
+      </h2>
+      <div className="add-reservation-form">
+        <form>
+          <div className="dateTime">
+            <label>
+              Date: {addUsers.startDate}
+            </label>
+            <label>
+              Start Time: {addUsers.startTime}
+            </label>
+          </div>
+
+          <label>
+            Name:<span className='asterisk'>*</span>
+            <input type="text" name="name" onChange={changeHandler} value={addUsers.name} />
+          </label>
+          <label>
+            Email:<span className='asterisk'>*</span>
+            <input type="email" name="email" onChange={changeHandler} value={addUsers.email} />
+          </label>
+          <label>
+            Contact Number:<span className='asterisk'>*</span>
+            <input type="text" name="contactNumber" onChange={changeHandler} value={addUsers.contactNumber} />
+          </label>
+          <label>
+            Company:<span className='asterisk'>*</span>
+            <input type="text" name="company" onChange={changeHandler} value={addUsers.company} />
+          </label>
+          <label>
+            Seat Number:<span className='asterisk'>*</span>
+            <input type="text" name="seatNumber" onChange={changeHandler} value={addUsers.seatNumber}/>
+          </label>
+          <label>
+            Internet Hours:<span className='asterisk'>*</span>
+            <select name="internetHours" onChange={changeHandler} value={addUsers.internetHours}>
+              <option value="">Select Internet Hours</option>
+              <option value="3">3 Hours</option>
+              <option value="7">Whole Day</option>
+              <option value="168">Weekly</option>
+              <option value="720">Monthly</option>
+            </select>
+          </label>
+
+          <div className="button">
+            <button type="submit" className="submit-button-reservation" onClick={submitHandler}>Save</button>
+          </div>
+        </form>
       </div>
-      <button type="submit">Save Reservation</button>
-    </form>
+    </div>
   );
 };
 
