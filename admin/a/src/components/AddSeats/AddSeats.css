@@ -43,7 +43,7 @@
 
 .seat.reserved {
   background-color: gold; /* Gold for reserved seats */
-  cursor: not-allowed;
+  cursor: pointer;
   height: 70PX;
   width: 70px;
 }

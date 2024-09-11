@@ -95,9 +95,8 @@ function AddSeats({ seat, onSeatChange }) {
         handleMouseUp();
         handleStop(e, data); // Save position when dragging stops
       }}
-      cancel={status === 'active' } // Disable dragging for active seats
-      onDrag={handleMouseDown}
-      disabled={status === 'active'} // Disable dragging if seat is active
+      cancel={status === 'available' } 
+      
     >
       <div className="main-container">
         <button
