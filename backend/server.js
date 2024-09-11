@@ -7,7 +7,7 @@ const {v4: uuidv4 }= require('uuid')
 const ImageIdModel = require('./imageID');
 require('dotenv').config();
 
-const { addUser, fetchUser, removeUser, updateEndReservation } = require('./user');
+const { addUser, fetchUser, removeUser, updateEndReservation, updateSeatStatus } = require('./user');
 const { addSeat, fetchSeats, removeSeat, Seat } = require('./seat');
 const { updateSeatStatus } = require('./seat')
 const loginAdm = require('./src/routes/login');
