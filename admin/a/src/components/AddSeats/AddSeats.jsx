@@ -3,15 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import Draggable from 'react-draggable';
 import axios from 'axios'; // Import axios for HTTP requests
 import './AddSeats.css';
-import ReservationModal from './ReservationModal'; // Import the modal component
 const apiUrl = import.meta.env.VITE_API_URL;
 
-function AddSeats({ seat }) {
+function AddSeats({ seat, onSeatChange }) {
   const [status, setStatus] = useState(seat.status || 'available');
   const [isDragging, setIsDragging] = useState(false); // State to track dragging
   const [position, setPosition] = useState({ x: 0, y: 0 }); // State to track position
-  const [showModal, setShowModal] = useState(false); // State for modal visibility
-  const [modalSeatNumber, setModalSeatNumber] = useState(seat.seatNumber); // State for seat number in modal
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +30,7 @@ function AddSeats({ seat }) {
     };
 
     fetchPosition();
-  }, [seat.seat_id]);
+}, [seat.seat_id]);
 
   const handleMouseDown = () => {
     setIsDragging(true); // Set dragging state to true on mouse down
@@ -43,10 +40,8 @@ function AddSeats({ seat }) {
     setIsDragging(false); // Set dragging state to false on mouse up
   };
 
-  const handleSeatClick = () => {
-    if (status === 'reserved') { // Show modal if seat is reserved
-      setShowModal(true);
-    } else if (status === 'available') {
+  const handleSeatClick = (e) => {
+    if (status === 'available' || status === 'reserved') { // Allow click for both available and reserved
       navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
     }
   };
@@ -66,59 +61,53 @@ function AddSeats({ seat }) {
     }
   };
 
+  const handleChangeSeat = async (newSeatNumber) => {
+    try {
+      // Mark the current seat as available
+      await axios.put(`${apiUrl}/admin/update-seat-status`, {
+        seatNumber: seat.seatNumber,
+        status: 'available'
+      });
+
+      // Mark the new seat as reserved
+      await axios.put(`${apiUrl}/admin/update-seat-status`, {
+        seatNumber: newSeatNumber,
+        status: 'reserved'
+      });
+
+      // Call the parent callback to handle state update
+      if (onSeatChange) {
+        onSeatChange(newSeatNumber);
+      }
+    } catch (error) {
+      console.error('Error changing seat:', error);
+    }
+  };
+
   return (
-    <>
-      <Draggable
-        position={position} // Set the initial position
-        onStart={handleMouseDown}  // Set dragging state to true on start
-        onStop={(e, data) => {
-          handleMouseUp();
-          handleStop(e, data); // Save position when dragging stops
-        }}
-        cancel=".seat" // Prevents dragging if the target is the .seat element
-      >
-        <div className="main-container">
-          <button
-            className={`seat ${status}`}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onClick={handleSeatClick}
-            onTouchStart={handleMouseDown}
-            onTouchEnd={handleMouseUp}
-            disabled={status === 'active'}
-          >
-            {seat.seatNumber}
-          </button>
-        </div>
-      </Draggable>
-      {showModal && (
-        <ReservationModal
-          seatNumber={modalSeatNumber}
-          onClose={() => setShowModal(false)}
-          onSeatChange={async (newSeatNumber) => {
-            // Make the previous seat available again
-            try {
-              await axios.put(`${apiUrl}/admin/update-seat-status`, {
-                seatNumber: seat.seatNumber,
-                status: 'available'
-              });
-
-              // Update the new seat number status to 'reserved'
-              await axios.put(`${apiUrl}/admin/update-seat-status`, {
-                seatNumber: newSeatNumber,
-                status: 'reserved'
-              });
-
-              // Update local state
-              setStatus('reserved');
-              setModalSeatNumber(newSeatNumber);
-            } catch (error) {
-              console.error('Error updating seat status:', error);
-            }
-          }}
-        />
-      )}
-    </>
+    <Draggable
+      position={position} // Set the initial position
+      onStart={handleMouseDown}  // Set dragging state to true on start
+      onStop={(e, data) => {
+        handleMouseUp();
+        handleStop(e, data); // Save position when dragging stops
+      }}
+      cancel=".seat" // Prevents dragging if the target is the .seat element
+    >
+      <div className="main-container">
+        <button
+          className={`seat ${status}`}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onClick={handleSeatClick}
+          onTouchStart={handleMouseDown}
+          onTouchEnd={handleMouseUp}
+          disabled={status === 'active'} // Disable only for 'active' status
+        >
+          {seat.seatNumber}
+        </button>
+      </div>
+    </Draggable>
   );
 }
 
