@@ -232,7 +232,7 @@ const updateEndReservation = async (req, res) => {
 };
 
 // Function to update seat status
-const updateSeatStatuses = async (req, res) => {
+const updateSeatStatus = async (req, res) => {
     try {
       const { seatNumber, status } = req.body;
       const updatedSeat = await Seat.findOneAndUpdate(
@@ -258,5 +258,5 @@ module.exports = {
     fetchUser,
     removeUser,
     updateEndReservation,
-    updateSeatStatuses
+    updateSeatStatus
 };
