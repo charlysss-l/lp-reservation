@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Draggable from 'react-draggable';
 import axios from 'axios'; // Import axios for HTTP requests
 import './AddSeats.css';
+
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function AddSeats({ seat, onSeatChange }) {
@@ -18,19 +19,19 @@ function AddSeats({ seat, onSeatChange }) {
   useEffect(() => {
     console.log("Fetching position for seat_id:", seat.seat_id);
     const fetchPosition = async () => {
-        try {
-            const response = await axios.get(`${apiUrl}/admin/seat-position/${seat.seat_id}`);
-            const seatPosition = response.data.position;
-            if (seatPosition) {
-                setPosition(seatPosition);
-            }
-        } catch (error) {
-            console.error('Error fetching seat position:', error);
+      try {
+        const response = await axios.get(`${apiUrl}/admin/seat-position/${seat.seat_id}`);
+        const seatPosition = response.data.position;
+        if (seatPosition) {
+          setPosition(seatPosition);
         }
+      } catch (error) {
+        console.error('Error fetching seat position:', error);
+      }
     };
 
     fetchPosition();
-}, [seat.seat_id]);
+  }, [seat.seat_id]);
 
   const handleMouseDown = () => {
     setIsDragging(true); // Set dragging state to true on mouse down
@@ -41,12 +42,10 @@ function AddSeats({ seat, onSeatChange }) {
   };
 
   const handleSeatClick = () => {
-    if (status === 'available' || status === 'reserved') {
-      if (seat.seatType === 'lettered') {
-        navigate('/admin/add-reservation-reserve', { state: { seatNumber: seat.seatNumber } });
-      } else {
-        navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
-      }
+    if (seat.seatType === 'numbered') {
+      navigate('/admin/add-reservation', { state: { seatNumber: seat.seatNumber } });
+    } else if (seat.seatType === 'lettered') {
+      navigate('/admin/add-reservation-reserve', { state: { seatNumber: seat.seatNumber } });
     }
   };
 
@@ -100,15 +99,15 @@ function AddSeats({ seat, onSeatChange }) {
       onDrag={handleMouseDown}
       disabled={status === 'active'} // Disable dragging if seat is active
     >
-      <div className={`main-container ${status}`}>
+      <div className="main-container">
         <button
-          className={`seat ${status}`}
+          className={`seat ${status} ${seat.seatType}`} // Add seatType class
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onClick={handleSeatClick}
           onTouchStart={handleMouseDown}
           onTouchEnd={handleMouseUp}
-          disabled={status === 'active'} // Disable only for 'active' status
+          disabled={status === 'active' || status === 'reserved'} // Disable only for 'active' status
         >
           {seat.seatNumber}
         </button>
