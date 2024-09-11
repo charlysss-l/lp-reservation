@@ -95,8 +95,7 @@ function AddSeatForm({ onAddSeat, seat }) {
       weeklyImageInputRef.current.value = null;
       monthlyImageInputRef.current.value = null;
     } catch (err) {
-      console.error('Error:', err);
-      alert('Error adding/updating seat');
+      
     }
   };
 
