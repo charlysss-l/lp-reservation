@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Draggable from 'react-draggable';
 import axios from 'axios'; // Import axios for HTTP requests
 import './AddSeats.css';
-import ReservationModal from '../ReservationModal/ReservationModal';
+import ReservationModal from './ReservationModal'; // Import the modal component
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function AddSeats({ seat }) {
