@@ -69,10 +69,10 @@ function SeatMap() {
                 {seats.map(seat => (
                     <AddSeats key={seat.seatNumber} seat={seat} />
                 ))}
-
+                <p>RESERVED SEATS</p>
                 {imageUrl && <img className="floorMapImage" src={getImageUrl()} alt="Seat Map" />}
 
-                <p>RESERVED SEATS</p>
+                
             </div>
         </div>
 
