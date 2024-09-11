@@ -105,7 +105,7 @@ const AddReservation = () => {
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
 
      // Check if the seat is already reserved (assuming the seat has a 'status' field)
-  if (selectedSeat && selectedSeat.status === 'active') {
+  if (selectedSeat && selectedSeat.status === 'active' || selectedSeat.status === 'reserved') {
     console.log('This seat is already reserved.');
     alert('This seat is already reserved. Please choose a different seat.');
     return; // Prevent submission if the seat is reserved
