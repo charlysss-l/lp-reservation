@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Home from './Home/Home';
 import SeatMap from './SeatMap/SeatMap';
 import AddReservation from '../components/AddReservation/AddReservation';
-import AddReservationReserve from '../components/AddReservationReserve/AddReservationReserve';
+import AddReservationReserve from '../components/AddReservation/AddReservationReserve';
 import History from './History/History';
 import HistoryTable from '../components/HistoryTable/HistoryTable';
 import Login from './Login/Login';
