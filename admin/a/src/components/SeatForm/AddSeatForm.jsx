@@ -98,7 +98,8 @@ function AddSeatForm({ onAddSeat, seat }) {
       <div className="add-reservation-form">
         <form>
           <label>
-            Seat Number:
+            Seat Number:<span className='asterisk'>*</span>
+
             <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
           </label>
           <label>
