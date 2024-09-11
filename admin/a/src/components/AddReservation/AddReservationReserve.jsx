@@ -101,7 +101,13 @@ const AddReservationReserve = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    
+    // Validate seatNumber to ensure it contains only letters
+    if (!/^[A-Za-z]+$/.test(addUsers.seatNumber)) {
+        alert('Seat Number must contain only letters.');
+        return;
+      }
+    
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
 
      // Check if the seat is already reserved (assuming the seat has a 'status' field)

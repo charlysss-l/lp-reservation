@@ -46,8 +46,14 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
   };
 
   const changeHandler = (e) => {
-    setAddSeat({ ...addSeat, [e.target.name]: e.target.value });
+    // Allow only letters
+    const value = e.target.value;
+    if (/^[A-Za-z]*$/.test(value)) {
+      setAddSeat({ ...addSeat, [e.target.name]: value });
+    }
   };
+
+  
 
   const submitHandler = async (e) => {
     e.preventDefault();

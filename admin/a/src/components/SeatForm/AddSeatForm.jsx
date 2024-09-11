@@ -49,6 +49,14 @@ function AddSeatForm({ onAddSeat, seat }) {
     setAddSeat({ ...addSeat, [e.target.name]: e.target.value });
   };
 
+  const handleNumberChange = (e) => {
+    const value = e.target.value;
+    // Allow only numeric input
+    if (/^\d*$/.test(value)) {
+      setAddSeat({ ...addSeat, seatNumber: value });
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -107,7 +115,7 @@ function AddSeatForm({ onAddSeat, seat }) {
           <label>
             Seat Number:<span className='asterisk'>*</span>
 
-            <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} pattern="\d*" 
+            <input type="text" name="seatNumber" onChange={handleNumberChange} value={addSeat.seatNumber} pattern="\d*" 
               title="Please enter a valid number" />
           </label>
           <label>
