@@ -11,6 +11,11 @@ const seatSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    seatType: {
+        type: String,
+        enum: ['numbered', 'lettered'],
+        required: true,
+    },
     ThreeHourCode: {
         type: String,
         required: false,
@@ -45,22 +50,28 @@ const addSeat = async (req, res) => {
         let lastSeat = await Seat.findOne({}).sort({ seat_id: -1 }).limit(1);
         let id = lastSeat ? lastSeat.seat_id + 1 : 1;
 
+        // Determine seatType
+        const seatNumber = req.body.seatNumber;
+        const seatType = isNaN(seatNumber) ? 'lettered' : 'numbered';
+
         const seat = new Seat({
             seat_id: id,
-            seatNumber: req.body.seatNumber,
-            ThreeHourCode: req.body.ThreeHourImage, // Firebase Storage URL
-            WholeDayCode: req.body.WholeDayImage,  // Firebase Storage URL
-            WeeklyCode: req.body.WeeklyImage, // Firebase Storage URL
-            MonthlyCode: req.body.MonthlyImage, // Firebase Storage URL
+            seatNumber: seatNumber,
+            seatType: seatType, // Set seat type
+            ThreeHourCode: req.body.ThreeHourImage,
+            WholeDayCode: req.body.WholeDayImage,
+            WeeklyCode: req.body.WeeklyImage,
+            MonthlyCode: req.body.MonthlyImage,
         });
 
         await seat.save();
-        res.json({ success: true, seatNumber: req.body.seatNumber });
+        res.json({ success: true, seatNumber: seatNumber });
     } catch (error) {
         console.error('Error adding seat:', error);
         res.status(500).json({ success: false, message: 'An error occurred while adding the seat', error });
     }
 };
+
 
 
 
