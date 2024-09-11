@@ -54,6 +54,8 @@ function AddSeatForm({ onAddSeat, seat }) {
     // Allow only numeric input
     if (/^\d*$/.test(value)) {
       setAddSeat({ ...addSeat, seatNumber: value });
+      alert('Seat Number must contain only numbers.');
+        return;
     }
   };
 
