@@ -1,6 +1,7 @@
 import './SeatTable.css';
 import { useState, useEffect } from 'react';
 import AddSeatForm from '../SeatForm/AddSeatForm';
+import AddReserveSeatsForm from '../AddReserveSeatsForm/AddReserveSeatsForm';
 import Modal from '../Modal/Modal';
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -148,14 +149,25 @@ const SeatTable = ({ seat = [] }) => {
                 </div>
             </div>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <AddSeatForm
-                    onAddSeat={(updatedSeat) => {
-                        setSeats(seats.map(seat => seat.seat_id === updatedSeat.seat_id ? updatedSeat : seat));
-                        setEditingSeat(null);
-                        setIsModalOpen(false);
-                    }}
-                    seat={editingSeat}
-                />
+                {editingSeat && editingSeat.seatType === 'numbered' ? (
+                    <AddSeatForm
+                        onAddSeat={(updatedSeat) => {
+                            setSeats(seats.map(seat => seat.seat_id === updatedSeat.seat_id ? updatedSeat : seat));
+                            setEditingSeat(null);
+                            setIsModalOpen(false);
+                        }}
+                        seat={editingSeat}
+                    />
+                ) : editingSeat && editingSeat.seatType === 'lettered' ? (
+                    <AddReserveSeatsForm
+                        onAddSeat={(updatedSeat) => {
+                            setSeats(seats.map(seat => seat.seat_id === updatedSeat.seat_id ? updatedSeat : seat));
+                            setEditingSeat(null);
+                            setIsModalOpen(false);
+                        }}
+                        seat={editingSeat}
+                    />
+                ) : null}
             </Modal>
         </div>
     );
