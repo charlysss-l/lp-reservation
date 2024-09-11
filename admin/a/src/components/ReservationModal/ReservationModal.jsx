@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios'; // Import axios for HTTP requests
 import './ReservationModal.css';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const ReservationModal = ({ seatNumber, onClose, onSeatChange }) => {
-  const [availableSeats, setAvailableSeats] = useState([]);
-  const [selectedSeat, setSelectedSeat] = useState(seatNumber);
-
-  useEffect(() => {
-    const fetchAvailableSeats = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/admin/available-seats`);
-        setAvailableSeats(response.data);
-      } catch (error) {
-        console.error('Error fetching available seats:', error);
-      }
-    };
-
-    fetchAvailableSeats();
-  }, []);
+  const [newSeatNumber, setNewSeatNumber] = useState(seatNumber);
 
   const handleSeatChange = (e) => {
-    setSelectedSeat(e.target.value);
+    setNewSeatNumber(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSeatChange(selectedSeat);
-    onClose();
+
+    // Validate the new seat number
+    try {
+      const response = await axios.get(`${apiUrl}/admin/validate-seat/${newSeatNumber}`);
+      if (!response.data.isValid) {
+        alert('Seat number is not valid or is already reserved.');
+        return;
+      }
+      // Call the onSeatChange function to update the seat
+      onSeatChange(newSeatNumber);
+      onClose();
+    } catch (error) {
+      console.error('Error validating seat number:', error);
+      alert('Failed to validate the seat number.');
+    }
   };
 
   return (
@@ -41,14 +40,13 @@ const ReservationModal = ({ seatNumber, onClose, onSeatChange }) => {
           </label>
           <label>
             New Seat Number:
-            <select value={selectedSeat} onChange={handleSeatChange}>
-              <option value="">Select a new seat</option>
-              {availableSeats.map(seat => (
-                <option key={seat.seatNumber} value={seat.seatNumber}>
-                  {seat.seatNumber}
-                </option>
-              ))}
-            </select>
+            <input
+              type="text"
+              value={newSeatNumber}
+              onChange={handleSeatChange}
+              placeholder="Enter new seat number"
+              required
+            />
           </label>
           <button type="submit">Save Changes</button>
           <button type="button" onClick={onClose}>Cancel</button>
