@@ -102,16 +102,16 @@ const AddReservation = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-  
+
     const selectedSeat = seats.find(seat => seat.seatNumber === addUsers.seatNumber);
-  
+
     // Check if the seat is already reserved
     if (selectedSeat && selectedSeat.status === 'active' && !initialReservation._id) {
       console.log('This seat is already reserved.');
       alert('This seat is already reserved. Please choose a different seat.');
       return; // Prevent submission if the seat is reserved and it's a new reservation
     }
-  
+
     let code = "";
     switch (addUsers.internetHours) {
       case '3':
@@ -129,12 +129,12 @@ const AddReservation = () => {
       default:
         code = "";
     }
-  
+
     const startTime = new Date(`${addUsers.startDate} ${convertTo24HourFormat(addUsers.startTime)}`).toISOString();
-  
+
     // Determine status based on internetHours
     const status = ['168', '720'].includes(addUsers.internetHours) ? 'reserved' : 'active';
-  
+
     try {
       if (initialReservation._id) {
         // Edit the existing reservation
@@ -143,14 +143,6 @@ const AddReservation = () => {
           code: code,
           startTime: startTime,
         });
-  
-        // Update previous seat status to 'available' if changing seats
-        if (initialReservation.seatNumber !== addUsers.seatNumber) {
-          await axios.put(`${apiUrl}/admin/update-seat-status`, {
-            seatNumber: initialReservation.seatNumber,
-            status: 'available',
-          });
-        }
       } else {
         // Create a new reservation
         await axios.post(`${apiUrl}/admin/add-reservation`, {
@@ -158,16 +150,16 @@ const AddReservation = () => {
           code: code,
           startTime: startTime,
         });
-  
+
         // Update seat status to 'active'
         await axios.put(`${apiUrl}/admin/update-seat-status`, {
           seatNumber: addUsers.seatNumber,
           status: status,
         });
       }
-  
+
       navigate('/admin/reservation-success', { state: { code } });
-  
+
       // Reset form state
       setAddUsers({
         name: "",
@@ -184,7 +176,6 @@ const AddReservation = () => {
       alert('Error adding/editing reservation. Please try again.');
     }
   };
-  
 
   return (
     <div className="div-con">

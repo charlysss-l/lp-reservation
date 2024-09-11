@@ -231,32 +231,9 @@ const updateEndReservation = async (req, res) => {
     }
 };
 
-// Function to update seat status
-const updateSeatStatus = async (req, res) => {
-    try {
-      const { seatNumber, status } = req.body;
-      const updatedSeat = await Seat.findOneAndUpdate(
-        { seatNumber: seatNumber },
-        { status: status },
-        { new: true }
-      );
-  
-      if (!updatedSeat) {
-        return res.status(404).json({ success: false, message: 'Seat not found' });
-      }
-  
-      res.json({ success: true, updatedSeat });
-    } catch (error) {
-      console.error('Error updating seat status:', error);
-      res.status(500).json({ success: false, message: 'An error occurred while updating seat status' });
-    }
-  };
-  
-
 module.exports = {
     addUser,
     fetchUser,
     removeUser,
-    updateEndReservation,
-    updateSeatStatus
+    updateEndReservation
 };

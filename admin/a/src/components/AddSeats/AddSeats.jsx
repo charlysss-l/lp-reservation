@@ -51,7 +51,6 @@ function AddSeats({ seat }) {
       }
     }
   };
-  
 
   const handleStop = async (e, data) => {
     setPosition({ x: data.x, y: data.y });
