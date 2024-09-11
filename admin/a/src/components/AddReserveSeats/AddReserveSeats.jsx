@@ -18,19 +18,19 @@ function AddReserveSeats({ seat, onSeatChange }) {
   useEffect(() => {
     console.log("Fetching position for seat_id:", seat.seat_id);
     const fetchPosition = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/admin/seat-position/${seat.seat_id}`);
-        const seatPosition = response.data.position;
-        if (seatPosition) {
-          setPosition(seatPosition);
+        try {
+            const response = await axios.get(`${apiUrl}/admin/seat-position/${seat.seat_id}`);
+            const seatPosition = response.data.position;
+            if (seatPosition) {
+                setPosition(seatPosition);
+            }
+        } catch (error) {
+            console.error('Error fetching seat position:', error);
         }
-      } catch (error) {
-        console.error('Error fetching seat position:', error);
-      }
     };
 
     fetchPosition();
-  }, [seat.seat_id]);
+}, [seat.seat_id]);
 
   const handleMouseDown = () => {
     setIsDragging(true); // Set dragging state to true on mouse down
@@ -84,9 +84,6 @@ function AddReserveSeats({ seat, onSeatChange }) {
     }
   };
 
-  // Dynamically determine the className for the seat based on its status
-  const reserveSeatClass = `reserveSeat ${status} ${isDragging ? 'dragging' : ''}`;
-
   return (
     <Draggable
       position={position} // Set the initial position
@@ -95,11 +92,11 @@ function AddReserveSeats({ seat, onSeatChange }) {
         handleMouseUp();
         handleStop(e, data); // Save position when dragging stops
       }}
-      cancel=".reserveSeat" // Prevents dragging if the target is the .reserveSeat element
+      cancel=".seat" // Prevents dragging if the target is the .seat element
     >
       <div className="main-container">
         <button
-          className={reserveSeatClass} // Dynamically set the className
+          className={`reserveSeat ${status}`}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onClick={handleSeatClick}
