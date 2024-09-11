@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios for HTTP requests
 import './ReservationModal.css';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const ReservationModal = ({ seatNumber, onClose, onSeatChange }) => {
-  const [newSeatNumber, setNewSeatNumber] = useState(seatNumber);
+  const [availableSeats, setAvailableSeats] = useState([]);
+  const [selectedSeat, setSelectedSeat] = useState(seatNumber);
+
+  useEffect(() => {
+    const fetchAvailableSeats = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/admin/available-seats`);
+        setAvailableSeats(response.data);
+      } catch (error) {
+        console.error('Error fetching available seats:', error);
+      }
+    };
+
+    fetchAvailableSeats();
+  }, []);
 
   const handleSeatChange = (e) => {
-    setNewSeatNumber(e.target.value);
+    setSelectedSeat(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Validate the new seat number
-    try {
-      const response = await axios.get(`${apiUrl}/admin/validate-seat/${newSeatNumber}`);
-      if (!response.data.isValid) {
-        alert('Seat number is not valid or is already reserved.');
-        return;
-      }
-      // Call the onSeatChange function to update the seat
-      onSeatChange(newSeatNumber);
-      onClose();
-    } catch (error) {
-      console.error('Error validating seat number:', error);
-      alert('Failed to validate the seat number.');
-    }
+    onSeatChange(selectedSeat);
+    onClose();
   };
 
   return (
@@ -40,13 +41,14 @@ const ReservationModal = ({ seatNumber, onClose, onSeatChange }) => {
           </label>
           <label>
             New Seat Number:
-            <input
-              type="text"
-              value={newSeatNumber}
-              onChange={handleSeatChange}
-              placeholder="Enter new seat number"
-              required
-            />
+            <select value={selectedSeat} onChange={handleSeatChange}>
+              <option value="">Select a new seat</option>
+              {availableSeats.map(seat => (
+                <option key={seat.seatNumber} value={seat.seatNumber}>
+                  {seat.seatNumber}
+                </option>
+              ))}
+            </select>
           </label>
           <button type="submit">Save Changes</button>
           <button type="button" onClick={onClose}>Cancel</button>
