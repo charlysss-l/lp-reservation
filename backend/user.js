@@ -231,31 +231,59 @@ const updateEndReservation = async (req, res) => {
     }
 };
 
+// Function to update a reservation
 const updateReservation = async (req, res) => {
-    const { user_id, updates } = req.body;
-
     try {
-        // Validate the updates object to ensure it contains valid fields
-        if (!user_id || !updates) {
-            return res.status(400).json({ message: 'Invalid input' });
+        const { user_id } = req.params;
+        const {
+            name,
+            email,
+            contactNumber,
+            company,
+            seatNumber,
+            startDate,
+            startTime,
+            internetHours,
+            code,
+            expectedEndDate,
+            expectedEndTime
+        } = req.body;
+
+        // Validate input
+        if (!user_id) {
+            return res.status(400).json({ success: false, message: 'Invalid input' });
         }
 
-        const result = await User.updateOne(
+        // Find and update the reservation
+        const updatedReservation = await User.findOneAndUpdate(
             { user_id },
-            { $set: updates }, // Use $set to update specific fields
+            {
+                name,
+                email,
+                contactNumber,
+                company,
+                seatNumber,
+                startDate: new Date(startDate),
+                startTime: new Date(startTime),
+                internetHours,
+                code,
+                expectedEndDate: expectedEndDate ? new Date(expectedEndDate) : null,
+                expectedEndTime: expectedEndTime ? new Date(expectedEndTime) : null
+            },
             { new: true } // Return the updated document
         );
 
-        if (result.nModified === 0) {
-            return res.status(404).json({ message: 'Reservation not found or no changes made' });
+        if (updatedReservation) {
+            res.json({ success: true, reservation: updatedReservation });
+        } else {
+            res.status(404).json({ success: false, message: 'Reservation not found' });
         }
-
-        res.status(200).json({ message: 'Reservation updated successfully' });
     } catch (error) {
         console.error('Error updating reservation:', error);
-        res.status(500).json({ message: 'Error updating reservation', error: error.message });
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
+
 
 
   
@@ -266,5 +294,6 @@ module.exports = {
     removeUser,
     updateEndReservation,
     updateReservation
+    
     
 };
