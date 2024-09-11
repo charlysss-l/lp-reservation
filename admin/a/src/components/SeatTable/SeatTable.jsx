@@ -1,6 +1,7 @@
 import './SeatTable.css';
 import { useState, useEffect } from 'react';
 import AddSeatForm from '../SeatForm/AddSeatForm';
+
 import Modal from '../Modal/Modal';
 
 const apiUrl = import.meta.env.VITE_API_URL;

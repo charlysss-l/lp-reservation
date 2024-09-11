@@ -7,7 +7,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const storage = getStorage(); // Initialize Firebase Storage
 
 function AddReserveSeatsForm({ onAddSeat, seat }) {
-  const [addSeat, setAddSeat] = useState({
+  const [addReserveSeat, setAddSeat] = useState({
     seatNumber: seat ? seat.seatNumber : "",
     ThreeHourImage: seat ? seat.ThreeHourCode : "",
     WholeDayImage: seat ? seat.WholeDayCode : "",
@@ -46,7 +46,7 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
   };
 
   const changeHandler = (e) => {
-    setAddSeat({ ...addSeat, [e.target.name]: e.target.value });
+    setAddSeat({ ...addReserveSeat, [e.target.name]: e.target.value });
   };
 
   const submitHandler = async (e) => {
@@ -54,18 +54,18 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
     try {
       const response = seat
         ? await axios.put(`${apiUrl}/admin/update-seat/${seat.seat_id}`, {
-            seatNumber: addSeat.seatNumber,
-            ThreeHourImage: addSeat.ThreeHourImage,
-            WholeDayImage: addSeat.WholeDayImage,
-            WeeklyImage: addSeat.WeeklyImage,
-            MonthlyImage: addSeat.MonthlyImage
+            seatNumber: addReserveSeat.seatNumber,
+            ThreeHourImage: addReserveSeat.ThreeHourImage,
+            WholeDayImage: addReserveSeat.WholeDayImage,
+            WeeklyImage: addReserveSeat.WeeklyImage,
+            MonthlyImage: addReserveSeat.MonthlyImage
           })
-        : await axios.post(`${apiUrl}/admin/add-seat`, {
-            seatNumber: addSeat.seatNumber,
-            ThreeHourImage: addSeat.ThreeHourImage,
-            WholeDayImage: addSeat.WholeDayImage,
-            WeeklyImage: addSeat.WeeklyImage,
-            MonthlyImage: addSeat.MonthlyImage
+        : await axios.post(`${apiUrl}/admin/add-reserve-seats`, {
+            seatNumber: addReserveSeat.seatNumber,
+            ThreeHourImage: addReserveSeat.ThreeHourImage,
+            WholeDayImage: addReserveSeat.WholeDayImage,
+            WeeklyImage: addReserveSeat.WeeklyImage,
+            MonthlyImage: addReserveSeat.MonthlyImage
           });
 
       alert(seat ? 'Seat updated' : 'Seat added');
@@ -99,7 +99,7 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
         <form>
           <label>
           Seat Letter:<span className='asterisk'>*</span>
-          <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} />
+          <input type="text" name="seatNumber" onChange={changeHandler} value={addReserveSeat.seatNumber} />
           </label>
           {/* <label>
             Code for 3 Hours:
@@ -126,7 +126,7 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
               onChange={(e) => handleImageChange(e, 'Weekly')}
               ref={weeklyImageInputRef}
             />
-            {addSeat.WeeklyImage && <img src={addSeat.WeeklyImage} className='imageCode' alt="1 Week Code" />}
+            {addReserveSeat.WeeklyImage && <img src={addReserveSeat.WeeklyImage} className='imageCode' alt="1 Week Code" />}
           </label>
           <label>
             Code for Monthly:
@@ -135,7 +135,7 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
               onChange={(e) => handleImageChange(e, 'Monthly')}
               ref={monthlyImageInputRef}
             />
-            {addSeat.MonthlyImage && <img src={addSeat.MonthlyImage} className='imageCode' alt="1 Month Code" />}
+            {addReserveSeat.MonthlyImage && <img src={addReserveSeat.MonthlyImage} className='imageCode' alt="1 Month Code" />}
           </label>
           <div className="button">
             <button type="submit" className="submit-button-reservation" onClick={submitHandler}>

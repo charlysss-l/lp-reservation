@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import AddSeats from '../../components/AddSeats/AddSeats';
+import AddReserveSeats from '../../components/AddReserveSeats/AddReserveSeats';
 import axios from 'axios';
 import { imageDb } from '../../../../../backend/config';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -69,6 +70,11 @@ function SeatMap() {
                 {seats.map(seat => (
                     <AddSeats key={seat.seatNumber} seat={seat} />
                 ))}
+
+                {seats.map(seat => (
+                    <AddReserveSeats key={seat.seatNumber} seat={seat} />
+                ))}
+
 
                 {imageUrl && <img className="floorMapImage" src={getImageUrl()} alt="Seat Map" />}
             </div>
