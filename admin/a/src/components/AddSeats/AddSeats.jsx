@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import Draggable from 'react-draggable';
 import axios from 'axios'; 
 import './AddSeats.css';
-import Modal from '../Modal/Modal';
-import AddReservation from '../AddReservation/AddReservation';
+import Modal from './Modal'; 
+import AddReservation from './AddReservation';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
