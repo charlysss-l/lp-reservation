@@ -66,7 +66,7 @@ const Navbar = () => {
         </li>
         <li className="navbar-item">
           {/* <NavLink to={'/'} className="pages">Logout</NavLink> */}
-          <button className="logout" onClick={() => logout()}>Logout</button>
+          <button className="pages" onClick={() => logout()}>Logout</button>
         </li>
       </ul>
     </nav>
