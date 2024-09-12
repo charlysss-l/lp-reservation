@@ -38,6 +38,10 @@ app.get('/', (req, res) => {
     res.send('Express app is running');
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+  
 
 
 //this is for the seatmap upload image using firebase
