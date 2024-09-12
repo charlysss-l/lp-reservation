@@ -23,15 +23,22 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const Admin = () => {
   const location = useLocation(); // Get current route
   
+  const tokenExist = localStorage.getItem('token');
+  console.log(tokenExist)
+
+  if (!tokenExist) {
+    return <Login />;
+  }
   return (
+    
     <main className="admin-page">
       <MaybeShowNavbar>
         <Navbar />
       </MaybeShowNavbar>
 
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/admin/seat-map" element={<SeatMap />} />
         <Route path="/admin/add-reservation" element={<AddReservation />} />
         <Route path="/admin/add-reservation-reserve" element={<AddReservationReserve />} />

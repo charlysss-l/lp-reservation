@@ -1,8 +1,13 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink ,useNavigate} from 'react-router-dom';
 import './Navbar.css'; // Assuming you have a CSS file for styling
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  }
   const [reservationDropdownOpen, setReservationDropdownOpen] = useState(false);
   const [seatDropdownOpen, setSeatDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,7 +65,8 @@ const Navbar = () => {
           )}
         </li>
         <li className="navbar-item">
-          <NavLink to={'/'} className="pages">Logout</NavLink>
+          {/* <NavLink to={'/'} className="pages">Logout</NavLink> */}
+          <button className="logout" onClick={() => logout()}>Logout</button>
         </li>
       </ul>
     </nav>
