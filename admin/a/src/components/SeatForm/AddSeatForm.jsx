@@ -52,10 +52,9 @@ function AddSeatForm({ onAddSeat, seat }) {
   const handleNumberChange = (e) => {
     const value = e.target.value;
     // Allow only numeric input
-    if (!/^\d*$/.test(value)) {
+    if (/^\d*$/.test(value)) {
       setAddSeat({ ...addSeat, seatNumber: value });
-      alert('Seat Number must contain only numbers.');
-        return;
+      
     }
   };
 
@@ -115,7 +114,7 @@ function AddSeatForm({ onAddSeat, seat }) {
       <div className="add-reservation-form">
         <form>
           <label>
-            Seat Number:<span className='asterisk'>*</span>
+            Seat Number:<span className='asterisk'>*</span> Only numbers are allowed!
 
             <input type="text" name="seatNumber" onChange={handleNumberChange} value={addSeat.seatNumber} pattern="\d*" 
               title="Please enter a valid number" />

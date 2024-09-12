@@ -48,10 +48,9 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
   const changeHandler = (e) => {
     // Allow only letters
     const value = e.target.value;
-    if (!/^[A-Za-z]*$/.test(value)) {
+    if (/^[A-Za-z]*$/.test(value)) {
       setAddSeat({ ...addSeat, [e.target.name]: value });
-      alert('Seat Number must contain only letters.');
-        return;
+      
     }
   };
 
@@ -112,7 +111,7 @@ function AddReserveSeatsForm({ onAddSeat, seat }) {
       <div className="add-reservation-form">
         <form>
           <label>
-          Seat Letter:<span className='asterisk'>*</span>
+          Seat Letter:<span className='asterisk'>* </span> Only letters are allowed!
           <input type="text" name="seatNumber" onChange={changeHandler} value={addSeat.seatNumber} pattern="[A-Za-z]*"
               title="Only letters are allowed"/>
           </label>
