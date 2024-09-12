@@ -95,21 +95,20 @@ function SeatMap() {
             return newNotifications;
         });
     };
+    const notificationCount = Object.keys(notifications).length;
+
 
     return (
         <div className="main-container-reservation">
             <h2 className="seatMap-title">
                 Seat Map
                 <div className="notif">  
-                {/* Notification button */}
                 <button onClick={toggleNotifications} className="notification-button">
-                    🔔 {/* This can be replaced with an actual icon */}
-                    {Object.keys(notifications).length > 0 && (
-                        <span className="notification-count">
-                            {Object.keys(notifications).length}
-                        </span>
-                    )}
-                </button>
+                🔔
+                <span className="notification-count">
+                    {notificationCount > 0 ? notificationCount : '0'}
+                </span>
+            </button>
 
                 {/* Notification dropdown */}
                 {showNotifications && Object.keys(notifications).length > 0 && (

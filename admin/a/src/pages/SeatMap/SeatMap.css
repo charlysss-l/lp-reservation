@@ -112,10 +112,12 @@
 .notif {
     position: absolute;
     top: 90%;
-    left: 75%;   
+    left: 0%;   
     background-color: #94557000; 
 }   
 
 .notif .notification-dropdown {
     top: -90%;
+    left: 100%;
 }
+
