@@ -6,8 +6,7 @@ import router from '../../../backend/src/routes/login';
 
 const App = () => {
   return (
-    <BrowserRouter basename="/lp-reservation"
->
+    <BrowserRouter>
     
       <Admin />
     </BrowserRouter>
