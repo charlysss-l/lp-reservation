@@ -11,6 +11,8 @@ function SeatMap() {
     const [seats, setSeats] = useState([]);
     const [file, setFile] = useState(null);
     const [imageUrl, setImageUrl] = useState('');
+    const [notifications, setNotifications] = useState({});
+    const [showNotifications, setShowNotifications] = useState(false);
 
     const handleUpload = async () => {
         if (file !== null) {
@@ -47,6 +49,32 @@ function SeatMap() {
                 const response = await fetch(`${apiUrl}/admin/seat-qr`);
                 const data = await response.json();
                 setSeats(data);
+
+                // Load notifications from local storage
+                const storedNotifications = JSON.parse(localStorage.getItem('notifications')) || {};
+                setNotifications(storedNotifications);
+
+                // Check for new notifications
+                const updatedNotifications = data.reduce((acc, seat) => {
+                    const endTime = new Date(seat.expectedEndTime).getTime();
+                    const currentTime = new Date().getTime();
+                    const notifyTime = endTime - 15 * 60 * 1000; // Notify 15 minutes before
+
+                    if (notifyTime > currentTime) {
+                        const timeoutDuration = notifyTime - currentTime;
+                        setTimeout(() => {
+                            const newNotification = `Seat ${seat.seatNumber} is about to end soon.`;
+                            const newNotifications = {
+                                ...storedNotifications,
+                                [seat.seatNumber]: newNotification
+                            };
+                            setNotifications(newNotifications);
+                            localStorage.setItem('notifications', JSON.stringify(newNotifications));
+                        }, timeoutDuration);
+                    }
+
+                    return acc;
+                }, {});
             } catch (error) {
                 console.error('Error fetching seats:', error);
             }
@@ -55,15 +83,54 @@ function SeatMap() {
         fetchSeats();
     }, []);
 
+    const toggleNotifications = () => {
+        setShowNotifications(!showNotifications);
+    };
+
+    const handleCloseNotification = (seatNumber) => {
+        setNotifications(prevNotifications => {
+            const newNotifications = { ...prevNotifications };
+            delete newNotifications[seatNumber];
+            localStorage.setItem('notifications', JSON.stringify(newNotifications));
+            return newNotifications;
+        });
+    };
+
     return (
         <div className="main-container-reservation">
             <h2 className="seatMap-title">
                 Seat Map
+                <div className="notif">  
+                {/* Notification button */}
+                <button onClick={toggleNotifications} className="notification-button">
+                    🔔 {/* This can be replaced with an actual icon */}
+                    {Object.keys(notifications).length > 0 && (
+                        <span className="notification-count">
+                            {Object.keys(notifications).length}
+                        </span>
+                    )}
+                </button>
+
+                {/* Notification dropdown */}
+                {showNotifications && Object.keys(notifications).length > 0 && (
+                    <div className="notification-dropdown">
+                        {Object.entries(notifications).map(([seatNumber, message]) => (
+                            <div key={seatNumber} className="notification-item">
+                                <p>{message}</p>
+                                <button onClick={() => handleCloseNotification(seatNumber)} className="close-button">
+                                    &times;
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
                 <div className="fileUploadBtn">
                     <input type="file" onChange={e => setFile(e.target.files[0])} className="choose-photo"/>
                     <button className="uploadBtn" onClick={handleUpload}>Upload</button>
                 </div>
             </h2>
+            
 
             <div className="bothContainer">
                 {seats.map(seat => (
@@ -75,8 +142,6 @@ function SeatMap() {
                 <p>RESERVED SEATS</p>
             </div>
         </div>
-
-
     );
 }
 

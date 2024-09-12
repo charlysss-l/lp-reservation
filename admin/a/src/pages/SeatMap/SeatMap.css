@@ -25,7 +25,7 @@
     position: absolute;
     right: 20px;
     top: 50%;
-    background-color: #E4AEC5;
+    background-color: #b6004f00;
     transform: translateY(-50%);
 }
 
@@ -45,7 +45,7 @@
     width: 80px;
     background-color: #c04576;
     color: #ffffff;
-    border-color: #b693a14c;
+    border-color: #b6245e4c;
     border-radius: 10px;
     font-size: 14px;
     margin: 0;
@@ -107,4 +107,15 @@
     left: 1px;
     
 
+}
+
+.notif {
+    position: absolute;
+    top: 90%;
+    left: 75%;   
+    background-color: #94557000; 
+}   
+
+.notif .notification-dropdown {
+    top: -90%;
 }
