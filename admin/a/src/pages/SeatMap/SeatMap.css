@@ -71,20 +71,21 @@
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 0px;
-    height: 700px;
+    height: 650px;
+    bottom: 10px;
     width: 98%;
     background-color: #945570;
 }
 
 .bothContainer p {
-    font-size: 100%;
+    font-size: 1vw; /* Responsive font size */
     position: relative;
     color: #f2f2f2;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     text-transform: uppercase;
     background-color: #E4AEC5;
-    right: -3%;
+    right: -2.5%;
     padding: 1%;
     margin: 0;
     margin-top: -600px;
