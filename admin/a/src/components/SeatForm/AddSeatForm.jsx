@@ -52,7 +52,7 @@ function AddSeatForm({ onAddSeat, seat }) {
   const handleNumberChange = (e) => {
     const value = e.target.value;
     // Allow only numeric input
-    if (/^\d*$/.test(value)) {
+    if (!/^\d*$/.test(value)) {
       setAddSeat({ ...addSeat, seatNumber: value });
       alert('Seat Number must contain only numbers.');
         return;
