@@ -17,13 +17,8 @@ const app = express();
 app.use(cors({
     origin: 'https://lp-reservation.vercel.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
-
+    credentials: true
 }));
-
-app.options('*', cors()); // Enable CORS pre-flight handling for all routes
-
 
 const port = process.env.PORT || 3000; 
 
