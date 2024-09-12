@@ -64,25 +64,31 @@
 
 .bothContainer {
     display: flex;
+
+    position: relative;
     align-items: center;
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 0px;
+    height: 700px;
+    width: 98%;
+    background-color: #945570;
 }
 
 .bothContainer p {
+    font-size: 100%;
+    position: relative;
     color: #f2f2f2;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     text-transform: uppercase;
     background-color: #E4AEC5;
-    right: -2%;
+    right: -3%;
     padding: 1%;
     margin: 0;
-    margin-top: -450px;
+    margin-top: -600px;
     box-shadow: 0 8px 8px rgb(112, 111, 111);
-    position: relative;
     transition: 0.3 ease;
 
 }
@@ -101,8 +107,9 @@
     border: 1px solid green;
 }
 .floorMapImage {
+    
     width: 85%;
-    height: 500px;
+    height: 100%;
     margin: -5px;
     left: 1px;
     

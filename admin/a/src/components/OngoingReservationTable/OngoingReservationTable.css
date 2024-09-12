@@ -20,6 +20,7 @@
   .history-container1 {
     margin: 1%;
     padding: 20px;
+    margin-top: -20px;
     width: 100%; 
     max-width: 1200px;
     background-color:#7ca7d8;
