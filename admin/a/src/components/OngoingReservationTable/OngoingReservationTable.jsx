@@ -70,7 +70,7 @@ const OngoingReservationTable = () => {
                     const isNewReservation = (currentTime - reservationStartTime) <= 5 * 60 * 1000;
 
                     if (isNewReservation) {
-                        timeLeft -= 178 * 60 * 1000; // Add 30 seconds (30,000 milliseconds)
+                        timeLeft += 1 * 60 * 1000; // Add 30 seconds (30,000 milliseconds)
                     }
 
                     if (timeLeft > 0) {
