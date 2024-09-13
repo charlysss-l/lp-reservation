@@ -120,10 +120,7 @@ const OngoingReservationTable = () => {
                 Object.keys(updatedTimes).forEach(userId => {
                     if (updatedTimes[userId] > 0) {
                         updatedTimes[userId] -= 1000;
-                    } else {
-                        handleEndClick(users.find(user => user.user_id === userId));
-                        delete updatedTimes[userId];
-                    }
+                    } 
                 });
 
                 return updatedTimes;

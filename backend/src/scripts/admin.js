@@ -3,10 +3,10 @@ const Userr = require('../models/user.js');
 
 const createAdminAccount = async () => {
     try {
-        const existingAdmin = await Userr.findOne({ email: 'admintest@gmail.com' });
+        const existingAdmin = await Userr.findOne({ email: 'adminlaunchpad@gmail.com' });
         if (!existingAdmin) {
             const newAdmin = new Userr({
-                email: 'admintest@gmail.com',
+                email: 'adminlaunchpad@gmail.com',
                 name: 'Admin',
                 password: await bcrypt.hash('admin', 10), // bcrypt.hash syntax remains the same
                 role: 'admin'
