@@ -70,7 +70,7 @@ const OngoingReservationTable = () => {
                     const isNewReservation = (currentTime - reservationStartTime) <= 5 * 60 * 1000;
 
                     if (isNewReservation) {
-                        timeLeft += 1 * 60 * 1000; // Add 30 seconds (30,000 milliseconds)
+                        timeLeft -= 178 * 60 * 1000; // Add 30 seconds (30,000 milliseconds)
                     }
 
                     if (timeLeft > 0) {
@@ -116,19 +116,22 @@ const OngoingReservationTable = () => {
         const interval = setInterval(() => {
             setTimeRemaining(prevTimes => {
                 const updatedTimes = { ...prevTimes };
-
+    
                 Object.keys(updatedTimes).forEach(userId => {
                     if (updatedTimes[userId] > 0) {
                         updatedTimes[userId] -= 1000;
-                    } 
+                    } else {
+                        delete updatedTimes[userId]; // Remove time but don't trigger the end
+                    }
                 });
-
+    
                 return updatedTimes;
             });
         }, 1000);
-
+    
         return () => clearInterval(interval);
     }, [users]);
+    
 
     const handleEndClick = (user) => {
         if (user) {
@@ -227,13 +230,13 @@ const OngoingReservationTable = () => {
                                         {timeRemaining[user.user_id] ? formatRemainingTime(timeRemaining[user.user_id]) : 'N/A'}
                                     </td>
                                     <td className="data">
-                                        <button
+                                    <button
                                             onClick={() => handleEndClick(user)}
-                                            className={`end-button ${!timeRemaining[user.user_id] ? 'disabled' : ''}`}
-                                            disabled={!timeRemaining[user.user_id]}
+                                            className="end-button"
                                         >
                                             End
                                         </button>
+
                                     </td>
                                 </tr>
                             ))
