@@ -55,10 +55,11 @@
     color: white;
     border-radius: 9px;
     font-size: 12px;
+    background-color: #86b1e3;
   }
 
 .history-table td:hover{
-  background-color:#86b1e3;
+  background-color:#9abee7;
 }
   .title {
     font-weight: bold;
