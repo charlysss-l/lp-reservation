@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
         enum: ['3', '24'],
         required: true,
     },
+    
     code: {
         type: String,
         required: true,
